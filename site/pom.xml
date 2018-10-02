@@ -24,7 +24,8 @@
 
     <dependencies>
         <dependency>
-            <artifactId>portal</artifactId>
+            <artifactId>pubsys</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
             <groupId>com.soap</groupId>
         </dependency>
     </dependencies>
