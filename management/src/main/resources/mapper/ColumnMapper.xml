@@ -8,14 +8,22 @@
     <insert id="addColumn" parameterType="java.util.HashMap">
         insert  into  website_columns(
             columnName,
-            columnLevel
+            columnLevel,
+            isJump
+            <if test="columnLink != null and columnLink !=''">
+            ,columnLink
+            </if>
             <if test="columnParent != null and columnParent !=''">
             ,columnParent
             </if>
             )
         values (
             #{columnName},
-            #{columnLevel}
+            #{columnLevel},
+            #{isJump}
+            <if test="columnLink != null and columnLink !=''">
+            ,#{columnLink}
+            </if>
             <if test="columnParent != null and columnParent !=''">
             ,#{columnParent}
             </if>
@@ -23,9 +31,12 @@
     </insert>
     <update id="updateCoulum" parameterType="java.util.HashMap">
         update  website_columns
-        set
-          columnName=#{columnName},
-          remarks=#{remarks}
+        <set>
+            <if test="columnName != null and columnName !=''">columnName=#{columnName},</if>
+            <if test="remarks != null and remarks !=''">remarks=#{remarks},</if>
+            <if test="isJump != null and isJump !=''">isJump=#{isJump},</if>
+            <if test="columnLink != null and columnLink !=''">columnLink=#{columnLink}</if>
+        </set>
         where columnId=#{columnId}
     </update>
     <update id="delCoulum" parameterType="java.util.HashMap">
