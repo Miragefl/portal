@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.soap.management.mapper.ColumnMapper">
+
+    <select id="getColumns" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT * FROM website_columns WHERE isDel = '0';
+    </select>
+
+    <insert id="addColumn" parameterType="java.util.HashMap">
+        insert  into  website_columns(
+            columnName,
+            columnLevel
+            <if test="columnParent != null and columnParent !=''">
+            ,columnParent
+            </if>
+            )
+        values (
+            #{columnName},
+            #{columnLevel}
+            <if test="columnParent != null and columnParent !=''">
+            ,#{columnParent}
+            </if>
+        )
+    </insert>
+    <update id="updateCoulum" parameterType="java.util.HashMap">
+        update  website_columns
+        set
+          columnName=#{columnName},
+          remarks=#{remarks}
+        where columnId=#{columnId}
+    </update>
+    <update id="delCoulum" parameterType="java.util.HashMap">
+        update website_columns
+        set
+          isDel='1'
+        where columnId=#{columnId} or columnParent=#{columnId}
+    </update>
+    <update id="updateShow" parameterType="java.util.HashMap">
+        update website_columns
+        set
+          isShow=#{isShow}
+        where columnId=#{columnId} or columnParent=#{columnId}
+    </update>
+</mapper>
