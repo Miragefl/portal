@@ -13,6 +13,6 @@ public class DefaultView {
 
     @RequestMapping("/")
     public String index(){
-        return "/index2";
+        return "/index";
     }
 }

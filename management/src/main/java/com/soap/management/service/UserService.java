@@ -21,8 +21,7 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-
-    public void login(String userName, String password) throws BizFailException {
+    public Map<String,Object> login(String userName, String password) throws BizFailException {
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("userName",userName);
         params.put("password",password);
@@ -30,5 +29,6 @@ public class UserService {
         if (null == user) {
             throw new BizFailException(RET_FAIL,"用户不存在");
         }
+        return user;
     }
 }
