@@ -5,6 +5,7 @@ import com.soap.management.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,15 +39,15 @@ public class UserController {
      * @throws BizFailException
      */
     @RequestMapping(value = "/login")
-    public String login(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "password", required = false) String password, HttpSession session, HttpServletRequest request) {
+    public String login(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "password", required = false) String password, HttpSession session, Model model) {
         try {
-            if (session.getAttribute("manage_session_user_info") != null) {
-                return page_management;
-            }
-
             if (!StringUtils.isBlank(userName) && !StringUtils.isBlank(password) && session.getAttribute("manage_session_user_info") == null) {
                 Map<String, Object> user = userService.login(userName, password);
                 session.setAttribute("manage_session_user_info", user);
+            }
+            if (session.getAttribute("manage_session_user_info") != null) {
+                model.addAttribute("user",session.getAttribute("manage_session_user_info"));
+                System.out.println("=================="+session.getAttribute("manage_session_user_info"));
                 return page_management;
             }
 
@@ -54,6 +55,14 @@ public class UserController {
         } catch (Exception e) {
             return page_login;
         }
+    }
+
+    @RequestMapping(value = "/logout")
+    public String logout( HttpSession session) {
+        if (session.getAttribute("manage_session_user_info") != null) {
+            session.removeAttribute("manage_session_user_info");
+        }
+        return page_login;
     }
 
 }
