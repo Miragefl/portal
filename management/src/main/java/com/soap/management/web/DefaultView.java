@@ -14,6 +14,6 @@ public class DefaultView {
 
     @RequestMapping("/")
     public String index(){
-        return "login";
+        return "redirect:/user/login";
     }
 }

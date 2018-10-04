@@ -38,7 +38,7 @@ public class UserController {
      * @throws BizFailException
      */
     @RequestMapping(value = "/login")
-    public String login(@RequestParam("userName") String userName,@RequestParam("password") String password, HttpSession session, HttpServletRequest request) {
+    public String login(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "password", required = false) String password, HttpSession session, HttpServletRequest request) {
         try {
             if (session.getAttribute("manage_session_user_info") != null) {
                 return page_management;
@@ -50,7 +50,7 @@ public class UserController {
                 return page_management;
             }
 
-            return page_management;
+            return page_login;
         } catch (Exception e) {
             return page_login;
         }
