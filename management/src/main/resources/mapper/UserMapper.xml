@@ -2,7 +2,7 @@
 <mapper namespace="com.soap.management.mapper.UserMapper">
 
     <select id="qryUser" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        SELECT * FROM USER WHERE USERNAME = #{username} AND PASSWORD = #{password}
+        SELECT * FROM USER WHERE USERNAME = #{userName} AND PASSWORD = #{password}
     </select>
 
 </mapper>

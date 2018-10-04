@@ -1,5 +1,6 @@
 package com.soap.management.service;
 
+import com.soap.constant.Const;
 import com.soap.exception.BizFailException;
 import com.soap.management.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.soap.constant.Const.RET_FAIL;
 
 /**
  * @Author fenglei
@@ -27,8 +26,9 @@ public class UserService {
         params.put("password",password);
         Map<String,Object> user = userMapper.qryUser(params);
         if (null == user) {
-            throw new BizFailException(RET_FAIL,"用户不存在");
+            throw new BizFailException(Const.RET_FAIL,"用户不存在");
         }
         return user;
     }
+
 }
