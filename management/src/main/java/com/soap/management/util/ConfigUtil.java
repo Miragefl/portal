@@ -13,6 +13,7 @@ package com.soap.management.util;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,13 +30,14 @@ import java.util.Properties;
  * @since 1.0 2018-2-13  
  * @lastmodified 2018-2-13  
  */
+@Component
 public class ConfigUtil
 {
 	private static Properties prop = null;
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static Logger logger = LoggerFactory.getLogger(ConfigUtil.class);
 
-	private String configPath = "config/config.properties";
+	private static String configPath = "config/config.properties";
 
 	public void setConfigPath(String configPath)
 	{
@@ -44,7 +46,7 @@ public class ConfigUtil
 		}
 	}
 
-	public void init()
+	public static void init()
 	{	
 		prop = new Properties();
 		try
