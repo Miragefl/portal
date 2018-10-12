@@ -75,9 +75,7 @@
                 height:"200px",
                 allowPreviewEmoticons:false,
                 allowImageUpload:true,//允许上传图片
-                allowFileManager:true, //允许对上传图片进行管理
-                uploadJson:'../../kindeditor/jsp/upload_json.jsp', //上传图片的java代码，只不过放在jsp中
-                fileManagerJson:'../../kindeditor/jsp/file_manager_json.jsp',
+                uploadJson:'/management/consultation/uploadImg.do', //上传图片的java代码，只不过放在jsp中
                 afterUpload:function(){this.sync();}, //图片上传后，将上传内容同步到textarea中
                 afterBlur:function(){this.sync();},   ////失去焦点时，将上传内容同步到textarea中
                 items : [

@@ -2,7 +2,9 @@ package com.soap.management.web;
 
 import com.soap.exception.BizFailException;
 import com.soap.management.service.ConsultationService;
+import com.soap.management.util.ConfigUtil;
 import com.soap.management.util.Helper;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * <p>新闻编辑相关</p>
@@ -29,6 +35,8 @@ public class ConsultationController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ConsultationService consultationService;
+
+    String httpUrl = ConfigUtil.get("UPLOAD_FILE_PATH");
 
     /**
      * 获取新闻信息
@@ -180,6 +188,78 @@ public class ConsultationController {
         }
         return result;
     }
+    /**
+     * 上传图片
+     */
+    @RequestMapping("/uploadImg.do")
+    @ResponseBody
+    public JSONObject uploadAppriseImg(HttpServletRequest request, HttpServletResponse response){
+        Map<String,Object> data = new HashMap<String,Object>();
+        try {
+            logger.info("122222222"+Helper.inputStream2String(request.getInputStream()));
+            logger.info("122222223"+httpUrl);
+        } catch (IOException e1) {
+            logger.info("发生异常",e1);
+        }
+        //创建一个通用的多部分解析器
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        //判断 request 是否有文件上传,即多部分请求
+        if(multipartResolver.isMultipart(request)){
+            //转换成多部分request
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+            //取得request中的所有文件名
+
+            Iterator<String> iter = multiRequest.getFileNames();
+            List<String> urls=new ArrayList<String>();
+            List<String> orUrl=new ArrayList<String>();
+            while(iter.hasNext()){
+                //记录上传过程起始时的时间，用来计算上传时间
+                MultipartFile file = multiRequest.getFile(iter.next());
+                if(file != null){
+                    //取得当前上传文件的文件名称
+                    String myFileName = file.getOriginalFilename();
+                    //如果名称不为“”,说明该文件存在，否则说明该文件不存在
+                    if(myFileName.trim() !=""){
+                        logger.info(myFileName);
+                        //定义上传路径
+                        String returnPath="Upload/"+Helper.getCurrentTime("yyyyMM")+"/";
+                        String path = ConfigUtil.get("UPLOAD_FILE_PATH") + returnPath;
+                        try {
+                            Helper.mkdirs(path);
+                        } catch (Exception e1) {
+                            logger.error("创建文件夹失败",e1);
+                        }
+                        String suffix = myFileName.substring(myFileName.indexOf("."));
+                        //重命名上传后的文件名
+                        String newFileName = Helper.getCurrentTime("dd-HHmmss")+"_"+Helper.getRandom(1000, 9999)+"_"+Helper.getRandomChar(10)+suffix;
+                        File localFile = new File(path+newFileName);
+
+                        try {
+                            file.transferTo(localFile);
+                            urls.add(returnPath+newFileName);
+                            orUrl.add(myFileName);
 
 
+//                            if(flag==0){
+//                                List<Map<String,Object>> PhotoAppraiseList = appraiseService.qryPhotoAppraiseList(set_map);
+//                                if(PhotoAppraiseList.size()>0){
+//                                    appraiseService.delete(set_map);
+//                                }
+//                                flag++;
+//                            }
+
+                        } catch (IllegalStateException e) {
+                            logger.error("",e);
+                        } catch (IOException e) {
+                            logger.error("",e);
+                        }
+                    }
+                }
+            }
+
+            data.put("imageURL", urls);
+            data.put("orImageURL", orUrl);
+        }
+        return Helper.getSuccJSON(data);
+    }
 }
