@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +23,10 @@ import java.util.Map;
  * @Date 2018/10/03
  * @Version 1.0
  **/
-@Controller("/column")
+@Controller
+@RequestMapping("/column")
 public class ColumnController {
-
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ColumnService columnService;
 
@@ -33,15 +37,35 @@ public class ColumnController {
      * @throws BizFailException
      */
     @RequestMapping(value="/getCoulums")
-    public String getColumns() throws BizFailException{
-        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+    @ResponseBody
+    public  Map<String, Object> getColumns(@RequestParam(value = "columnId") String columnId) throws BizFailException{
+       /* List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();*/
+        Map<String, Object> result = new HashMap<String,Object>();
         try {
-            result = columnService.getColumns();
+            logger.info("1111111111111111111111");
+            result = columnService.getColumns(columnId);
+            logger.info("22222222222222"+result);
         } catch (BizFailException e) {
             /*logger.error("获取列表信息出错",e);*/
-            return Helper.retFail(e);
+           /* return Helper.retFail(e);*/
         }
-        return Helper.retSucc(result);
+        return result;
+    }
+
+    /**
+     * 获取栏目信息
+     * @param
+     * @return
+     * @throws BizFailException
+     */
+    @RequestMapping(value="/getTreeNode")
+    @ResponseBody
+    public Object  getTreeNode() throws BizFailException{
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+
+        result = columnService.getTreeNode();
+
+        return result;
     }
 
     /**
@@ -54,8 +78,16 @@ public class ColumnController {
      *  @throws BizFailException
      */
     @RequestMapping(value="/addCoulum")
-    public String addCoulum(@RequestBody Map<String,Object> reqMap) throws BizFailException{
+    @ResponseBody
+    public String addCoulum(@RequestParam(value = "columnName", required = false) String columnName,@RequestParam(value = "columnLevel", required = false) String columnLevel,@RequestParam(value = "isJump", required = false) String isJump,@RequestParam(value = "columnLink", required = false) String columnLink,@RequestParam(value = "columnParent", required = false) String columnParent,@RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> reqMap = new HashMap<String, Object>();
+        reqMap.put("columnName",columnName);
+        reqMap.put("columnLevel",columnLevel);
+        reqMap.put("isJump",isJump);
+        reqMap.put("columnLink",columnLink);
+        reqMap.put("columnParent",columnParent);
+        reqMap.put("remarks",remarks);
         try {
             result = columnService.addColumn(reqMap);
         } catch (BizFailException e) {
@@ -73,11 +105,20 @@ public class ColumnController {
      *  @return
      *  @throws BizFailException
      */
-    @RequestMapping(value="/updateCoulum")
-    public String updateCoulum(@RequestBody Map<String,Object> reqMap) throws BizFailException{
+    @RequestMapping(value="/updateColumn")
+    @ResponseBody
+    public String updateColumn(@RequestParam(value = "columnId", required = false) String columnId,@RequestParam(value = "columnName", required = false) String columnName,@RequestParam(value = "columnLevel", required = false) String columnLevel,@RequestParam(value = "isJump", required = false) String isJump,@RequestParam(value = "columnLink", required = false) String columnLink,@RequestParam(value = "columnParent", required = false) String columnParent,@RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> reqMap = new HashMap<String, Object>();
+        reqMap.put("columnId",columnId);
+        reqMap.put("columnName",columnName);
+        reqMap.put("columnLevel",columnLevel);
+        reqMap.put("isJump",isJump);
+        reqMap.put("columnLink",columnLink);
+        reqMap.put("columnParent",columnParent);
+        reqMap.put("remarks",remarks);
         try {
-            result = columnService.updateCoulum(reqMap);
+            result = columnService.updateColumn(reqMap);
         } catch (BizFailException e) {
             /*logger.error("获取列表信息出错",e);*/
             return Helper.retFail(e);
@@ -90,11 +131,14 @@ public class ColumnController {
      *  @return
      *  @throws BizFailException
      */
-    @RequestMapping(value="/delCoulum")
-    public String delCoulum(@RequestBody Map<String,Object> reqMap) throws BizFailException{
+    @RequestMapping(value="/delColumn")
+    @ResponseBody
+    public String delColumn(@RequestParam(value = "columnId", required = false) String columnId) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> reqMap = new HashMap<String, Object>();
+        reqMap.put("columnId",columnId);
         try {
-            result = columnService.delCoulum(reqMap);
+            result = columnService.delColumn(reqMap);
         } catch (BizFailException e) {
             /*logger.error("获取列表信息出错",e);*/
             return Helper.retFail(e);
@@ -109,6 +153,7 @@ public class ColumnController {
      *  @throws BizFailException
      */
     @RequestMapping(value="/updateShow")
+    @ResponseBody
     public String updateShow(@RequestBody Map<String,Object> reqMap) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
         try {

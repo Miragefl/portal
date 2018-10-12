@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.soap.management.mapper.ConsultationMapper">
+    <select id="getConsultation" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT a.consulId,b.columnName,a.title,a.consuType,a.consuClass,a.consuPlace FROM consultation_info a,website_columns b
+        WHERE a.isDel = '0' and a.columnId=b.columnId
+        <if test="title != null and title !=''">
+            and a.title=#{title}
+        </if>
+        <if test="columnName != null and columnName !=''">
+            and b.columnName=#{columnName}
+        </if>
+        <if test="consuPlace != null and consuPlace !=''">
+            and a.consuPlace=#{consuPlace}
+        </if>
+    </select>
+
+    <insert id="addConsultation" parameterType="java.util.HashMap">
+        insert  into  consultation_info(
+        columnId,
+        title,
+        consuDesc,
+        consuType,
+        consuPlace,
+        consuClass,
+        context,
+        remarks
+        <if test="consuLink != null and consuLink !=''">
+            ,consuLink
+        </if>
+        )
+        values (
+        #{columnId},
+        #{title},
+        #{consuDesc},
+        #{consuType},
+        #{consuPlace},
+        #{consuClass},
+        #{context,jdbcType=BLOB},
+        #{remarks}
+        <if test="consuLink != null and consuLink !=''">
+            ,#{consuLink}
+        </if>
+        )
+    </insert>
+    <update id="updateConsultation" parameterType="java.util.HashMap">
+        update  consultation_info
+        <set>
+            <if test="columnId != null and columnId !=''">columnId=#{columnId},</if>
+            <if test="title != null and title !=''">title=#{title},</if>
+            <if test="consuDesc != null and consuDesc !=''">consuDesc=#{consuDesc},</if>
+            <if test="consuType != null and consuType !=''">consuType=#{consuType},</if>
+            <if test="consuPlace != null and consuPlace !=''">consuPlace=#{consuPlace},</if>
+            <if test="consuClass != null and consuClass !=''">consuClass=#{consuClass},</if>
+            <if test="context != null and context !=''">context=#{context,jdbcType=BLOB},</if>
+            <if test="remarks != null and remarks !=''">remarks=#{remarks},</if>
+            <if test="consuLink != null and consuLink !=''">consuLink=#{consuLink}</if>
+        </set>
+        where consulId=#{consulId}
+    </update>
+    <update id="delConsultation" parameterType="java.util.HashMap">
+        update consultation_info
+        set
+          isDel='1'
+        where consulId in {${consulId}}
+    </update>
+    <select id="qryConsultationById" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select * from consultation_info where consulId=#{consulId}
+    </select>
+</mapper>

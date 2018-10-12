@@ -5,14 +5,18 @@ import java.util.Map;
 
 public interface ColumnMapper {
     //获取栏目列表
-    public List<Map<String, Object>> getColumns();
+    /*public List<Map<String, Object>> getColumns(String columnId);*/
+    public Map<String, Object> getColumns(String columnId);
     //添加栏目
     public void addColumn(Map<String,Object> reqMap);
     //修改栏目
-    public void updateCoulum(Map<String,Object> reqMap);
+    public void updateColumn(Map<String,Object> reqMap);
     //删除栏目
-    public void delCoulum(Map<String,Object> reqMap);
+    public void delColumn(Map<String,Object> reqMap);
     //修改栏目状态
     public void updateShow(Map<String,Object> reqMap);
-
+    //获取栏目列表
+    public List<Map<String, Object>> getRootColumns();
+    //获取栏目列表
+    public List<Map<String, Object>> getChildColumns(String id);
 }

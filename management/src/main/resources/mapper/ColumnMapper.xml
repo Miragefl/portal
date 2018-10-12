@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.soap.management.mapper.ColumnMapper">
 
-    <select id="getColumns" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        SELECT * FROM website_columns WHERE isDel = '0';
+    <select id="getColumns" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT * FROM website_columns WHERE isDel = '0'and columnId=#{columnId};
     </select>
+
+    <select id="getRootColumns" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT * FROM website_columns WHERE isDel = '0' and columnLevel='00';
+    </select>
+
+    <select id="getChildColumns" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT * FROM website_columns WHERE isDel = '0' and columnLevel='01' and columnParent=#{id} ;
+    </select>
+
 
     <insert id="addColumn" parameterType="java.util.HashMap">
         insert  into  website_columns(
@@ -16,6 +25,9 @@
             <if test="columnParent != null and columnParent !=''">
             ,columnParent
             </if>
+            <if test="remarks != null and remarks !=''">
+            ,remarks
+            </if>
             )
         values (
             #{columnName},
@@ -27,9 +39,12 @@
             <if test="columnParent != null and columnParent !=''">
             ,#{columnParent}
             </if>
+            <if test="remarks != null and remarks !=''">
+            ,#{remarks}
+            </if>
         )
     </insert>
-    <update id="updateCoulum" parameterType="java.util.HashMap">
+    <update id="updateColumn" parameterType="java.util.HashMap">
         update  website_columns
         <set>
             <if test="columnName != null and columnName !=''">columnName=#{columnName},</if>
@@ -39,11 +54,11 @@
         </set>
         where columnId=#{columnId}
     </update>
-    <update id="delCoulum" parameterType="java.util.HashMap">
+    <update id="delColumn" parameterType="java.util.HashMap">
         update website_columns
         set
           isDel='1'
-        where columnId=#{columnId} or columnParent=#{columnId}
+        where columnId in (${columnId}) or columnParent in (${columnId})
     </update>
     <update id="updateShow" parameterType="java.util.HashMap">
         update website_columns

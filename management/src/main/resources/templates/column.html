@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Tree - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/easyui/1.3.4/themes/default/easyui.css}" />
+    <!--引入图标样式-->
+    <link rel="stylesheet" type="text/css" th:href="@{/easyui/1.3.4/themes/icon.css}" />
+    <!--引入jQuery文件-->
+    <script type="text/javascript" th:src="@{/easyui/1.3.4/jquery.min.js}"></script>
+    <!--引入EasyUi的js文件-->
+    <script type="text/javascript" th:src="@{/easyui/1.3.4/jquery.easyui.min.js}"></script>
+</head>
+<body>
+<h2>Basic Tree</h2>
+<p>Click the arrow on the left to expand or collapse nodes.1111111111111</p>
+<div style="margin:20px 0;"></div>
+<div class="easyui-panel" style="padding:5px">
+    <ul id="tt" class="easyui-tree">
+    </ul>
+</div>
+<script type="text/javascript">
+    function getColumn()
+    {
+        $('#tt').tree({
+            url:'/management/column/getTreeNode'
+        });
+    }
+</script>
+</body>
+</html>
+

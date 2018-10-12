@@ -4,6 +4,9 @@ import com.soap.exception.BaseException;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import static com.soap.constant.Const.RET_SUCC;
@@ -49,5 +52,58 @@ public class Helper {
         }
         return result.toString();
     }
+    public static JSONObject getJSON(String status, String desc) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("desc", "");
+        map.put("status", "0");
+        return JSONObject.fromObject(map);
+    }
 
+    public static JSONObject getSuccJSON(List<Map<String, Object>> list) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (list != null) {
+            for (Map<String, Object> tmpMap : list) {
+                replaceNull(tmpMap);
+            }
+            map.put("body", list);
+        }
+        map.put("desc", "");
+        map.put("status", "0");
+        return JSONObject.fromObject(map);
+    }
+
+    public static JSONObject getFailJSON(String code, String msg) {
+        return getJSON(code, msg, null);
+    }
+
+    public static JSONObject getSuccJSON(Map<String, Object> data) {
+        return getJSON("0", "", data);
+    }
+
+    public static JSONObject getJSON(String code, String msg, Map<String, Object> data) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("status", code);
+        map.put("desc", msg);
+        if (data != null) {
+            replaceNull(data);
+            map.put("body", data);
+        }
+        return JSONObject.fromObject(map);
+    }
+
+    public static JSONObject getJSON(Map<String, Object> map) {
+        replaceNull(map);
+        return JSONObject.fromObject(map);
+    }
+
+    public static void replaceNull(Map<String,Object>map){
+        Iterator<String> it = map.keySet().iterator();
+        while(it.hasNext()){
+            String key = it.next();
+            if(map.get(key)==null){
+                map.put(key, "");
+            }
+        }
+
+    }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editable Tree - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../static/easyui/1.3.4/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../static/easyui/1.3.4/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../static/easyui/1.3.4/demo/demo.css">
+    <script type="text/javascript" src="../../static/easyui/1.3.4/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/easyui/1.3.4/jquery.easyui.min.js"></script>
+</head>
+<body>
+<h2>Editable Tree</h2>
+<div class="demo-info">
+    <div class="demo-tip icon-tip"></div>
+    <div>Click the node to begin edit, press enter key to stop edit or esc key to cancel edit.</div>
+</div>
+
+<ul id='home-tree'></ul>
+
+</body>
+<script type="text/javascript">
+    $(function(){
+        alert(111111);
+        $('#home-tree').tree({
+            url : '/management/column/getTreeNode',
+        });
+    });
+
+</script>
+</html>

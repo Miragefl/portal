@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editable Tree - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/demo/demo.css">
+    <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="../../easyui/1.3.4/jquery.easyui.min.js"></script>
+</head>
+<body>
+<h2>Editable Tree</h2>
+<div class="demo-info">
+    <div class="demo-tip icon-tip"></div>
+    <div>Click the node to begin edit, press enter key to stop edit or esc key to cancel edit1111.</div>
+</div>
+<div style="margin:10px 0;">
+</div>
+<!--<ul id='home-tree' class="easyui-tree" data-options="url:'/management/column/getTreeNode',method:'get',animate:true,lines:true,checkbox:true"></ul>
+&lt;!&ndash;<ul id='home-tree'></ul>&ndash;&gt;-->
+<ul id='home-tree' data-options="animate:true,lines:true,checkbox:true">></ul>
+<div class="wu-toolbar-button">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="addColumn()" plain="true">新增</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="editColumn()" plain="true">修改</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="delColumn()" plain="true">删除</a>
+</div>
+<div id="win1" class="easyui-dialog" title="新增栏目"  style="width: 400px; padding: 10px 20px; height: 410px;"
+      closed="true" buttons="#dlg-buttons">
+    <form id="fm" method="post" style="margin-top: 20px; margin-left: 20px;" action="/management/column/addCoulum">
+        <div class="fitem">
+            <label>栏目名称:</label>
+            <input  name="columnName" style="" class="easyui-textbox" editable="false" />
+        </div>
+        <div class="fitem">
+            <label>栏目等级:</label>
+            <input name="columnLevel" class="easyui-textbox" editable="false" />
+        </div>
+
+        <div class="fitem">
+            <label>是否配置跳转链接:</label>
+            <input  name="isJump" class="easyui-textbox" editable="false" />
+        </div>
+
+        <div class="fitem">
+            <label>跳转链接:</label>
+            <input  name="columnLink" class="easyui-textbox" editable="false" />
+        </div>
+
+        <div class="fitem">
+            <label>父栏目编号:</label>
+            <input  name="columnParent" class="easyui-textbox"  />
+        </div>
+
+        <div class="fitem">
+            <label>备注:</label>
+            <input   name="remarks" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
+        </div>
+        <div id="dlg-buttons1" style="display: block">
+            <a id="confirm1" href="javascript:void(0)" class="easyui-linkbutton c6" iconcls="icon-ok" onclick="addCol()" style="width: 90px">提交</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#win1').dialog('close')" style="width: 90px">取消</a>
+        </div>
+    </form>
+</div>
+<div id="win2" class="easyui-dialog" title="修改栏目"  style="width: 400px; padding: 10px 20px; height: 410px;"
+     closed="true" buttons="#dlg-buttons">
+    <form id="fm1" method="post" style="margin-top: 20px; margin-left: 20px;" action="/management/column/updateColumn">
+
+            <input id="columnId" name="columnId" style="" class="easyui-textbox" editable="false"  type="hidden"/>
+
+        <div class="fitem">
+            <label>栏目名称:</label>
+            <input id="columnName" name="columnName" style="" class="easyui-textbox" editable="false" />
+        </div>
+        <div class="fitem">
+            <label>栏目等级:</label>
+            <input id="columnLevel" name="columnLevel" class="easyui-textbox" editable="false" />
+        </div>
+
+        <div class="fitem">
+            <label>是否配置跳转链接:</label>
+            <input id="isJump" name="isJump" class="easyui-textbox" editable="false" />
+        </div>
+
+        <div class="fitem">
+            <label>跳转链接:</label>
+            <input id="columnLink" name="columnLink" class="easyui-textbox" editable="false" />
+        </div>
+
+        <div class="fitem">
+            <label>父栏目编号:</label>
+            <input id="columnParent" name="columnParent" class="easyui-textbox"  />
+        </div>
+
+        <div class="fitem">
+            <label>备注:</label>
+            <input id="remarks"  name="remarks" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
+        </div>
+        <div id="dlg-buttons" style="display: block">
+            <a id="confirm" href="javascript:void(0)" class="easyui-linkbutton c6" iconcls="icon-ok" onclick="editCol()" style="width: 90px">提交</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#win2').dialog('close')" style="width: 90px">取消</a>
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript">
+
+      $('#home-tree').tree({
+            url : '/management/column/getTreeNode',
+            cascadeCheck: false,
+      });
+     /* $('#home-tree').tree({cascadeCheck:'false'})*/
+
+    function getChecked(){
+
+       var nodes = $('#home-tree').tree('getChecked');
+
+        var s = '';
+        for (var i = 0; i < nodes.length; i++) {
+            if (s != '')
+                s += ',';
+            s += nodes[i].id;
+        }
+
+    }
+    
+    function  addColumn() {
+        $('#win1').window('open');
+    }
+    function addCol(){
+       /* alert(1);*/
+       $('#fm').submit();
+    }
+    function editColumn() {
+        var nodes = $('#home-tree').tree('getChecked');
+
+        var s = '';
+        for (var i = 0; i < nodes.length; i++) {
+            if (s != '')
+                s += ',';
+            s += nodes[i].id;
+        }
+        $.ajax({
+            url:'/management/column/getCoulums',
+            type:"POST",
+            data:{"columnId":s},
+            success:function(data){
+                //data为后台返回值。我们这里后台返回的是map类型。map.put("latiao":3.5);所以到前台取值方式：
+       /*         alert(1);
+
+                alert(JSON.stringify(data));
+                alert(data.columnId);*/
+              /*  alert(JSON.stringify(data));*/
+                $("#columnId").val(data.columnId);
+              $("#columnName").val(data.columnName);
+              $("#columnLevel").val(data.columnLevel);
+              $("#isJump").val(data.isJump);
+              $("#columnLink").val(data.columnLink);
+              $("#columnParent").val(data.columnParent);
+              $("#remarks" ).val(data.remarks);
+               /* alert(2222)*/
+                $('#win2').window('open');
+            }
+        });
+
+    }
+
+    function delColumn() {
+        var nodes = $('#home-tree').tree('getChecked');
+
+        var s = '';
+        for (var i = 0; i < nodes.length; i++) {
+            if (s != '')
+                s += ',';
+            s += nodes[i].id;
+        }
+      /*  alert(s);*/
+        $.ajax({
+            url:'/management/column/delColumn',
+            type:"POST",
+            data:{"columnId":s},
+            success:function(data){
+                //data为后台返回值。我们这里后台返回的是map类型。map.put("latiao":3.5);所以到前台取值方式：
+                alert(1);
+
+            }
+        })
+    }
+    function editCol() {
+        $('#fm1').submit();
+    }
+</script>
+</html>

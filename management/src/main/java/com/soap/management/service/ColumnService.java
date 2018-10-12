@@ -2,10 +2,11 @@ package com.soap.management.service;
 
 import com.soap.exception.BizFailException;
 import com.soap.management.mapper.ColumnMapper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,14 +24,42 @@ public class ColumnService {
     @Autowired
     private ColumnMapper columnMapper;
 
-    public List<Map<String, Object>> getColumns() throws BizFailException {
-        List<Map<String, Object>> columns = columnMapper.getColumns();
+    public Map<String, Object> getColumns(String columnId) throws BizFailException {
+       /* List<Map<String, Object>> columns = columnMapper.getColumns(columnId);*/
+        Map<String, Object> columns = columnMapper.getColumns(columnId);
       /*  if (null == columns) {
             throw new BizFailException(RET_FAIL,"用户不存在");
         }*/
         return columns;
     }
 
+    public List<Map<String, Object>> getTreeNode() throws BizFailException {
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+        List<Map<String, Object>> rootResult = columnMapper.getRootColumns();
+        for (Map<String,Object> map : rootResult) {
+            Map<String, Object> node = new HashMap<String, Object>();
+            node.put("id", map.get("columnId"));
+            node.put("text", map.get("columnName"));
+            List<Map<String, Object>> childs = getChilddrens(String.valueOf(map.get("columnId")));
+            node.put("children", childs);
+            result.add(node);
+        }
+
+        return result;
+    }
+
+    public List<Map<String, Object>> getChilddrens(String rootId) {
+        List<Map<String, Object>> childs = new ArrayList<Map<String, Object>>();
+        List<Map<String,Object>> childrens =columnMapper.getChildColumns(rootId);
+        for (Map<String,Object> map : childrens) {
+            Map<String, Object> child = new HashMap<String, Object>();
+            child.put("id", map.get("columnId"));
+            child.put("text", map.get("columnName"));
+            childs.add(child);
+        }
+        return childs;
+
+    }
     /**
      * 插入新栏目
      * @param reqMap
@@ -61,7 +90,7 @@ public class ColumnService {
      * @return
      * @throws BizFailException
      */
-    public Map<String, Object> updateCoulum(Map<String,Object> reqMap) throws BizFailException {
+    public Map<String, Object> updateColumn(Map<String,Object> reqMap) throws BizFailException {
 
         if(StringUtils.isBlank(String.valueOf(reqMap.get("columnName")))){
             throw new BizFailException(RET_FAIL, "栏目名称未传!");
@@ -70,7 +99,7 @@ public class ColumnService {
             throw new BizFailException(RET_FAIL, "栏目Id未传!");
         }
         //插入新栏目
-        columnMapper.updateCoulum(reqMap);
+        columnMapper.updateColumn(reqMap);
       /*  if (null == columns) {
             throw new BizFailException(RET_FAIL,"用户不存在");
         }*/
@@ -85,13 +114,13 @@ public class ColumnService {
      * @return
      * @throws BizFailException
      */
-    public Map<String, Object> delCoulum(Map<String,Object> reqMap) throws BizFailException {
+    public Map<String, Object> delColumn(Map<String,Object> reqMap) throws BizFailException {
 
         if(StringUtils.isBlank(String.valueOf(reqMap.get("columnId")))){
             throw new BizFailException(RET_FAIL, "栏目Id未传!");
         }
         //插入新栏目
-        columnMapper.delCoulum(reqMap);
+        columnMapper.delColumn(reqMap);
       /*  if (null == columns) {
             throw new BizFailException(RET_FAIL,"用户不存在");
         }*/

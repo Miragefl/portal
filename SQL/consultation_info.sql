@@ -12,13 +12,13 @@ CREATE TABLE consultation_info (
   consulId			int(11) 		  NOT NULL AUTO_INCREMENT 	comment 'id',
   columnId			int(11)			  NOT NULL					        comment '关联栏目',
   title				  varchar(200)	NOT NULL 					      comment '标题',
-  desc         varchar(200) NOT NULL                 comment  '描述',
+  consuDesc         varchar(200) NOT NULL                 comment  '描述',
   consuType   char(2)       NOT NULL                 comment '类型 00:手动编辑 01：外链',
   consuPlace  char(2)      NOT NULL                  comment '位置',
   consuClass  char(2)      NOT NULL                  comment '类别',
   context 			blob	 		   NOT NULL					         comment '文章内容',
   consuLink   varchar(200)    DEFAULT NULL           comment '链接地址',
-  isDel        char(1)     NOT NULL DEFAULT '0'      comment '是否删除 0：否 1：是'
+  isDel        char(1)     NOT NULL DEFAULT '0'      comment '是否删除 0：否 1：是',
   remarks			  varchar(200)    DEFAULT NULL				   comment '备注',
-  PRIMARY KEY (consulId),
+  PRIMARY KEY (consulId)
 ) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 comment '栏目信息表';
