@@ -23,7 +23,8 @@
         consuPlace,
         consuClass,
         context,
-        remarks
+        remarks,
+        images
         <if test="consuLink != null and consuLink !=''">
             ,consuLink
         </if>
@@ -36,7 +37,8 @@
         #{consuPlace},
         #{consuClass},
         #{context,jdbcType=BLOB},
-        #{remarks}
+        #{remarks},
+        #{images}
         <if test="consuLink != null and consuLink !=''">
             ,#{consuLink}
         </if>

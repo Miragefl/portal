@@ -25,44 +25,52 @@
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="editColumn()" plain="true">修改</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="delColumn()" plain="true">删除</a>
 </div>
-<div id="win1" class="easyui-dialog" title="新增栏目"  style="width: 400px; padding: 10px 20px; height: 410px;"
+<div id="win1" class="easyui-dialog" title="新增修改栏目"  style="width: 400px; padding: 10px 20px; height: 410px;"
       closed="true" buttons="#dlg-buttons">
-    <form id="fm" method="post" style="margin-top: 20px; margin-left: 20px;" action="/management/column/addCoulum">
+    <form id="fm" method="post" style="margin-top: 20px; margin-left: 20px;" action="">
         <div class="fitem">
             <label>栏目名称:</label>
-            <input  name="columnName" style="" class="easyui-textbox" editable="false" />
+            <input  id="columnName" name="columnName" style="" class="easyui-textbox" editable="false" />
         </div>
-        <div class="fitem">
+        <div class="fitem" style="display:none;">
             <label>栏目等级:</label>
-            <input name="columnLevel" class="easyui-textbox" editable="false" />
+            <input id="columnLevel" name="columnLevel" class="easyui-textbox" editable="false"  type="hidden"/>
+        </div>
+
+        <div class="fitem">
+            <label>栏目排序:</label>
+            <input id="columnSort" name="columnSort" class="easyui-textbox" editable="false" />
         </div>
 
         <div class="fitem">
             <label>是否配置跳转链接:</label>
-            <input  name="isJump" class="easyui-textbox" editable="false" />
+            <input  type="radio" name="isJump"
+                   class="easyui-validatebox" checked="checked" value="0" onclick="check('d1')"><label>否</label></input>
+            <input  type="radio" name="isJump"
+                   class="easyui-validatebox" value="1" onclick="check('d2')"><label>是</label></input>
         </div>
 
-        <div class="fitem">
+        <div class="fitem" style="display:none;" id="columnLink_fm">
             <label>跳转链接:</label>
-            <input  name="columnLink" class="easyui-textbox" editable="false" />
+            <input id="columnLink"  name="columnLink" class="easyui-textbox" editable="false" />
         </div>
 
-        <div class="fitem">
+        <div class="fitem" style="display:none;">
             <label>父栏目编号:</label>
-            <input  name="columnParent" class="easyui-textbox"  />
+            <input id="columnParent" name="columnParent" class="easyui-textbox"  type="hidden"/>
         </div>
 
         <div class="fitem">
             <label>备注:</label>
-            <input   name="remarks" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
+            <input id="remarks"   name="remarks" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
         </div>
         <div id="dlg-buttons1" style="display: block">
-            <a id="confirm1" href="javascript:void(0)" class="easyui-linkbutton c6" iconcls="icon-ok" onclick="addCol()" style="width: 90px">提交</a>
+            <a id="confirm1" href="javascript:void(0)" class="easyui-linkbutton c6" iconcls="icon-ok" onclick="submitCol()" style="width: 90px">提交</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#win1').dialog('close')" style="width: 90px">取消</a>
         </div>
     </form>
 </div>
-<div id="win2" class="easyui-dialog" title="修改栏目"  style="width: 400px; padding: 10px 20px; height: 410px;"
+<!--<div id="win2" class="easyui-dialog" title="修改栏目"  style="width: 400px; padding: 10px 20px; height: 410px;"
      closed="true" buttons="#dlg-buttons">
     <form id="fm1" method="post" style="margin-top: 20px; margin-left: 20px;" action="/management/column/updateColumn">
 
@@ -75,6 +83,11 @@
         <div class="fitem">
             <label>栏目等级:</label>
             <input id="columnLevel" name="columnLevel" class="easyui-textbox" editable="false" />
+        </div>
+
+        <div class="fitem">
+            <label>栏目排序:</label>
+            <input id="columnSort" name="columnSort" class="easyui-textbox" editable="false" />
         </div>
 
         <div class="fitem">
@@ -101,10 +114,10 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#win2').dialog('close')" style="width: 90px">取消</a>
         </div>
     </form>
-</div>
+</div>-->
 </body>
 <script type="text/javascript">
-
+        var flag='';
       $('#home-tree').tree({
             url : '/management/column/getTreeNode',
             cascadeCheck: false,
@@ -125,15 +138,61 @@
     }
     
     function  addColumn() {
+        flag='0';
+        var nodes = $('#home-tree').tree('getChecked');
+        if(nodes.length==0){ //添加父菜单
+            $("#columnLevel").val("00");
+        }else if(nodes.length==1){
+            var s = nodes[0].id;;
+            var node = $('#home-tree').tree('find',s);
+            var nodePar = $('#home-tree').tree("getParent",node.target);
+            alert(JSON.stringify(nodePar))
+            if(nodePar==null){
+                $("#columnLevel").val("01");
+                $("#columnParent").val(s);
+            }else{
+                alert("请选择一级菜单!");
+                return;
+            }
+        }else{
+            alert("请选择一个栏目或者不选");
+            return;
+        }
         $('#win1').window('open');
     }
-    function addCol(){
-       /* alert(1);*/
-       $('#fm').submit();
-    }
-    function editColumn() {
+   /* function addCol(){
+       /!* alert(1);*!/
         var nodes = $('#home-tree').tree('getChecked');
 
+        alert(nodes);
+
+        var s = '';
+        for (var i = 0; i < nodes.length; i++) {
+            if (s != '')
+                s += ',';
+            s += nodes[i].id;
+        }
+        if(nodes.length==0){ //添加父菜单
+            $("#columnLevel_add").val("00");
+            $('#fm').submit();
+        }else if(nodes.length==1){
+            $("#columnLevel_add").val("01");
+            $("#columnParent_add").val(s);
+            $('#fm').submit();
+        }else{
+            alert("请选择一个栏目或者不选");
+            return;
+        }*/
+        //有父菜单添加二级菜单
+     /*  $('#fm').submit();*/
+   // }
+    function editColumn() {
+        flag='1';
+        var nodes = $('#home-tree').tree('getChecked');
+        if(nodes.length!=1){
+            alert("请选择一个栏目");
+            return;
+        }
         var s = '';
         for (var i = 0; i < nodes.length; i++) {
             if (s != '')
@@ -151,15 +210,21 @@
                 alert(JSON.stringify(data));
                 alert(data.columnId);*/
               /*  alert(JSON.stringify(data));*/
-                $("#columnId").val(data.columnId);
-              $("#columnName").val(data.columnName);
-              $("#columnLevel").val(data.columnLevel);
-              $("#isJump").val(data.isJump);
-              $("#columnLink").val(data.columnLink);
-              $("#columnParent").val(data.columnParent);
-              $("#remarks" ).val(data.remarks);
+                $("#columnId").val(data.body.columnId);
+              $("#columnName").val(data.body.columnName);
+              $("#columnLevel").val(data.body.columnLevel);
+              $("#columnSort").val(data.body.columnSort);
+                if (data.body.isJump == "0") {
+                    $("input[name='isJump'][value='0']").attr("checked",true);
+                }else if(data.body.isJump == "1"){
+                    $("input[name='isJump'][value='1']").attr("checked",true);
+                    $('#columnLink_fm').css("display",'block');
+                }
+              $("#columnLink").val(data.body.columnLink);
+              $("#columnParent").val(data.body.columnParent);
+              $("#remarks" ).val(data.body.remarks);
                /* alert(2222)*/
-                $('#win2').window('open');
+                $('#win1').window('open');
             }
         });
 
@@ -186,8 +251,43 @@
             }
         })
     }
-    function editCol() {
+   /* function editCol() {
         $('#fm1').submit();
-    }
+    }*/
+      function submitCol(){
+         /* $('#fm').action="/management/column/addCoulum";
+          $('#fm').submit();*/
+         if(flag=='0') {
+             $('#fm').form('submit', {
+                 url: "/management/column/addCoulum",
+                 onSubmit: function () {
+                     // do some check
+                     // return false to prevent submit;
+                 },
+                 success: function (data) {
+                     alert("操作成功")
+                 }
+             });
+         }else{
+             $('#fm').form('submit', {
+                 url: "/management/column/updateColumn",
+                 onSubmit: function () {
+                     // do some check
+                     // return false to prevent submit;
+                 },
+                 success: function (data) {
+                     alert("操作成功")
+                 }
+             });
+         }
+      }
+
+      function  check(id) {
+          if(id=='d1'){
+              $('#columnLink_fm').css("display",'none');
+          }else if(id=='d2'){
+              $('#columnLink_fm').css("display",'block');
+          }
+      }
 </script>
 </html>

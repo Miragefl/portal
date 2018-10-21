@@ -36,7 +36,6 @@ public class ConsultationController {
     @Autowired
     private ConsultationService consultationService;
 
-    String httpUrl = ConfigUtil.get("UPLOAD_FILE_PATH");
 
     /**
      * 获取新闻信息
@@ -80,7 +79,7 @@ public class ConsultationController {
     public String addConsultation(@RequestParam(value = "columnId", required = false) String columnId,@RequestParam(value = "title", required = false) String title,
                                   @RequestParam(value = "consuDesc", required = false) String consuDesc,@RequestParam(value = "consuType", required = false) String consuType,@RequestParam(value = "consuClass", required = false) String consuClass,
                                   @RequestParam(value = "context", required = false) String context,@RequestParam(value = "consuPlace", required = false) String consuPlace,@RequestParam(value = "consuLink", required = false) String consuLink,
-                                  @RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
+                                  @RequestParam(value = "remarks", required = false) String remarks,@RequestParam(value = "images", required = false) String images) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> reqMap = new HashMap<String, Object>();
         reqMap.put("columnId",columnId);
@@ -92,6 +91,7 @@ public class ConsultationController {
         reqMap.put("consuPlace",consuPlace);
         reqMap.put("consuLink",consuLink);
         reqMap.put("remarks",remarks);
+        reqMap.put("images",images);
         try {
             logger.info("1111111111111111111111ReqMap"+reqMap);
             result = consultationService.addConsultation(reqMap);
@@ -195,9 +195,10 @@ public class ConsultationController {
     @ResponseBody
     public JSONObject uploadAppriseImg(HttpServletRequest request, HttpServletResponse response){
         Map<String,Object> data = new HashMap<String,Object>();
+        JSONObject obj = new JSONObject();
+        String imagePath ="";
         try {
             logger.info("122222222"+Helper.inputStream2String(request.getInputStream()));
-            logger.info("122222223"+httpUrl);
         } catch (IOException e1) {
             logger.info("发生异常",e1);
         }
@@ -233,7 +234,7 @@ public class ConsultationController {
                         //重命名上传后的文件名
                         String newFileName = Helper.getCurrentTime("dd-HHmmss")+"_"+Helper.getRandom(1000, 9999)+"_"+Helper.getRandomChar(10)+suffix;
                         File localFile = new File(path+newFileName);
-
+                        imagePath = returnPath+newFileName;
                         try {
                             file.transferTo(localFile);
                             urls.add(returnPath+newFileName);
@@ -257,9 +258,11 @@ public class ConsultationController {
                 }
             }
 
-            data.put("imageURL", urls);
-            data.put("orImageURL", orUrl);
+           /* data.put("imageURL", urls);
+            data.put("orImageURL", orUrl);*/
+            obj.put("error", 0);
+            obj.put("url", "http://localhost:8001/management/"+imagePath);
         }
-        return Helper.getSuccJSON(data);
+        return  obj;
     }
 }

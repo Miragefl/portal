@@ -16,6 +16,7 @@ CREATE TABLE consultation_info (
   consuType   char(2)       NOT NULL                 comment '类型 00:手动编辑 01：外链',
   consuPlace  char(2)      NOT NULL                  comment '位置',
   consuClass  char(2)      NOT NULL                  comment '类别',
+  images  varchar(2000)      NOT NULL                  comment '图片地址',
   context 			blob	 		   NOT NULL					         comment '文章内容',
   consuLink   varchar(200)    DEFAULT NULL           comment '链接地址',
   isDel        char(1)     NOT NULL DEFAULT '0'      comment '是否删除 0：否 1：是',

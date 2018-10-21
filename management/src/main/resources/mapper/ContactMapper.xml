@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.soap.management.mapper.ContactMapper">
+
+    <select id="getContactById" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT * FROM contact WHERE id=#{contactId};
+    </select>
+    <select id="getContact" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT id,username,email,content,DATE_FORMAT(createtime,'%Y-%m-%d %H:%i:%s') createtime,DATE_FORMAT(modifytime,'%Y-%m-%d %H:%i:%s') modifytime FROM contact WHERE 1=1
+        <if test="username != null and username !=''">
+            and username=#{username}
+        </if>
+        <if test="email != null and email !=''">
+            and email=#{email}
+        </if>
+    </select>
+</mapper>

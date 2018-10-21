@@ -22,12 +22,12 @@
 </div>
 <div class="fitem">
     <label>标题:</label>
-    <input id="title" name="columnLevel" class="easyui-textbox" editable="false" />
+    <input id="title" name="title" class="easyui-textbox" editable="false" />
 </div>
-<div class="fitem">
+<!--<div class="fitem">
     <label>位置:</label>
-    <input id="consuPlace" name="columnLevel" class="easyui-textbox" editable="false" />
-</div>
+    <input id="consuPlace" name="consuPlace" class="easyui-textbox" editable="false" />
+</div>-->
 <div class="wu-toolbar-button">
     <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="getData()" plain="true">查询</a>
 </div>
@@ -67,13 +67,31 @@
             success:function(data){
                 var chargeRuleLogs = data;
                 $.each(chargeRuleLogs, function (index, n) {
+                    var consuType='';
+                    var consuClass='';
+                    var consuPlace='';
+                    if(chargeRuleLogs[index].consuType=='00'){
+                        consuType='手动编辑';
+                    }else{
+                        consuType='外链';
+                    }
+                    if(chargeRuleLogs[index].consuClass=='00'){
+                        consuClass='金融';
+                    }else{
+                        consuClass='计算机';
+                    }
+                    if(chargeRuleLogs[index].consuPlace=='00'){
+                        consuPlace='首页';
+                    }else{
+                        consuPlace='尾部';
+                    }
                     rows.push({
                         consulId: chargeRuleLogs[index].consulId,
                         columnName: chargeRuleLogs[index].columnName,
                         title: chargeRuleLogs[index].title,
-                        consuType: chargeRuleLogs[index].consuType,
-                        consuClass: chargeRuleLogs[index].consuClass,
-                        consuPlace: chargeRuleLogs[index].consuPlace
+                        consuType: consuType,
+                        consuClass: consuClass,
+                        consuPlace: consuPlace
                     });
 
                 })

@@ -35,6 +35,13 @@ public class Helper {
         return result.toString();
     }
 
+    public static JSONObject retFailJson(BaseException e) {
+        JSONObject result = new JSONObject();
+        result.put("errorCode", e.getErrCode());
+        result.put("errorMsg", e.getErrMsg());
+        return result;
+    }
+
     private static String dealSucc(JSONObject json) {
         JSONObject result = new JSONObject();
         result.put("errorCode", RET_SUCC);

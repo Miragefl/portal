@@ -3,6 +3,7 @@ package com.soap.management.web;
 import com.soap.exception.BizFailException;
 import com.soap.management.service.ColumnService;
 import com.soap.management.util.Helper;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,7 @@ public class ColumnController {
      */
     @RequestMapping(value="/getCoulums")
     @ResponseBody
-    public  Map<String, Object> getColumns(@RequestParam(value = "columnId") String columnId) throws BizFailException{
+    public  JSONObject getColumns(@RequestParam(value = "columnId") String columnId) throws BizFailException{
        /* List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();*/
         Map<String, Object> result = new HashMap<String,Object>();
         try {
@@ -47,9 +48,9 @@ public class ColumnController {
             logger.info("22222222222222"+result);
         } catch (BizFailException e) {
             /*logger.error("获取列表信息出错",e);*/
-           /* return Helper.retFail(e);*/
+            return Helper.retFailJson(e);
         }
-        return result;
+        return Helper.getSuccJSON(result);
     }
 
     /**
@@ -73,18 +74,20 @@ public class ColumnController {
      *  @param columnName
      *  @param columnLevel
      *  @param columnParent
+     *  @param columnSort
      *  @param remarks
      *  @return
      *  @throws BizFailException
      */
     @RequestMapping(value="/addCoulum")
     @ResponseBody
-    public String addCoulum(@RequestParam(value = "columnName", required = false) String columnName,@RequestParam(value = "columnLevel", required = false) String columnLevel,@RequestParam(value = "isJump", required = false) String isJump,@RequestParam(value = "columnLink", required = false) String columnLink,@RequestParam(value = "columnParent", required = false) String columnParent,@RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
+    public JSONObject addCoulum(@RequestParam(value = "columnName", required = false) String columnName,@RequestParam(value = "columnLevel", required = false) String columnLevel,@RequestParam(value = "isJump", required = false) String isJump,@RequestParam(value = "columnSort", required = false) String columnSort,@RequestParam(value = "columnLink", required = false) String columnLink,@RequestParam(value = "columnParent", required = false) String columnParent,@RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> reqMap = new HashMap<String, Object>();
         reqMap.put("columnName",columnName);
         reqMap.put("columnLevel",columnLevel);
         reqMap.put("isJump",isJump);
+        reqMap.put("columnSort",columnSort);
         reqMap.put("columnLink",columnLink);
         reqMap.put("columnParent",columnParent);
         reqMap.put("remarks",remarks);
@@ -92,9 +95,9 @@ public class ColumnController {
             result = columnService.addColumn(reqMap);
         } catch (BizFailException e) {
             /*logger.error("获取列表信息出错",e);*/
-            return Helper.retFail(e);
+            return Helper.retFailJson(e);
         }
-        return Helper.retSucc(result);
+        return Helper.getSuccJSON(result);
     }
 
     /**
@@ -107,7 +110,7 @@ public class ColumnController {
      */
     @RequestMapping(value="/updateColumn")
     @ResponseBody
-    public String updateColumn(@RequestParam(value = "columnId", required = false) String columnId,@RequestParam(value = "columnName", required = false) String columnName,@RequestParam(value = "columnLevel", required = false) String columnLevel,@RequestParam(value = "isJump", required = false) String isJump,@RequestParam(value = "columnLink", required = false) String columnLink,@RequestParam(value = "columnParent", required = false) String columnParent,@RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
+    public JSONObject updateColumn(@RequestParam(value = "columnId", required = false) String columnId, @RequestParam(value = "columnName", required = false) String columnName, @RequestParam(value = "columnLevel", required = false) String columnLevel, @RequestParam(value = "isJump", required = false) String isJump, @RequestParam(value = "columnLink", required = false) String columnLink, @RequestParam(value = "columnParent", required = false) String columnParent, @RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> reqMap = new HashMap<String, Object>();
         reqMap.put("columnId",columnId);
@@ -121,9 +124,9 @@ public class ColumnController {
             result = columnService.updateColumn(reqMap);
         } catch (BizFailException e) {
             /*logger.error("获取列表信息出错",e);*/
-            return Helper.retFail(e);
+            return Helper.retFailJson(e);
         }
-        return Helper.retSucc(result);
+        return Helper.getSuccJSON(result);
     }
     /**
      * 删除栏目
@@ -133,7 +136,7 @@ public class ColumnController {
      */
     @RequestMapping(value="/delColumn")
     @ResponseBody
-    public String delColumn(@RequestParam(value = "columnId", required = false) String columnId) throws BizFailException{
+    public JSONObject delColumn(@RequestParam(value = "columnId", required = false) String columnId) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> reqMap = new HashMap<String, Object>();
         reqMap.put("columnId",columnId);
@@ -141,9 +144,9 @@ public class ColumnController {
             result = columnService.delColumn(reqMap);
         } catch (BizFailException e) {
             /*logger.error("获取列表信息出错",e);*/
-            return Helper.retFail(e);
+            return Helper.retFailJson(e);
         }
-        return Helper.retSucc(result);
+        return Helper.getSuccJSON(result);
     }
     /**
      * 修改栏目展示

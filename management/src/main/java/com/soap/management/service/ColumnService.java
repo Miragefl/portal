@@ -25,11 +25,9 @@ public class ColumnService {
     private ColumnMapper columnMapper;
 
     public Map<String, Object> getColumns(String columnId) throws BizFailException {
-       /* List<Map<String, Object>> columns = columnMapper.getColumns(columnId);*/
+
         Map<String, Object> columns = columnMapper.getColumns(columnId);
-      /*  if (null == columns) {
-            throw new BizFailException(RET_FAIL,"用户不存在");
-        }*/
+
         return columns;
     }
 
@@ -74,6 +72,11 @@ public class ColumnService {
         if(StringUtils.isBlank(String.valueOf(reqMap.get("columnLevel")))){
             throw new BizFailException(RET_FAIL, "栏目等级未传!");
         }
+        String count = columnMapper.getColumnCount(reqMap);
+
+        if(!StringUtils.equals(count,"0")){
+            throw new BizFailException(RET_FAIL, "此栏目此排序位置已存在!");
+        }
         //插入新栏目
         columnMapper.addColumn(reqMap);
       /*  if (null == columns) {
@@ -97,6 +100,11 @@ public class ColumnService {
         }
         if(StringUtils.isBlank(String.valueOf(reqMap.get("columnId")))){
             throw new BizFailException(RET_FAIL, "栏目Id未传!");
+        }
+        String count = columnMapper.getColumnCount(reqMap);
+
+        if(!StringUtils.equals(count,"0")){
+            throw new BizFailException(RET_FAIL, "此栏目此排序位置已存在!");
         }
         //插入新栏目
         columnMapper.updateColumn(reqMap);

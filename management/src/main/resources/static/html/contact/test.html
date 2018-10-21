@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editable Tree - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/demo/demo.css">
+    <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="../../easyui/1.3.4/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    var count = 1;
+    $(document).ready(function(){
+        $("#file1").on("change", upload );
+    });
+    function upload(){
+        var self = this;
+
+        //获得它是第几个form表单
+        var num = this.getAttribute("id").replace(/[a-zA-Z]/g,"");
+        //构造form的选择器
+        var $form = "#formTag" +num;
+
+        $.ajax({
+            url:"/management/consultation/uploadImg.do",
+            type:"post",
+            dataType:"json",
+            cache:false,
+            data: new FormData($($form)[0]),
+            processData: false,// 不处理数据
+            contentType: false, // 不设置内容类型
+            success:function(data){
+                //设置背景为我们选择的图片
+                $(self).parent().css({
+                    "background-image": "url("+data.url+")"
+                });
+
+                //我们再生成一个form
+                if(count == num ){
+                    //count计数加1
+                    count +=1;
+                    var str = '<form id="formTag'+count+'" enctype="multipart/form-data">'+
+                        '<div class="uploadImgBtn" id="uploadImgBtn">'+
+                        '<input class="uploadImg" type="file" name="file" id="file'+count+'">'+
+                        '</div>'+
+                        '</form>   ';
+                    //向最外面的盒子添加form
+                    $("#formBox").append($(str));
+                    //构造input的选择器
+                    var $sel = "#file"+count;
+                    //为新生成的input绑定change事件
+                    $($sel).on("change", upload );
+
+                }else{
+                    //如果不等于
+                    return false;
+                }
+            }
+        });
+    }
+    function toUpdateContact(){
+        alert(1);
+    }
+</script>
+<style>
+    .uploadImgBtn {
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        position: relative;
+        background: url("static/html/consultation/pk.jpg") no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+
+    .uploadImgBtn .uploadImg {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .pic {
+        width: 100px;
+        height: 100px;
+    }
+
+    .pic img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+</head>
+<body>
+<div id="formBox">
+    <form id="formTag1" enctype="multipart/form-data">
+        <div class="uploadImgBtn" id="uploadImgBtn">
+            <input class="uploadImg" type="file" name="file" id="file1">
+        </div>
+    </form>
+</div>
+<div class="wu-toolbar-button">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="toUpdateContact()" plain="true">查看</a>
+</div>
+</body>
+</html>

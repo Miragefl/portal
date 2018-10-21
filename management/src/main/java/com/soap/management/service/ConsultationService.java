@@ -71,6 +71,9 @@ public class ConsultationService {
         if(StringUtils.isBlank(String.valueOf(reqMap.get("remarks")))){
             throw new BizFailException(RET_FAIL, "备注未传!");
         }
+        if(StringUtils.isBlank(String.valueOf(reqMap.get("images")))){
+            throw new BizFailException(RET_FAIL, "图片未传!");
+        }
         //插入新栏目
         consultationMapper.addConsultation(reqMap);
       /*  if (null == columns) {

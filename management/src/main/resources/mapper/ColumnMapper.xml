@@ -12,13 +12,15 @@
     <select id="getChildColumns" parameterType="java.lang.String" resultType="java.util.HashMap">
         SELECT * FROM website_columns WHERE isDel = '0' and columnLevel='01' and columnParent=#{id} ;
     </select>
-
-
+    <select id="getColumnCount" parameterType="java.util.HashMap" resultType="java.lang.String">
+        select  count(*) count from website_columns WHERE isDel = '0' and columnLevel=#{columnLevel} and columnSort=#{columnSort}
+    </select>
     <insert id="addColumn" parameterType="java.util.HashMap">
         insert  into  website_columns(
             columnName,
             columnLevel,
-            isJump
+            isJump,
+            columnSort
             <if test="columnLink != null and columnLink !=''">
             ,columnLink
             </if>
@@ -32,7 +34,8 @@
         values (
             #{columnName},
             #{columnLevel},
-            #{isJump}
+            #{isJump},
+            #{columnSort}
             <if test="columnLink != null and columnLink !=''">
             ,#{columnLink}
             </if>
@@ -50,6 +53,7 @@
             <if test="columnName != null and columnName !=''">columnName=#{columnName},</if>
             <if test="remarks != null and remarks !=''">remarks=#{remarks},</if>
             <if test="isJump != null and isJump !=''">isJump=#{isJump},</if>
+            <if test="columnSort != null and columnSort !=''">columnSort=#{columnSort},</if>
             <if test="columnLink != null and columnLink !=''">columnLink=#{columnLink}</if>
         </set>
         where columnId=#{columnId}

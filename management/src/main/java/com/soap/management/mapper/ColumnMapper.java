@@ -19,4 +19,6 @@ public interface ColumnMapper {
     public List<Map<String, Object>> getRootColumns();
     //获取栏目列表
     public List<Map<String, Object>> getChildColumns(String id);
+
+    public String getColumnCount(Map<String,Object> reqMap);
 }
