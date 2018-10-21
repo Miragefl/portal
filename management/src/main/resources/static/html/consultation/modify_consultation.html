@@ -172,17 +172,19 @@
         var img=[];
         img =images.split(",");
         for(var i=0;i<img.length;i++){
-            alert(img[i]);
-            /*var str = '<form id="formTag'+(i+1)+'" enctype="multipart/form-data">'+
-                '<div class="uploadImgBtn" id="uploadImgBtn'+(i+1)+'" style="background-image: url(&quot;'+http://localhost:8001/management/Upload/201810/21-002854_1666_LMPUjETxke.jpg&quot;+');">'+
+            var image = img[i];
+            console.info(img)
+            var str = '<form id="formTag'+(i+1)+'" enctype="multipart/form-data">'+
+                '<div class="uploadImgBtn" id="uploadImgBtn'+(i+1)+'" style="background-image: url('+image+');">'+
                 '<input class="uploadImg" type="file" name="file" id="file'+(i+1)+'">'+
                 '</div>'+
-                '</form>   ';*/
-            var str='<form id="formTag1" enctype="multipart/form-data">'+
-                '<div class="uploadImgBtn" id="uploadImgBtn1" style="background-image: url(&quot;/Upload/201810/21-002854_1666_LMPUjETxke.jpg&quot;);">'+
+                '</form>   ';
+
+           /* var str='<form id="formTag1" enctype="multipart/form-data">'+
+                '<div class="uploadImgBtn" id="uploadImgBtn1" style="background-image: url('+img+');">'+
                 '<input class="uploadImg" type="file" name="file" id="file1">'+
                 '</div>'+
-                '</form>';
+                '</form>';*/
            /* $("#uploadImgBtn"+(i+1)).css({
                 "background-image": "url("+img[i]+")"
             });*/
@@ -194,8 +196,9 @@
             $("#formBox").append($(str));
             $("#file"+(i+1)).on("change", upload );
         }
+        var pk = 'http://localhost:8001/management/html/consultation/pk.jpg';
         var str1= '<form id="formTag'+(img.length+1)+'" enctype="multipart/form-data">'+
-        '<div class="uploadImgBtn" id="uploadImgBtn'+(img.length+1)+'">'+
+        '<div class="uploadImgBtn" style="background-image: url('+pk+')" id="uploadImgBtn'+(img.length+1)+'">'+
         '<input class="uploadImg" type="file" name="file" id="file'+(img.length+1)+'">'+
         '</div>'+
         '</form>   ';
