@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.soap.site.mapper.ColumnMapper">
+
+    <select id="qryList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT
+            a.columnId   parId,
+            a.columnName parName,
+            a.columnLink parLink,
+            b.columnId   sonId,
+            b.columnName sonName,
+            b.columnLink sonLink
+        FROM website_columns a LEFT JOIN website_columns b ON a.columnId = b.columnParent
+        WHERE a.isDel = '0' AND b.isDel = '0' AND a.columnParent IS NULL AND b.columnParent IS NOT NULL
+        ORDER BY a.columnId ASC
+    </select>
+
+    <select id="qryColumns" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT columnId,columnName,columnLink FROM website_columns WHERE isDel = '0' AND
+        <if test="columnId != null">
+            columnParent = #{columnId}
+        </if>
+        <if test="columnId == null">
+            columnParent IS NULL
+        </if>
+    </select>
+</mapper>

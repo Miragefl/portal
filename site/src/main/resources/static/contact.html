@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Contact</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery-1.11.0.min.js"></script>
+<!-- Custom Theme files -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--Google Fonts-->
+<link href='http://fonts.googleapis.com/css?family=Hind:400,300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Aladin' rel='stylesheet' type='text/css'>
+
+		<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script src="js/wow.min.js"></script>
+		<script>
+		 new WOW().init();
+		</script>
+
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    function record(){
+        var username = $('#username').val();
+        var email = $('#email').val();
+        var content = $('#content').val();
+        console.info(username+email+content);
+        $.ajax({
+            url:'/site/contact/record',
+            type:'POST',
+            data:{'username':username,'email':email,'content':content},
+            dataType:'json',
+            success:function (data) {
+                console.info("111111111111111")
+            },
+            error:function (data) {
+                console.info("22222222222222222222")
+            }
+        });
+    }
+</script>
+</head>
+<body>
+<div class="top-header">
+	<div class="container">
+		<div class="top-header-main">
+			<div class="col-md-4 top-social wow bounceInLeft" data-wow-delay="0.3s">
+			    <ul>
+			    	<li><h5>江苏黄海水泥有限公司，期待您的光临</h5></li>
+			    </ul>
+			</div>
+			<div class="col-md-8 header-address wow bounceInRight" data-wow-delay="0.3s">
+				<ul>
+					<li><span class="phone"> </span> <h6>0515-86397999</h6></li>
+					<li><span class="email"> </span><h6>bgs@jshhsn.com</h6></li>
+				</ul>
+			</div>
+		  <div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+<div class="header">
+	<div class="fixed-header">
+
+		    <div class="navbar-wrapper">
+		      <div class="container">
+		        <nav class="navbar navbar-inverse navbar-static-top">
+		             <div class="navbar-header">
+			              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			                <span class="sr-only">Toggle navigation</span>
+			                <span class="icon-bar"></span>
+			                <span class="icon-bar"></span>
+			                <span class="icon-bar"></span>
+			              </button>
+			              <div class="logo wow slideInLeft" data-wow-delay="0.3s">
+			                    <a class="navbar-brand" href="../templates/index.html"><img src="images/logo.png" /></a>
+			              </div>
+			          </div>
+		            <div id="navbar" class="navbar-collapse collapse">
+		            <nav class="cl-effect-16" id="cl-effect-16">
+		              <ul class="nav navbar-nav">
+		               <ul class="nav navbar-nav">
+		               	<li><a href="../templates/index.html" data-hover="网站首页">网站首页</a></li>
+		                <li><a href="about.html" data-hover="关于我们">关于我们</a></li>
+						<li><a href="product.html" data-hover="案例展示">案例展示</a></li>
+						<li><a data-hover="工程实例">工程实例</a></li>
+						<li><a data-hover="先进设备">先进设备</a></li>
+						<li><a class="active" href="contact.html" data-hover="联系我们">联系我们</a></li>
+		              </ul>
+		              </ul>
+		            </nav>
+
+		            </div>
+		            <div class="clearfix"> </div>
+		             </nav>
+		          </div>
+		           <div class="clearfix"> </div>
+		    </div>
+	 </div>
+</div>
+<!--header end here-->
+<!--contact start here-->
+<div class="contact">
+	<div class="container">
+		<div class="contact-main">
+			<div class="contact-top">
+				<h2>联系我们</h2>
+			</div>
+			<div class="contact-bottom">
+				<div class="col-md-9 contact-left">
+					<form>
+						<input type="text" placeholder="用戶名" id="username">
+						<input type="text" class="email" placeholder="邮箱" id="email">
+						<textarea  placeholder="Message" required="" id="content"></textarea>
+						<input type="submit" onclick="record()" value="发送">
+					</form>
+				</div>
+				<div class="col-md-3 contact-right">
+					<h1>地址</h1>
+					<p>江苏省盐城市</p>
+					<p>XXXXXXXXX路</p>
+					<p>13914720977</p>
+					<p><a href="mailto:info@example.com">42083122@qq.com</a></p>
+				</div>
+			  <div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="copy-right">
+	<div class="container">
+		 <div class="copy-rights-main wow zoomIn">
+    	    <p>Copyright &copy; 2016.Company name All rights 地址：江苏省盐城市射阳县射阳港新材料产业园5栋</p>
+    	 </div>
+    </div>
+</div>
+</body>
+</html>
