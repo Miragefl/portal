@@ -55,7 +55,7 @@
         <input id="consulId" name="consulId"  type="hidden"  class="easyui-textbox" editable="false" />
         <div class="fitem">
             <label>所属菜单:</label>
-            <input  id="columnId" name="columnId" style="" class="easyui-textbox" editable="false" />
+            <input  id="columnId" name="columnId" style="" style="width: 160px; height: 65px;" class="easyui-combobox" editable="false"  data-options="required:true"/>
         </div>
         <input id ="images" name="images" type='hidden' class="easyui-textbox" editable="false" />
         <div class="fitem">
@@ -70,22 +70,25 @@
 
         <div class="fitem">
             <label>类型:</label>
-            <input  id="consuType" name="consuType" class="easyui-textbox" editable="false" />
+            <input  type="radio" name="consuType"
+                    class="easyui-validatebox" checked="checked" value="0" onclick="check('d1')"><label>手动编辑</label></input>
+            <input  type="radio" name="consuType"
+                    class="easyui-validatebox" value="1" onclick="check('d2')"><label>外链</label></input>
         </div>
 
         <div class="fitem">
             <label>类别:</label>
-            <input  id="consuClass" name="consuClass" class="easyui-textbox"  />
+            <input  id="consuClass" name="consuClass" style="width: 160px; height: 65px;" class="easyui-combobox" editable="false"  data-options="required:true"/>
         </div>
         <div class="fitem">
             <label>位置:</label>
-            <input  id="consuPlace" name="consuPlace" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
+            <input  id="consuPlace" name="consuPlace" style="width: 160px; height: 65px;" style="width: 160px; height: 65px;" class="easyui-combobox" editable="false"  data-options="required:true"/>
         </div>
-        <div class="fitem">
+        <div class="fitem" id="consuLink_div">
             <label>链接:</label>
             <input   id="consuLink" name="consuLink" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
         </div>
-        <div class="fitem">
+        <div class="fitem" id="context_div">
             <label>文章内容:</label>
             <textarea rows="3" style="width:400px;" id="context" name="context" class="easyui-validatebox" data-options="required:true,validType:'length[1,1000000]'" invalidMessage="最大长度不能超过1000000"></textarea>
         </div>
@@ -156,11 +159,18 @@
                 $("#consulId").val(data.consulId);
                 $("#title").val(data.title);
                 $("#consuDesc").val(data.consuDesc);
+                if (data.consuDesc == "00") {
+                    $("input[name='consuDesc'][value='00']").attr("checked",true);
+                    KindEditor.html("#context", data.context);
+                    $('#consuLink_div').css("display",'none');
+                }else if(data.consuDesc== "01"){
+                    $("input[name='consuDesc'][value='01']").attr("checked",true);
+                    $("#consuLink").val(data.consuLink);
+                    $('#context_div').css("display",'none');
+                }
                 $("#consuType").val(data.consuType);
                 $("#consuClass").val(data.consuClass);
                 $("#consuPlace").val(data.consuPlace);
-                $("#consuLink").val(data.consuLink);
-                KindEditor.html("#context", data.context);
                 $("#remarks").val(data.remarks);
                 addForm(data.images);
             }

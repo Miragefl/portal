@@ -188,6 +188,27 @@ public class ConsultationController {
         }
         return result;
     }
+
+    /**
+     * 获取参数列表
+     * @param code
+     * @return
+     */
+
+    @RequestMapping(value="/qryApppar.do")
+    @ResponseBody
+    public JSONObject qryApppar(@RequestParam(value = "code", required = false) String code){
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+        Map<String, Object> reqMap = new HashMap<String, Object>();
+        reqMap.put("code",code);
+        try{
+            result = consultationService.qryApppar(reqMap);
+        } catch (BizFailException e){
+            return Helper.retFailJson(e);
+        }
+        return Helper.getSuccJSON(result);
+    }
+
     /**
      * 上传图片
      */

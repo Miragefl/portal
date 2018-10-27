@@ -68,4 +68,7 @@
     <select id="qryConsultationById" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         select * from consultation_info where consulId=#{consulId}
     </select>
+    <select id="qryApppar" parameterType="java.util.Map" resultType="java.util.HashMap">
+    		select * from PUB_APPPAR where APR_CODE=#{code}
+    </select>
 </mapper>

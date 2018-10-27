@@ -65,9 +65,9 @@ public class ConsultationService {
         if(StringUtils.isBlank(String.valueOf(reqMap.get("consuClass")))){
             throw new BizFailException(RET_FAIL, "类别未传!");
         }
-        if(StringUtils.isBlank(String.valueOf(reqMap.get("context")))){
+       /* if(StringUtils.isBlank(String.valueOf(reqMap.get("context")))){
             throw new BizFailException(RET_FAIL, "文本内容未传!");
-        }
+        }*/
         if(StringUtils.isBlank(String.valueOf(reqMap.get("remarks")))){
             throw new BizFailException(RET_FAIL, "备注未传!");
         }
@@ -169,4 +169,13 @@ public class ConsultationService {
         return result;
     }
 
+
+    public List<Map<String,Object>> qryApppar(Map<String, Object> params) throws BizFailException {
+        if(StringUtils.isBlank(String.valueOf(params.get("code")))){
+         throw new BizFailException(RET_FAIL, "code!");
+         }
+        List<Map<String,Object>> Apppar = consultationMapper.qryApppar(params);
+
+        return Apppar;
+    }
 }

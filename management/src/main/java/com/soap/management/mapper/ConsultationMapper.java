@@ -15,4 +15,7 @@ public interface ConsultationMapper {
 
     public Map<String,Object> qryConsultationById(Map<String,Object> reqMap);
 
+    public List<Map<String, Object>> qryApppar(Map<String, Object> params);
+
+
 }
