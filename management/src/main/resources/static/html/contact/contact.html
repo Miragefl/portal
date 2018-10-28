@@ -126,13 +126,18 @@
         $.each(checkedItems, function(index, item){
             ids.push(item.id);
         });
-        var id =ids;
-        var content = '<iframe scrolling="auto" frameborder="0"  src="../html/contact/contact_detail.html?contactId='+id+'" style="width:100%;height:100%;"></iframe>';
-        parent.$('#wu-tabs').tabs("add", {
-            title: '查看详情',
-            content: content,
-            closable: true
-        });
+        alert(ids.length);
+        if(ids.length!=1){
+            alert("请选择一个选项进行修改!")
+        }else {
+            var id = ids;
+            var content = '<iframe scrolling="auto" frameborder="0"  src="../html/contact/contact_detail.html?contactId=' + id + '" style="width:100%;height:100%;"></iframe>';
+            parent.$('#wu-tabs').tabs("add", {
+                title: '查看详情',
+                content: content,
+                closable: true
+            });
+        }
     }
 
 </script>

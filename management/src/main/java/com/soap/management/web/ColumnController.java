@@ -81,7 +81,7 @@ public class ColumnController {
      */
     @RequestMapping(value="/addCoulum")
     @ResponseBody
-    public JSONObject addCoulum(@RequestParam(value = "columnName", required = false) String columnName,@RequestParam(value = "columnLevel", required = false) String columnLevel,@RequestParam(value = "isJump", required = false) String isJump,@RequestParam(value = "columnSort", required = false) String columnSort,@RequestParam(value = "columnLink", required = false) String columnLink,@RequestParam(value = "columnParent", required = false) String columnParent,@RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
+    public JSONObject addCoulum(@RequestParam(value = "columnName", required = false) String columnName,@RequestParam(value = "images", required = false) String images,@RequestParam(value = "columnLevel", required = false) String columnLevel,@RequestParam(value = "isJump", required = false) String isJump,@RequestParam(value = "columnSort", required = false) String columnSort,@RequestParam(value = "columnLink", required = false) String columnLink,@RequestParam(value = "columnParent", required = false) String columnParent,@RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> reqMap = new HashMap<String, Object>();
         reqMap.put("columnName",columnName);
@@ -91,6 +91,7 @@ public class ColumnController {
         reqMap.put("columnLink",columnLink);
         reqMap.put("columnParent",columnParent);
         reqMap.put("remarks",remarks);
+        reqMap.put("images",images);
         try {
             result = columnService.addColumn(reqMap);
         } catch (BizFailException e) {
@@ -110,18 +111,20 @@ public class ColumnController {
      */
     @RequestMapping(value="/updateColumn")
     @ResponseBody
-    public JSONObject updateColumn(@RequestParam(value = "columnId", required = false) String columnId, @RequestParam(value = "columnName", required = false) String columnName, @RequestParam(value = "columnLevel", required = false) String columnLevel, @RequestParam(value = "isJump", required = false) String isJump, @RequestParam(value = "columnLink", required = false) String columnLink, @RequestParam(value = "columnParent", required = false) String columnParent, @RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
+    public JSONObject updateColumn(@RequestParam(value = "columnId", required = false) String columnId,@RequestParam(value = "images", required = false) String images, @RequestParam(value = "columnName", required = false) String columnName, @RequestParam(value = "isJump", required = false) String isJump, @RequestParam(value = "columnLink", required = false) String columnLink, @RequestParam(value = "columnSort", required = false) String columnSort, @RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> reqMap = new HashMap<String, Object>();
         reqMap.put("columnId",columnId);
         reqMap.put("columnName",columnName);
-        reqMap.put("columnLevel",columnLevel);
         reqMap.put("isJump",isJump);
         reqMap.put("columnLink",columnLink);
-        reqMap.put("columnParent",columnParent);
+        reqMap.put("columnSort",columnSort);
         reqMap.put("remarks",remarks);
+        reqMap.put("images",images);
+        logger.info("reqmap+++"+reqMap);
         try {
             result = columnService.updateColumn(reqMap);
+            logger.info("result_+++"+result);
         } catch (BizFailException e) {
             /*logger.error("获取列表信息出错",e);*/
             return Helper.retFailJson(e);
@@ -150,8 +153,6 @@ public class ColumnController {
     }
     /**
      * 修改栏目展示
-     *  @param columnId
-     *  @param isShow
      *  @return
      *  @throws BizFailException
      */

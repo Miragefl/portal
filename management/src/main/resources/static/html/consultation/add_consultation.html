@@ -151,15 +151,13 @@
     
     function addConsultation() {
         var imageUrl='';
-       for(var i=0;i<count-1;i++){
-           var myDiv = document.getElementById("uploadImgBtn"+(i+1));
+           var myDiv = document.getElementById("uploadImgBtn1");
             if(myDiv==null){
             }else{
                 var style=myDiv.style;
 
                  imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
             }
-        }
        $("#images").val(imageUrl.substring(0,imageUrl.length-1));
         //$("#formTag1").remove();
         fm.submit();
@@ -193,7 +191,7 @@
                 //imgurl+=data.url;
                // $("#images").val(imgurl);
                 //我们再生成一个form
-                if(count == num ){
+    /*            if(count == num ){
                     //count计数加1
                     count +=1;
                     var str = '<form id="formTag'+count+'" enctype="multipart/form-data">'+
@@ -211,7 +209,7 @@
                 }else{
                     //如果不等于
                     return false;
-                }
+                }*/
             }
         });
     }

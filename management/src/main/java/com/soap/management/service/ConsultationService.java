@@ -113,11 +113,11 @@ public class ConsultationService {
         if(StringUtils.isBlank(String.valueOf(reqMap.get("consuClass")))){
             throw new BizFailException(RET_FAIL, "类别未传!");
         }
-        if(StringUtils.isBlank(String.valueOf(reqMap.get("context")))){
-            throw new BizFailException(RET_FAIL, "文本内容未传!");
-        }
         if(StringUtils.isBlank(String.valueOf(reqMap.get("remarks")))){
             throw new BizFailException(RET_FAIL, "备注未传!");
+        }
+        if(StringUtils.isBlank(String.valueOf(reqMap.get("images")))){
+            throw new BizFailException(RET_FAIL, "图片未传!");
         }
         //插入新栏目
         consultationMapper.updateConsultation(reqMap);
