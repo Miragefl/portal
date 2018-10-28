@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <title>Home</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
@@ -98,13 +98,15 @@
 			          </div>
 		            <div id="navbar" class="navbar-collapse collapse">
 		            <nav class="cl-effect-16" id="cl-effect-16">
-		              <ul class="nav navbar-nav">
-		               	<li><a class="active" href="index.html" data-hover="网站首页">网站首页</a></li>
+                            <!--<td th:text="${entries['columnName']}"></td>-->
+		              <ul class="nav navbar-nav" th:each="entries,stat:${columnList}">
+		               	<!--<li><a class="active" href="index.html" data-hover="网站首页">网站首页</a></li>
 		                <li><a href="about.html" data-hover="关于我们">关于我们</a></li>
 						<li><a href="product.html" data-hover="产品世界">产品世界</a></li>
 						<li><a data-hover="工程实例">工程实例</a></li>
 						<li><a data-hover="先进设备">先进设备</a></li>
-						<li><a href="contact.html" data-hover="联系我们">联系我们</a></li>
+						<li><a href="contact.html" data-hover="联系我们">联系我们</a></li>-->
+                          <li><a th:href="@{${entries['columnLink']}}" th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a></li>
 		              </ul>
 		            </nav>
 

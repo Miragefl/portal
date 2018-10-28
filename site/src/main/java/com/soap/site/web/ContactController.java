@@ -1,10 +1,12 @@
 package com.soap.site.web;
 
+import com.soap.site.service.ColumnService;
 import com.soap.site.service.ContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,20 +22,28 @@ import java.util.Map;
 @Controller
 @RequestMapping("/contact")
 public class ContactController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    private ContactService contactService;
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	private ContactService contactService;
+	@Autowired
+	ColumnService columnService;
 
-    @RequestMapping("/record")
-    @ResponseBody
-    public String record(@RequestParam(value = "username") String username, @RequestParam(value = "email") String email, @RequestParam(value = "content") String content) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("username", username);
-        params.put("email", email);
-        params.put("content", content);
-        logger.info("username:{},email:{},content:{}",username,email,content);
-        contactService.insert(params);
-        return params.toString();
-    }
+	@RequestMapping("/index")
+	public String contact(Model model) {
+		model.addAttribute("columnList", columnService.qryColumns(null));
+		return "contact.html";
+	}
+
+	@RequestMapping("/record")
+	@ResponseBody
+	public String record(@RequestParam(value = "username") String username, @RequestParam(value = "email") String email, @RequestParam(value = "content") String content) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("username", username);
+		params.put("email", email);
+		params.put("content", content);
+		logger.info("username:{},email:{},content:{}", username, email, content);
+		contactService.insert(params);
+		return params.toString();
+	}
 
 }

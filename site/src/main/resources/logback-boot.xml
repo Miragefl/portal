@@ -41,13 +41,13 @@
         </encoder>
     </appender><!-- 控制台日志输出级别 -->
     <logger name="java.sql">
-        <level value="debug" />
+        <level value="INFO" />
     </logger>
     <logger name="org.apache.ibatis">
-        <level value="debug" />
+        <level value="INFO" />
     </logger>
     <root>
-        <level value="debug" />
+        <level value="INFO" />
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="syslog" />
     </root>
