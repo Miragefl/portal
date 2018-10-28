@@ -20,7 +20,8 @@
             columnName,
             columnLevel,
             isJump,
-            columnSort
+            columnSort,
+            images
             <if test="columnLink != null and columnLink !=''">
             ,columnLink
             </if>
@@ -35,7 +36,8 @@
             #{columnName},
             #{columnLevel},
             #{isJump},
-            #{columnSort}
+            #{columnSort},
+            #{images}
             <if test="columnLink != null and columnLink !=''">
             ,#{columnLink}
             </if>
@@ -54,6 +56,7 @@
             <if test="remarks != null and remarks !=''">remarks=#{remarks},</if>
             <if test="isJump != null and isJump !=''">isJump=#{isJump},</if>
             <if test="columnSort != null and columnSort !=''">columnSort=#{columnSort},</if>
+            <if test="images != null and images !=''">images=#{images},</if>
             <if test="columnLink != null and columnLink !=''">columnLink=#{columnLink}</if>
         </set>
         where columnId=#{columnId}

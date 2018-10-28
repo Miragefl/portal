@@ -54,7 +54,7 @@
     <form id="fm" method="post" style="margin-top: 20px; margin-left: 20px;" action="/management/consultation/addConsultation">
         <div class="fitem">
             <label>所属菜单:</label>
-            <input  name="columnId" style="" class="easyui-textbox" editable="false" />
+            <input  id="columnId" name="columnId" style="" class="easyui-combobox" editable="false"  data-options="required:true"/>
         </div>
         <div class="fitem">
             <label>标题:</label>
@@ -74,22 +74,25 @@
 
         <div class="fitem">
             <label>类型:</label>
-            <input  name="consuType" class="easyui-textbox" editable="false" />
+            <input  type="radio" name="consuType"
+                    class="easyui-validatebox" checked="checked" value="00" onclick="check('d1')"><label>手动编辑</label></input>
+            <input  type="radio" name="consuType"
+                    class="easyui-validatebox" value="01" onclick="check('d2')"><label>外链</label></input>
         </div>
 
         <div class="fitem">
             <label>类别:</label>
-            <input  name="consuClass" class="easyui-textbox"  />
+            <input id="consuClass" name="consuClass" class="easyui-combobox" editable="false"  data-options="required:true"/>
         </div>
         <div class="fitem">
             <label>位置:</label>
-            <input   name="consuPlace" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
+            <input  id="consuPlace" name="consuPlace" style="width: 160px; height: 65px;" class="easyui-combobox" editable="false"  data-options="required:true"/>
         </div>
-        <div class="fitem">
+        <div class="fitem" id="consuLink_div" style="display: none">
             <label>链接:</label>
-            <input   name="consuLink" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
+            <input   id="consuLink" name="consuLink" style="width: 160px; height: 25px;" class="easyui-textbox" data-options="multiline:true" />
         </div>
-        <div class="fitem">
+        <div class="fitem" id="context_div">
             <label>文章内容:</label>
             <textarea rows="3" style="width:400px;" id="context" name="context" class="easyui-validatebox" data-options="required:true,validType:'length[1,1000000]'" invalidMessage="最大长度不能超过1000000"></textarea>
         </div>
@@ -141,25 +144,20 @@
                 }
         });
         $("#file1").on("change", upload );
+        qryApppar("consultation_columnId","columnId");
+        qryApppar("consultation_consuClass","consuClass");
+        qryApppar("consultation_consuPlace","consuPlace");
     });
     
     function addConsultation() {
-        alert(count);
         var imageUrl='';
-       alert( $(".uploadImg").length);
-       for(var i=0;i<count-1;i++){
-            alert($("#file"+i).val());
-           var myDiv = document.getElementById("uploadImgBtn"+(i+1));
+           var myDiv = document.getElementById("uploadImgBtn1");
             if(myDiv==null){
-                alert(1);
             }else{
                 var style=myDiv.style;
-                alert(style.backgroundImage.substring(5,style.backgroundImage.length-2));//red
 
                  imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
             }
-        }
-        alert(imageUrl.substring(0,imageUrl.length-1));
        $("#images").val(imageUrl.substring(0,imageUrl.length-1));
         //$("#formTag1").remove();
         fm.submit();
@@ -193,7 +191,7 @@
                 //imgurl+=data.url;
                // $("#images").val(imgurl);
                 //我们再生成一个form
-                if(count == num ){
+    /*            if(count == num ){
                     //count计数加1
                     count +=1;
                     var str = '<form id="formTag'+count+'" enctype="multipart/form-data">'+
@@ -211,12 +209,39 @@
                 }else{
                     //如果不等于
                     return false;
-                }
+                }*/
             }
         });
     }
     function delImg(id) {
         $("#formTag"+id).remove();
+    }
+
+    function qryApppar(a,b) {
+        $.ajax({
+            type: "POST",
+            url: "/management/consultation/qryApppar.do",
+            data: {code:a},
+            //contentType: "application/json; charset=utf-8",//去掉这个就可以实现了,为什么呢？？？
+            dataType: "json",
+            success: function (response) {//调用成功
+                var options = $("#"+b).combobox('options');
+                options.textField = "APR_SHOWMSG";//必须要和数据库查询的字段一样(大小写敏感)
+                options.valueField = "APR_VALUE";
+//加载数据
+                $("#"+b).combobox("loadData", response.body);
+            }
+        });
+    }
+
+    function  check(id) {
+        if(id=='d1'){
+            $('#consuLink_div').css("display",'none');
+            $('#context_div').css("display",'block');
+        }else if(id=='d2'){
+            $('#consuLink_div').css("display",'block');
+            $('#context_div').css("display",'none');
+        }
     }
 </script>
 </body>

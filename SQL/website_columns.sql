@@ -16,8 +16,11 @@ CREATE TABLE website_columns (
   isJump			char(1) 		NOT NULL DEFAULT '0'		comment '是否配置跳转链接 0:否 1:是',
   columnLink		varchar(200) 	DEFAULT NULL				comment '栏目跳转链接',
   columnSort 	varchar(10) 	DEFAULT NULL				comment '栏目排序号',
+  images      varchar(255) DEFAULT NULL				comment '图片地址',
   isShow			char(1) 		NOT NULL DEFAULT '0'		comment '是否展示 0:是 1:否',
   isDel				char(1)			NOT NULL DEFAULT '0'		comment '是否删除 0:否 1:是',
   remarks			varchar(200)    NOT NULL				comment '备注',
   PRIMARY KEY (columnId)
 ) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 comment '栏目表';
+
+alter table website_columns add images      varchar(255) DEFAULT NULL				comment '图片地址';

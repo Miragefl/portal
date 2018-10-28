@@ -121,7 +121,7 @@ public class ConsultationController {
     public String updateConsultation(@RequestParam(value = "consulId", required = false) String consulId,@RequestParam(value = "columnId", required = false) String columnId,@RequestParam(value = "title", required = false) String title,
                                      @RequestParam(value = "consuDesc", required = false) String consuDesc,@RequestParam(value = "consuType", required = false) String consuType,@RequestParam(value = "consuClass", required = false) String consuClass,
                                      @RequestParam(value = "context", required = false) String context,@RequestParam(value = "consuPlace", required = false) String consuPlace,@RequestParam(value = "consuLink", required = false) String consuLink,
-                                     @RequestParam(value = "remarks", required = false) String remarks) throws BizFailException{
+                                     @RequestParam(value = "remarks", required = false) String remarks,@RequestParam(value = "images", required = false) String images) throws BizFailException{
         Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> reqMap = new HashMap<String, Object>();
         reqMap.put("consulId",consulId);
@@ -134,6 +134,7 @@ public class ConsultationController {
         reqMap.put("consuPlace",consuPlace);
         reqMap.put("consuLink",consuLink);
         reqMap.put("remarks",remarks);
+        reqMap.put("images",images);
         try {
             result = consultationService.updateConsultation(reqMap);
         } catch (BizFailException e) {
@@ -188,6 +189,27 @@ public class ConsultationController {
         }
         return result;
     }
+
+    /**
+     * 获取参数列表
+     * @param code
+     * @return
+     */
+
+    @RequestMapping(value="/qryApppar.do")
+    @ResponseBody
+    public JSONObject qryApppar(@RequestParam(value = "code", required = false) String code){
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+        Map<String, Object> reqMap = new HashMap<String, Object>();
+        reqMap.put("code",code);
+        try{
+            result = consultationService.qryApppar(reqMap);
+        } catch (BizFailException e){
+            return Helper.retFailJson(e);
+        }
+        return Helper.getSuccJSON(result);
+    }
+
     /**
      * 上传图片
      */

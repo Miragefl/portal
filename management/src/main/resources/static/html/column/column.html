@@ -8,6 +8,37 @@
     <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/demo/demo.css">
     <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="../../easyui/1.3.4/jquery.easyui.min.js"></script>
+    <style>
+        .uploadImgBtn {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            position: relative;
+           background: url("../consultation/pk.jpg") no-repeat;
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
+
+        .uploadImgBtn .uploadImg {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .pic {
+            width: 100px;
+            height: 100px;
+        }
+
+        .pic img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 <h2>Editable Tree</h2>
@@ -28,6 +59,7 @@
 <div id="win1" class="easyui-dialog" title="新增修改栏目"  style="width: 400px; padding: 10px 20px; height: 410px;"
       closed="true" buttons="#dlg-buttons">
     <form id="fm" method="post" style="margin-top: 20px; margin-left: 20px;" action="">
+        <input id="columnId" name="columnId" style="" class="easyui-textbox" editable="false"  type="hidden"/>
         <div class="fitem">
             <label>栏目名称:</label>
             <input  id="columnName" name="columnName" style="" class="easyui-textbox" editable="false" />
@@ -64,11 +96,19 @@
             <label>备注:</label>
             <input id="remarks"   name="remarks" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
         </div>
-        <div id="dlg-buttons1" style="display: block">
-            <a id="confirm1" href="javascript:void(0)" class="easyui-linkbutton c6" iconcls="icon-ok" onclick="submitCol()" style="width: 90px">提交</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#win1').dialog('close')" style="width: 90px">取消</a>
-        </div>
+        <input id ="images" name="images" type='hidden' class="easyui-textbox" editable="false" />
     </form>
+    <div id="formBox">
+        <form id="formTag1" enctype="multipart/form-data">
+            <div class="uploadImgBtn" id="uploadImgBtn1">
+                <input class="uploadImg" type="file" name="file" id="file1">
+            </div>
+        </form>
+    </div>
+    <div id="dlg-buttons1" style="display: block">
+        <a id="confirm1" href="javascript:void(0)" class="easyui-linkbutton c6" iconcls="icon-ok" onclick="submitCol()" style="width: 90px">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#win1').dialog('close')" style="width: 90px">取消</a>
+    </div>
 </div>
 <!--<div id="win2" class="easyui-dialog" title="修改栏目"  style="width: 400px; padding: 10px 20px; height: 410px;"
      closed="true" buttons="#dlg-buttons">
@@ -159,6 +199,7 @@
             return;
         }
         $('#win1').window('open');
+        $("#file1").on("change", upload );
     }
    /* function addCol(){
        /!* alert(1);*!/
@@ -223,6 +264,8 @@
               $("#columnLink").val(data.body.columnLink);
               $("#columnParent").val(data.body.columnParent);
               $("#remarks" ).val(data.body.remarks);
+              $("#formTag1").remove();
+                addForm(data.body.images);
                /* alert(2222)*/
                 $('#win1').window('open');
             }
@@ -257,6 +300,16 @@
       function submitCol(){
          /* $('#fm').action="/management/column/addCoulum";
           $('#fm').submit();*/
+          var imageUrl='';
+          var myDiv = document.getElementById("uploadImgBtn1");
+          if(myDiv==null){
+          }else{
+                  var style=myDiv.style;
+
+                  imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
+          }
+          alert(imageUrl.substring(0,imageUrl.length-1));
+          $("#images").val(imageUrl.substring(0,imageUrl.length-1));
          if(flag=='0') {
              $('#fm').form('submit', {
                  url: "/management/column/addCoulum",
@@ -266,6 +319,7 @@
                  },
                  success: function (data) {
                      alert("操作成功")
+                     $('#win1').window('close');
                  }
              });
          }else{
@@ -277,6 +331,7 @@
                  },
                  success: function (data) {
                      alert("操作成功")
+                     $('#win1').window('close');
                  }
              });
          }
@@ -289,5 +344,62 @@
               $('#columnLink_fm').css("display",'block');
           }
       }
+
+        function upload(){
+            var self = this;
+
+            //获得它是第几个form表单
+            var num = this.getAttribute("id").replace(/[a-zA-Z]/g,"");
+            //构造form的选择器
+            var $form = "#formTag" +num;
+
+            $.ajax({
+                url:"/management/consultation/uploadImg.do",
+                type:"post",
+                dataType:"json",
+                cache:false,
+                data: new FormData($($form)[0]),
+                processData: false,// 不处理数据
+                contentType: false, // 不设置内容类型
+                success:function(data){
+                    //设置背景为我们选择的图片
+                    $(self).parent().css({
+                        "background-image": "url("+data.url+")"
+                    });
+                    //imgurl+=data.url;
+                    // $("#images").val(imgurl);
+                    //我们再生成一个form
+                /*    if(count == num ){
+                        //count计数加1
+                        count +=1;
+                        var str = '<form id="formTag'+count+'" enctype="multipart/form-data">'+
+                            '<div class="uploadImgBtn" id="uploadImgBtn'+count+'">'+
+                            '<input class="uploadImg" type="file" name="file" id="file'+count+'">'+
+                            '</div>'+
+                            '</form>   ';
+                        //向最外面的盒子添加form
+                        $("#formBox").append($(str));
+                        //构造input的选择器
+                        var $sel = "#file"+count;
+                        //为新生成的input绑定change事件
+                        $($sel).on("change", upload );
+
+                    }else{
+                        //如果不等于
+                        return false;
+                    }*/
+                }
+            });
+        }
+        function addForm(images) {
+                var image = images;
+                var str = '<form id="formTag1" enctype="multipart/form-data">'+
+                    '<div class="uploadImgBtn" id="uploadImgBtn1" style="background-image: url('+image+');">'+
+                    '<input class="uploadImg" type="file" name="file" id="file1">'+
+                    '</div>'+
+                    '</form>   ';
+                $("#formBox").append($(str));
+                $("#file1").on("change", upload );
+        }
 </script>
 </html>

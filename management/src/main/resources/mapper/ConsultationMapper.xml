@@ -55,6 +55,7 @@
             <if test="consuClass != null and consuClass !=''">consuClass=#{consuClass},</if>
             <if test="context != null and context !=''">context=#{context,jdbcType=BLOB},</if>
             <if test="remarks != null and remarks !=''">remarks=#{remarks},</if>
+            <if test="images != null and images !=''">images=#{images},</if>
             <if test="consuLink != null and consuLink !=''">consuLink=#{consuLink}</if>
         </set>
         where consulId=#{consulId}
@@ -67,5 +68,8 @@
     </update>
     <select id="qryConsultationById" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         select * from consultation_info where consulId=#{consulId}
+    </select>
+    <select id="qryApppar" parameterType="java.util.Map" resultType="java.util.HashMap">
+    		select * from PUB_APPPAR where APR_CODE=#{code}
     </select>
 </mapper>
