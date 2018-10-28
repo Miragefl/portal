@@ -88,7 +88,7 @@
     <div class="container">
         <div class="gallery-main wow zoomIn" data-wow-delay="0.3s">
             <div class="gallery-top">
-                <h1>工程案例</h1>
+                <h1>[[${columnName}]]</h1>
             </div>
             <div class="gallery-bott">
                 <div class="col-md-4 col1 gallery-grid" th:each="entries,product:${productList}">
@@ -98,76 +98,11 @@
                             <figcaption>
                                 <h4 class="gal">[[${entries['title']}]]</h4>
                                 <p class="gal1">[[${entries['consuDesc']}]]</p>
+                                <p class="gal1">[[${entries['createTime']}]]</p>
                             </figcaption>
                         </figure>
                     </a>
                 </div>
-                <!--<div class="col-md-4 col1 gallery-grid" th:each="">
-                    <a th:href="@{images/r3.jpg}" rel="title" class="b-link-stripe b-animate-go  thickbox">
-                        <figure class="effect-bubba">
-                            <img class="img-responsive" th:src="@{images/r3.jpg}" alt="">
-                            <figcaption>
-                                <h4 class="gal"> 工程案例1</h4>
-                                <p class="gal1">工程案例1介绍</p>
-                            </figcaption>
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col1 gallery-grid">
-                    <a href="images/r4.jpg" rel="title" class="b-link-stripe b-animate-go  thickbox">
-                        <figure class="effect-bubba">
-                            <img class="img-responsive" th:src="@{images/r3.jpg}" alt="">
-                            <figcaption>
-                                <h4 class="gal"> 工程案例1</h4>
-                                <p class="gal1">工程案例1介绍</p>
-                            </figcaption>
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col1 gallery-grid">
-                    <a href="images/r5.jpg" rel="title" class="b-link-stripe b-animate-go  thickbox">
-                        <figure class="effect-bubba">
-                            <img class="img-responsive" th:src="@{images/r3.jpg}" alt="">
-                            <figcaption>
-                                <h4 class="gal"> 工程案例1</h4>
-                                <p class="gal1">工程案例1介绍</p>
-                            </figcaption>
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col1 gallery-grid">
-                    <a href="images/r6.jpg" rel="title" class="b-link-stripe b-animate-go  thickbox">
-                        <figure class="effect-bubba">
-                            <img class="img-responsive" th:src="@{images/r3.jpg}" alt="">
-                            <figcaption>
-                                <h4 class="gal"> 工程案例1</h4>
-                                <p class="gal1">工程案例1介绍</p>
-                            </figcaption>
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col1 gallery-grid">
-                    <a href="images/r7.jpg" rel="title" class="b-link-stripe b-animate-go  thickbox">
-                        <figure class="effect-bubba">
-                            <img class="img-responsive" src="images/r3.jpg" alt="">
-                            <figcaption>
-                                <h4 class="gal"> 工程案例1</h4>
-                                <p class="gal1">工程案例1介绍</p>
-                            </figcaption>
-                        </figure>
-                    </a>
-                </div>
-                <div class="col-md-4 col1 gallery-grid">
-                    <a href="images/r8.jpg" rel="title" class="b-link-stripe b-animate-go  thickbox">
-                        <figure class="effect-bubba">
-                            <img class="img-responsive" src="images/r3.jpg" alt="">
-                            <figcaption>
-                                <h4 class="gal"> 工程案例1</h4>
-                                <p class="gal1">工程案例1介绍</p>
-                            </figcaption>
-                        </figure>
-                    </a>
-                </div>-->
                 <div class="clearfix"></div>
             </div>
         </div>

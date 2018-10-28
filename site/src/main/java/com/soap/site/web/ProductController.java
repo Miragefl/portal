@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * 功能说明<br/>
- * 此处填写功能描述<br/>
+ * 文章<br/>
  *
  * @author fenglei
  * @version 1.0
@@ -38,18 +38,37 @@ public class ProductController {
 		return "product.html";
 	}
 
-
+	/**
+	 * 文章列表
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/list")
 	public String query(Model model, HttpServletRequest request) {/*,@RequestParam(value = "columnId") String columnId*/
-
-		model.addAttribute("columnList", columnService.qryColumns(null));
-		model.addAttribute("productList", productService.list(request.getParameter("columnId")));
-		logger.info("{}",productService.list(request.getParameter("columnId")));
+		List<Map<String, Object>> columns = columnService.qryColumns(null);
+		model.addAttribute("columnList", columns);
+		String columnId = request.getParameter("columnId");
+		for (int i=0;i<columns.size();i++) {
+			Map<String, Object> column = columns.get(i);
+			if (String.valueOf(column.get("columnId")).equals(columnId)) {
+				model.addAttribute("columnName", String.valueOf(column.get("columnName")));
+				break;
+			}
+		}
+		List<Map<String, Object>> productList = productService.list(columnId);
+		model.addAttribute("productList", productList);
+		logger.info("{}",productList);
 		return "product.html";
 //		return Helper.retSucc(productService.list(columnId));
-
 	}
 
+	/**
+	 * 文章详情
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/detail")
 	public String detail(Model model, HttpServletRequest request) {/*,@RequestParam(value = "columnId") String columnId*/
 

@@ -11,7 +11,8 @@
             consuPlace,
             consuClass,
             images,
-            consuLink
+            consuLink,
+            createTime
         FROM consultation_info a WHERE columnId = #{columnId} AND isDel = '0'
     </select>
 
