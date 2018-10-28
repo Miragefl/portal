@@ -1,295 +1,299 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<title>Home</title>
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="js/jquery-1.11.0.min.js"></script>
-<!-- Custom Theme files -->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
-<link href="css/style1.css" rel="stylesheet" type="text/css" media="all" />	
-<!-- Custom Theme files -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!--Google Fonts-->
-<link href='http://fonts.googleapis.com/css?family=Hind:400,300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Aladin' rel='stylesheet' type='text/css'>
-<!--google fonts-->
-<!-- animated-css -->
-		<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
-		<script src="js/wow.min.js"></script>
-		<script>
-		 new WOW().init();
-		</script>
-<!-- animated-css -->
-<script src="js/modernizr.js"></script>
-<script>
-    $(document).ready(function(){
-        if (Modernizr.touch) {
-            // show the close overlay button
-            $(".close-overlay").removeClass("hidden");
-            // handle the adding of hover class when clicked
-            $(".branch-gd").click(function(e){
-                if (!$(this).hasClass("hover")) {
+    <title>Home</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <!-- Custom Theme files -->
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/style1.css" rel="stylesheet" type="text/css" media="all"/>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!--Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Hind:400,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Aladin' rel='stylesheet' type='text/css'>
+    <!--google fonts-->
+    <!-- animated-css -->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!-- animated-css -->
+    <script src="js/modernizr.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (Modernizr.touch) {
+                // show the close overlay button
+                $(".close-overlay").removeClass("hidden");
+                // handle the adding of hover class when clicked
+                $(".branch-gd").click(function (e) {
+                    if (!$(this).hasClass("hover")) {
+                        $(this).addClass("hover");
+                    }
+                });
+                // handle the closing of the overlay
+                $(".close-overlay").click(function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if ($(this).closest(".branch-gd").hasClass("hover")) {
+                        $(this).closest(".branch-gd").removeClass("hover");
+                    }
+                });
+            } else {
+                // handle the mouseenter functionality
+                $(".branch-gd").mouseenter(function () {
                     $(this).addClass("hover");
-                }
-            });
-            // handle the closing of the overlay
-            $(".close-overlay").click(function(e){
-                e.preventDefault();
-                e.stopPropagation();
-                if ($(this).closest(".branch-gd").hasClass("hover")) {
-                    $(this).closest(".branch-gd").removeClass("hover");
-                }
-            });
-        } else {
-            // handle the mouseenter functionality
-            $(".branch-gd").mouseenter(function(){
-                $(this).addClass("hover");
-            })
-            // handle the mouseleave functionality
-            .mouseleave(function(){
-                $(this).removeClass("hover");
-            });
-        }
-    });
-</script>
-<script src="js/bootstrap.min.js"></script>
+                })
+                // handle the mouseleave functionality
+                    .mouseleave(function () {
+                        $(this).removeClass("hover");
+                    });
+            }
+        });
+    </script>
+    <script src="js/bootstrap.min.js"></script>
 
 
 </head>
 <body>
 <div class="top-header">
-	<div class="container">
-		<div class="top-header-main">
-			<div class="col-md-4 top-social wow bounceInLeft" data-wow-delay="0.3s">
-			    <ul>
-			    	<li><h5>江苏黄海水泥有限公司，期待您的光临</h5></li>
-			    </ul>
-			</div>
-			<div class="col-md-8 header-address wow bounceInRight" data-wow-delay="0.3s">
-				<ul>
-					<li><span class="phone"> </span> <h6>0515-86397999</h6></li>
-					<li><span class="email"> </span><h6>bgs@jshhsn.com</h6></li>
-				</ul>
-			</div>
-		  <div class="clearfix"> </div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="top-header-main">
+            <div class="col-md-4 top-social wow bounceInLeft" data-wow-delay="0.3s">
+                <ul>
+                    <li><h5>江苏黄海水泥有限公司，期待您的光临</h5></li>
+                </ul>
+            </div>
+            <div class="col-md-8 header-address wow bounceInRight" data-wow-delay="0.3s">
+                <ul>
+                    <li><span class="phone"> </span> <h6>0515-86397999</h6></li>
+                    <li><span class="email"> </span><h6>bgs@jshhsn.com</h6></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
 </div>
 <div class="header">
-	<div class="fixed-header">	
+    <div class="fixed-header">
 
-		    <div class="navbar-wrapper">
-		      <div class="container">
-		        <nav class="navbar navbar-inverse navbar-static-top">
-		             <div class="navbar-header">
-			              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-			                <span class="sr-only">Toggle navigation</span>
-			                <span class="icon-bar"></span>
-			                <span class="icon-bar"></span>
-			                <span class="icon-bar"></span>
-			              </button>
-			              <div class="logo wow slideInLeft">
-			                    <a class="navbar-brand" href="index.html"><img src="images/logo.png" /></a>
-			              </div>
-			          </div>
-		            <div id="navbar" class="navbar-collapse collapse">
-		            <nav class="cl-effect-16" id="cl-effect-16">
-                            <!--<td th:text="${entries['columnName']}"></td>-->
-		              <ul class="nav navbar-nav" th:each="entries,stat:${columnList}">
-		               	<!--<li><a class="active" href="index.html" data-hover="网站首页">网站首页</a></li>
-		                <li><a href="about.html" data-hover="关于我们">关于我们</a></li>
-						<li><a href="product.html" data-hover="产品世界">产品世界</a></li>
-						<li><a data-hover="工程实例">工程实例</a></li>
-						<li><a data-hover="先进设备">先进设备</a></li>
-						<li><a href="contact.html" data-hover="联系我们">联系我们</a></li>-->
-                          <li><a th:href="@{${entries['columnLink']}}" th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a></li>
-		              </ul>
-		            </nav>
-
-		            </div>
-		            <div class="clearfix"> </div>
-		             </nav>
-		          </div>
-		           <div class="clearfix"> </div>
-		    </div>
-	 </div>
+        <div class="navbar-wrapper">
+            <div class="container">
+                <nav class="navbar navbar-inverse navbar-static-top">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="logo wow slideInLeft">
+                            <a class="navbar-brand" href="index.html"><img src="images/logo.png"/></a>
+                        </div>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <nav class="cl-effect-16" id="cl-effect-16">
+                            <ul class="nav navbar-nav" th:each="entries,stat:${columnList}">
+                                <li><a th:href="@{${entries['columnLink']}}" th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="clearfix"></div>
+                </nav>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
 </div>
 <!--header end here-->
 <!--banner  start hwew-->
 <div class="banner">
-	<div class="container">
-		<div class="banner-main wow zoomIn" data-wow-delay="0.3s">
-			<h2>黄海水泥</h2>
-			<h6>Welcome To Huanghai</h6>
-			<p>江苏黄海水泥有限公司诞生于2001年3月21日，历经十多年的发展，现有盐城市仁和建材科技有限公司、建湖县时代建材有限公司和建湖汇聚建设有限公司三个子公司。公司占地面积12万平方米，注册资金7718万元，固定资产8500万元，年销售超3亿元</p>
-		</div>
+    <div class="container">
+        <div class="banner-main wow zoomIn" data-wow-delay="0.3s">
+            <h2>黄海水泥</h2>
+            <h6>Welcome To Huanghai</h6>
+            <p>江苏黄海水泥有限公司诞生于2001年3月21日，历经十多年的发展，现有盐城市仁和建材科技有限公司、建湖县时代建材有限公司和建湖汇聚建设有限公司三个子公司。公司占地面积12万平方米，注册资金7718万元，固定资产8500万元，年销售超3亿元</p>
+        </div>
     </div>
 </div>
 <!--BANNER END HERE-->
 <!--information start here-->
 <div class="information">
-	<div class="container">
-		<div class="information-main">
-			  <div class="information-grid five-star wow slideInLeft" data-wow-delay="0.3s">
-			  	<div class="col-md-4 hotel-info">
-			  		<div class="info-left">
-			  			<img src="images/s1.png" alt="">
-			  		</div>
-			  		<div class="info-right">
-			  			<h4>企业简介</h4>
-			  			<p>ABOUT US</p>
-			  		</div>
-			  	  <div class="clearfix"> </div>
-			  	</div>
-			  	<div class="col-md-4 hotel-info">
-			  		<div class="info-left">
-			  			<img src="images/s2.png" alt="">
-			  		</div>
-			  		<div class="info-right">
-			  			<h4>企业荣誉</h4>
-			  			<p>PRODUCTLIST</p>
-			  		</div>
-			  	  <div class="clearfix"> </div>
-			  	</div>
-			  	<div class="col-md-4 hotel-info">
-			  		<div class="info-left">
-			  			<img src="images/s4.png" alt="">
-			  		</div>
-			  		<div class="info-right">
-			  			<h4>企业文化</h4>
-			  			<p>NEWSLIST</p>
-			  		</div>
-			  	  <div class="clearfix"> </div>
-			  	</div>
-			  	<div class="clearfix"> </div>
-			  </div>
-			  <div class="information-grid wow slideInRight" data-wow-delay="0.3s">
-			  	<div class="col-md-4 hotel-info">
-			  		<div class="info-left">
-			  			<img src="images/s3.png" alt="">
-			  		</div>
-			  		<div class="info-right">
-			  			<h4>产品世界</h4>
-			  			<p>CASELIST</p>
-			  		</div>
-			  	  <div class="clearfix"> </div>
-			  	</div>
-			  	<div class="col-md-4 hotel-info">
-			  		<div class="info-left">
-			  			<img src="images/s5.png" alt="">
-			  		</div>
-			  		<div class="info-right">
-			  			<h4>工程实例</h4>
-			  			<p>COMMONPROBLEM</p>
-			  		</div>
-			  	  <div class="clearfix"> </div>
-			  	</div>
-			  	<div class="col-md-4 hotel-info">
-			  		<div class="info-left">
-			  			<img src="images/s6.png" alt="">
-			  		</div>
-			  		<div class="info-right">
-			  			<h4>先进设备</h4>
-			  			<p>ONLINEMESSAGE</p>
-			  		</div>
-			  	  <div class="clearfix"> </div>
-			  	</div>
-			  	<div class="clearfix"> </div>
-			  </div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="information-main">
+            <div class="information-grid five-star wow slideInLeft" data-wow-delay="0.3s">
+                <div class="col-md-4 hotel-info">
+                    <div class="info-left">
+                        <img src="images/s1.png" alt="">
+                    </div>
+                    <div class="info-right">
+                        <h4>企业简介</h4>
+                        <p>ABOUT US</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-4 hotel-info">
+                    <div class="info-left">
+                        <img src="images/s2.png" alt="">
+                    </div>
+                    <div class="info-right">
+                        <h4>企业荣誉</h4>
+                        <p>PRODUCTLIST</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-4 hotel-info">
+                    <div class="info-left">
+                        <img src="images/s4.png" alt="">
+                    </div>
+                    <div class="info-right">
+                        <h4>企业文化</h4>
+                        <p>NEWSLIST</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="information-grid wow slideInRight" data-wow-delay="0.3s">
+                <div class="col-md-4 hotel-info">
+                    <div class="info-left">
+                        <img src="images/s3.png" alt="">
+                    </div>
+                    <div class="info-right">
+                        <h4>产品世界</h4>
+                        <p>CASELIST</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-4 hotel-info">
+                    <div class="info-left">
+                        <img src="images/s5.png" alt="">
+                    </div>
+                    <div class="info-right">
+                        <h4>工程实例</h4>
+                        <p>COMMONPROBLEM</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-4 hotel-info">
+                    <div class="info-left">
+                        <img src="images/s6.png" alt="">
+                    </div>
+                    <div class="info-right">
+                        <h4>先进设备</h4>
+                        <p>ONLINEMESSAGE</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
 </div>
 <!--information end here-->
 <!--leaves start here-->
 <div class="leaves">
-	<div class="container">
-		<div class="leaves-main wow zoomIn" data-wow-delay="0.3s">
-			<h1>企业形象</h1>
-			<h6>ABOUTUS</h6>
-			<p>江苏黄海水泥，与城市同发展，与社会共和谐</p>
-		   <a href="../static/about.html" class="hvr-push">更多</a>
-		</div>
-	</div>
+    <div class="container">
+        <div class="leaves-main wow zoomIn" data-wow-delay="0.3s">
+            <h1>企业形象</h1>
+            <h6>ABOUTUS</h6>
+            <p>江苏黄海水泥，与城市同发展，与社会共和谐</p>
+            <a href="about/index" class="hvr-push">更多</a>
+        </div>
+    </div>
 </div>
 <!--leaves end here-->
 <!--branches start here-->
 <div class="branches">
-		<div class="branches-main wow zoomIn" data-wow-delay="0.3s">
-			<div class="branches-top">
-				<h3>工程实例</h3>
-			</div>
-			<div  id="effect-5" class="branch-btm">
-				<div  class="col-md-3 branch-gd-main" >					
-					<div class="branch-gd  no-mar"> <a href="room.html">
-						<img src="images/b6.jpg" alt="" class="img-responsive">
-						<div class="overlay">
-		                    <span class="expand lardge">+</span>
-		                    <span class="close-overlay hidden">x</span>
-	                   </div></a>
-                    </div>                 
-				</div>				
-				<div class="col-md-3 branch-gd-main">
-					<div class="branch-gd went-branc"><a href="room.html">
-						<img src="images/b1.jpg" alt="" class="img-responsive">
-						<div class="overlay">
-		                    <span class="expand">+</span>
-		                    <span class="close-overlay hidden">x</span>
-	                   </div></a>
-					</div>
-					<div class="branch-gd went-branc"><a href="room.html">
-						<img src="images/b2.jpg" alt="" class="img-responsive">
-						<div class="overlay">
-		                    <span class="expand">+</span>
-		                    <span class="close-overlay hidden">x</span>
-	                 </div></a>
-					</div>
-				</div>
-				<div class="col-md-3 branch-gd-main">
-					<div class="branch-gd"><a href="room.html">
-						<img src="images/b3.jpg" alt="" class="img-responsive">
-						<div class="overlay">
-		                    <span class="expand">+</span>
-		                    <span class="close-overlay hidden">x</span>
-	                 </div></a>
-					</div>
-					<div class="branch-gd"><a href="room.html">
-						<img src="images/b4.jpg" alt="" class="img-responsive">
-						<div class="overlay">
-		                    <span class="expand">+</span>
-		                    <span class="close-overlay hidden">x</span>
-	                 </div></a>
-					</div>
-				</div>
-				<div class="col-md-3 branch-gd-main">
-				  <div class="branch-gd went-branc2"><a href="room.html">
-					<img src="images/b5.jpg" alt="" class="img-responsive">
-					<div class="overlay">
-		                    <span class="expand lardge">+</span>
-		                    <span class="close-overlay hidden">x</span>
-	                   </div></a>
-                  </div>
-				</div>
-			</div>
-		  <div class="clearfix"> </div>
-		</div>
+    <div class="branches-main wow zoomIn" data-wow-delay="0.3s">
+        <div class="branches-top">
+            <h3>工程实例</h3>
+        </div>
+        <div id="effect-5" class="branch-btm">
+            <div class="col-md-3 branch-gd-main">
+                <div class="branch-gd  no-mar"><a href="room.html">
+                    <img src="images/b6.jpg" alt="" class="img-responsive">
+                    <div class="overlay">
+                        <span class="expand lardge">+</span>
+                        <span class="close-overlay hidden">x</span>
+                    </div>
+                </a>
+                </div>
+            </div>
+            <div class="col-md-3 branch-gd-main">
+                <div class="branch-gd went-branc"><a href="room.html">
+                    <img src="images/b1.jpg" alt="" class="img-responsive">
+                    <div class="overlay">
+                        <span class="expand">+</span>
+                        <span class="close-overlay hidden">x</span>
+                    </div>
+                </a>
+                </div>
+                <div class="branch-gd went-branc"><a href="room.html">
+                    <img src="images/b2.jpg" alt="" class="img-responsive">
+                    <div class="overlay">
+                        <span class="expand">+</span>
+                        <span class="close-overlay hidden">x</span>
+                    </div>
+                </a>
+                </div>
+            </div>
+            <div class="col-md-3 branch-gd-main">
+                <div class="branch-gd"><a href="room.html">
+                    <img src="images/b3.jpg" alt="" class="img-responsive">
+                    <div class="overlay">
+                        <span class="expand">+</span>
+                        <span class="close-overlay hidden">x</span>
+                    </div>
+                </a>
+                </div>
+                <div class="branch-gd"><a href="room.html">
+                    <img src="images/b4.jpg" alt="" class="img-responsive">
+                    <div class="overlay">
+                        <span class="expand">+</span>
+                        <span class="close-overlay hidden">x</span>
+                    </div>
+                </a>
+                </div>
+            </div>
+            <div class="col-md-3 branch-gd-main">
+                <div class="branch-gd went-branc2"><a href="room.html">
+                    <img src="images/b5.jpg" alt="" class="img-responsive">
+                    <div class="overlay">
+                        <span class="expand lardge">+</span>
+                        <span class="close-overlay hidden">x</span>
+                    </div>
+                </a>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
 </div>
 <!--branches end here-->
 <div class="branch-text">
-   <div class="container">
-			<span class="quotations"> </span>
-			<p>公司以科学的管理、优质的产品、先进的技术，不断提高和改进产品质量和服务水平以满足顾客的需求，同时以严谨的质量管理体系为基础，守法经营，通过不断地对质量管理体系的改进，以更好的产品质量和更高的效益保持企业的生命力，实现我们对顾客的承诺，最终实现公司和用户双赢。</p>
-  </div>
+    <div class="container">
+        <span class="quotations"> </span>
+        <p>公司以科学的管理、优质的产品、先进的技术，不断提高和改进产品质量和服务水平以满足顾客的需求，同时以严谨的质量管理体系为基础，守法经营，通过不断地对质量管理体系的改进，以更好的产品质量和更高的效益保持企业的生命力，实现我们对顾客的承诺，最终实现公司和用户双赢。</p>
+    </div>
 </div>
 <div class="copy-right">
-	<div class="container">
-		 <div class="copy-rights-main wow zoomIn">
-    	    <p>Copyright &copy; 2016.Company name All rights 地址：江苏省盐城市 建湖县经济开发区南华工业园天津路8号</p>
-    	 </div>
+    <div class="container">
+        <div class="copy-rights-main wow zoomIn">
+            <p>Copyright &copy; 2016.Company name All rights 地址：江苏省盐城市 建湖县经济开发区南华工业园天津路8号</p>
+        </div>
     </div>
 </div>
 </body>

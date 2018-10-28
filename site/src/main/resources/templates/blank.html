@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Contact</title>
+    <title>Rooms</title>
     <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script th:src="@{/js/jquery-1.11.0.min.js}"></script>
@@ -21,35 +21,15 @@
     <!--Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Hind:400,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Aladin' rel='stylesheet' type='text/css'>
-
+    <!--google fonts-->
+    <!-- animated-css -->
     <link th:href="@{/css/animate.css}" rel="stylesheet" type="text/css" media="all">
     <script th:src="@{/js/wow.min.js}"></script>
     <script>
         new WOW().init();
     </script>
-
+    <!-- animated-css -->
     <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script type="text/javascript">
-        function record() {
-            var username = $('#username').val();
-            var email = $('#email').val();
-            var content = $('#content').val();
-            console.info(username + email + content);
-            $.ajax({
-                url: '/site/contact/record',
-                type: 'POST',
-                data: {'username': username, 'email': email, 'content': content},
-                dataType: 'json',
-                success: function (data) {
-                    alert("发送成功");
-                    console.info("111111111111111")
-                },
-                error: function (data) {
-                    console.info("22222222222222222222")
-                }
-            });
-        }
-    </script>
 </head>
 <body>
 <div class="top-header">
@@ -83,18 +63,14 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <div class="logo wow slideInLeft" data-wow-delay="0.3s">
+                        <div class="logo wow slideInLeft">
                             <a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/logo.png}"/></a>
                         </div>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <nav class="cl-effect-16" id="cl-effect-16">
-                            <ul class="nav navbar-nav">
-                                <ul class="nav navbar-nav" th:each="entries,stat:${columnList}">
-                                    <div class="press">
-                                        <li><a class="nava" th:href="@{${entries['columnLink']}}" th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a></li>
-                                    </div>
-                                </ul>
+                            <ul class="nav navbar-nav" th:each="entries,stat:${columnList}">
+                                <li><a th:href="@{${entries['columnLink']}}" th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a></li>
                             </ul>
                         </nav>
 
@@ -106,29 +82,22 @@
         </div>
     </div>
 </div>
-<!--header end here-->
-<!--contact start here-->
-<div class="contact">
+
+<!--gallery start here-->
+<div class="gallery" id="gallery">
     <div class="container">
-        <div class="contact-main">
-            <div class="contact-top">
-                <h2>联系我们</h2>
+        <div class="gallery-main wow zoomIn" data-wow-delay="0.3s">
+            <div class="gallery-top">
+                <h1>工程案例</h1>
             </div>
-            <div class="contact-bottom">
-                <div class="col-md-9 contact-left">
-                    <form>
-                        <input type="text" placeholder="用戶名" id="username">
-                        <input type="text" class="email" placeholder="邮箱" id="email">
-                        <textarea placeholder="Message" required="" id="content"></textarea>
-                        <input type="submit" onclick="record()" value="发送">
-                    </form>
-                </div>
-                <div class="col-md-3 contact-right">
-                    <h1>地址</h1>
-                    <p>江苏省盐城市</p>
-                    <p>XXXXXXXXX路</p>
-                    <p>13914720977</p>
-                    <p><a href="mailto:info@example.com">42083122@qq.com</a></p>
+            <div class="gallery-bott">
+                <div class="col-md-4 col1 gallery-grid">
+                    <div >
+                        <h4 class="gal">[[${productList['title']}]]</h4>
+                        <p class="gal1">[[${productList['consuDesc']}]]</p>
+                        <p class="gal1">[[${productList['context']}]]</p>
+                    </div>
+                    </a>
                 </div>
                 <div class="clearfix"></div>
             </div>

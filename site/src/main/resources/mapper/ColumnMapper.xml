@@ -15,7 +15,7 @@
     </select>
 
     <select id="qryColumns" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        SELECT columnId,columnName,columnLink FROM website_columns WHERE isDel = '0'
+        SELECT columnId,columnName,columnLink,isJump FROM website_columns WHERE isDel = '0'
         <if test="columnId != null">
             AND columnParent = #{columnId}
         </if>
