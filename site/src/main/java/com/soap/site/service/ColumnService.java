@@ -26,7 +26,7 @@ public class ColumnService {
     @Autowired
     private ColumnMapper columnMapper;
 
-    @Cacheable(value =COLUMN_CACHE_NAME, key = "column")
+    @Cacheable(value =COLUMN_CACHE_NAME, key = "'column'")
     public List<Map<String, Object>> qryColumns(Map<String, Object> params) {
         List<Map<String, Object>> list = qry(null);
         for (int i=0;i<list.size();i++) {
@@ -34,6 +34,7 @@ public class ColumnService {
             List<Map<String, Object>> childColumn = qry(parentCol);
             parentCol.put("childColumn",childColumn);
         }
+        logger.info("================={}",list);
         return list;
     }
 
