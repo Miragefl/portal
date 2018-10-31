@@ -30,6 +30,11 @@
     </script>
     <!-- animated-css -->
     <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $(document).ready(function(){
+            $("#pager").append([[${page['pager']}]]);
+        });
+    </script>
 </head>
 <body>
 <div class="top-header">
@@ -91,7 +96,7 @@
                 <h1>[[${columnName}]]</h1>
             </div>
             <div class="gallery-bott">
-                <div class="col-md-4 col1 gallery-grid" th:each="entries,product:${productList}">
+                <div class="col-md-4 col1 gallery-grid" th:each="entries,product:${page['root']}">
                     <a th:href="@{/product/detail(consulId=${entries['consulId']})}" th:rel="@{${entries['consuDesc']}}" class="b-link-stripe b-animate-go  thickbox">
                         <figure class="effect-bubba">
                             <img class="img-responsive" th:src="@{${entries['images']}}" alt="">
@@ -102,6 +107,9 @@
                             </figcaption>
                         </figure>
                     </a>
+                </div>
+                <div id="pager" class="col-md-12 col1 gallery-grid">
+                    <!--<td colspan='11' align='center'>[[${page['pager']}]]</td>-->
                 </div>
                 <div class="clearfix"></div>
             </div>

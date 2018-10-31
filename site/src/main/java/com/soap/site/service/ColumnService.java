@@ -83,5 +83,4 @@ public class ColumnService {
         return columnMapper.qryColumns(params);
     }
 
-
 }

@@ -12,8 +12,8 @@
             consuClass,
             images,
             consuLink,
-            createTime
-        FROM consultation_info a WHERE columnId = #{columnId} AND isDel = '0'
+            DATE_FORMAT(createTime,'%Y-%m-%d %H:%m:%s') AS createTime
+        FROM consultation_info a WHERE columnId = #{columnId} AND isDel = '0' LIMIT #{startPos}, #{size}
     </select>
 
     <select id="detail" parameterType="java.lang.String" resultType="java.util.HashMap">
@@ -27,6 +27,12 @@
             images,
             context,
             consuLink FROM consultation_info WHERE consulId = #{consulId} AND isDel = '0'
+    </select>
+
+    <select id="count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT
+        count(0) AS  count
+        FROM consultation_info a WHERE columnId = #{columnId} AND isDel = '0'
     </select>
 
 </mapper>
