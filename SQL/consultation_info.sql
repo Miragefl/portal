@@ -21,5 +21,7 @@ CREATE TABLE consultation_info (
   consuLink   varchar(200)    DEFAULT NULL           comment '链接地址',
   isDel        char(1)     NOT NULL DEFAULT '0'      comment '是否删除 0：否 1：是',
   remarks			  varchar(200)    DEFAULT NULL				   comment '备注',
+  createTime      DATETIME          DEFAULT CURRENT_TIMESTAMP     COMMENT '创建时间',
+  modifyTime      DATETIME          DEFAULT CURRENT_TIMESTAMP     COMMENT '修改时间',
   PRIMARY KEY (consulId)
 ) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 comment '栏目信息表';

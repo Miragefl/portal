@@ -27,16 +27,16 @@ public class IndexController {
     @Autowired
     private IndexService indexService;
 
-    @RequestMapping("/index")
-    public String index(@RequestBody(required = false) Map<String, Object> params) {
-        //  获取栏目列表
-        try {
-            List<Map<String, Object>> result = indexService.index(params);
-            return Helper.retSucc(result);
-        } catch (BizFailException e) {
-            return Helper.retFail(e);
-        }
-    }
+//    @RequestMapping("/index")
+//    public String index(@RequestBody(required = false) Map<String, Object> params) {
+//        //  获取栏目列表
+//        try {
+//            List<Map<String, Object>> result = indexService.index(params);
+//            return Helper.retSucc(result);
+//        } catch (BizFailException e) {
+//            return Helper.retFail(e);
+//        }
+//    }
 
 
 }

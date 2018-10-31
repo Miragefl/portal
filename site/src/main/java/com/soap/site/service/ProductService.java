@@ -32,6 +32,9 @@ public class ProductService {
 		int totalPage = (count + size - 1) / size;
 		page = page > totalPage ? totalPage : page;
 		int start = (page - 1) * size;
+		if (start < 0) {
+			start = 0;
+		}
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("columnId",columnId);
 		params.put("startPos",start);
