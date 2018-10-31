@@ -16,18 +16,18 @@ import java.util.Map;
 @Service
 public class IndexService {
 
-    @Autowired
-    private ColumnService columnService;
-
-    public List<Map<String, Object>> index(Map<String, Object> params) throws BizFailException {
-        try {
-            return columnService.qryList(params);
-
-        }catch (BizFailException e) {
-            throw e;
-        }
-        catch (Exception e) {
-            throw new BizFailException(Const.RET_FAIL,"首页初始化失败");
-        }
-    }
+//    @Autowired
+//    private ColumnService columnService;
+//
+//    public List<Map<String, Object>> index(Map<String, Object> params) throws BizFailException {
+//        try {
+//            return columnService.qryList(params);
+//
+//        }catch (BizFailException e) {
+//            throw e;
+//        }
+//        catch (Exception e) {
+//            throw new BizFailException(Const.RET_FAIL,"首页初始化失败");
+//        }
+//    }
 }

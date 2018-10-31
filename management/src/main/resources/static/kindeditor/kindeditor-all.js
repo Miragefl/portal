@@ -727,9 +727,9 @@ function _formatUrl(url, mode, host, pathname) {
 	if (mode === 'relative') {
 		url = getRelativePath(host + pathname, 0).substr(2);
 	} else if (mode === 'absolute') {
-		if (url.substr(0, host.length) === host) {
-			url = url.substr(host.length);
-		}
+		// if (url.substr(0, host.length) === host) {
+		// 	url = url.substr(host.length);
+		// }
 	}
 	return url;
 }

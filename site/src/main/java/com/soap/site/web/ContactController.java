@@ -28,11 +28,11 @@ public class ContactController {
 	@Autowired
 	ColumnService columnService;
 
-	@RequestMapping("/index")
-	public String contact(Model model) {
-		model.addAttribute("columnList", columnService.qryColumns(null));
-		return "contact.html";
-	}
+//	@RequestMapping("/index")
+//	public String contact(Model model) {
+//		model.addAttribute("columnList", columnService.qryColumns(null));
+//		return "contact.html";
+//	}
 
 	@RequestMapping("/record")
 	@ResponseBody

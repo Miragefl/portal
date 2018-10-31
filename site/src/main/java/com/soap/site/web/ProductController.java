@@ -1,8 +1,11 @@
 package com.soap.site.web;
 
+import com.soap.site.entity.Page;
 import com.soap.site.service.ColumnService;
 import com.soap.site.service.ProductService;
 import com.soap.site.util.Helper;
+import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +52,10 @@ public class ProductController {
 		List<Map<String, Object>> columns = columnService.qryColumns(null);
 		model.addAttribute("columnList", columns);
 		String columnId = request.getParameter("columnId");
+		int startPage = 1;
+		if (!StringUtils.isBlank(request.getParameter("page"))){
+			startPage = Integer.valueOf(request.getParameter("page"));
+		}
 		for (int i=0;i<columns.size();i++) {
 			Map<String, Object> column = columns.get(i);
 			if (String.valueOf(column.get("columnId")).equals(columnId)) {
@@ -56,9 +63,9 @@ public class ProductController {
 				break;
 			}
 		}
-		List<Map<String, Object>> productList = productService.list(columnId);
-		model.addAttribute("productList", productList);
-		logger.info("{}",productList);
+		JSONObject page = productService.list(columnId,startPage);
+		model.addAttribute("page", page);
+		logger.info("{}",page);
 		return "product.html";
 //		return Helper.retSucc(productService.list(columnId));
 	}

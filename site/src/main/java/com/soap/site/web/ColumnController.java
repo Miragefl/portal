@@ -28,9 +28,9 @@ public class ColumnController {
 
 	@RequestMapping("/query")
 	@ResponseBody
-	public String query(@RequestParam(value = "columnId") String columnId) {
+	public String query() {
 		Map<String,Object> params = new HashMap<String, Object>();
-		params.put("columnId",columnId);
+//		params.put("columnId",columnId);
 		return Helper.retSucc(columnService.qryColumns(params));
 	}
 

@@ -6,19 +6,20 @@
     <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/demo/demo.css">
-    <link rel="stylesheet" href="../../kindeditor/themes/default/default.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/skin.css">
     <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="../../easyui/1.3.4/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../easyui/1.3.4/locale/easyui-lang-zh_CN.js"></script>
     <script src="../../kindeditor/kindeditor-all.js"></script>
     <script src="../../kindeditor/kindeditor-all-min.js"></script>
     <script charset="utf-8" src="../../kindeditor/lang/zh-CN.js"></script>
     <style>
         .uploadImgBtn {
-            width: 100px;
-            height: 100px;
+            width: 47px;
+            height: 30px;
             cursor: pointer;
             position: relative;
-           background: url("pk.jpg") no-repeat;
+            background: url("upload.png") no-repeat;
             -webkit-background-size: cover;
             background-size: cover;
         }
@@ -45,12 +46,68 @@
     </style>
 </head>
 <body>
-<h2>Client Side Pagination in DataGrid</h2>
-<div class="demo-info">
-    <div class="demo-tip icon-tip"></div>
-    <div>This sample shows how to implement client side pagination in DataGrid.</div>
+<!--陈士鹏开始-->
+<form id="ff" class="easyui-form" method="post" data-options="novalidate:true">
+    <table cellpadding="5" width="100%">
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">所属菜单:</td>
+            <td class="w_80">
+                <select class="easyui-combobox w_20" name="language">
+                    <option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="vi">Vietnamese</option></select></td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">标题:</td>
+            <td class="w_80"><input class="easyui-textbox w_50" type="text" name="email" data-options="required:true,validType:'email'"></input></td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">描述:</td>
+            <td class="w_80"><textarea id="" rows=5 name="" class="textarea easyui-validatebox w_50"></textarea></td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">类型:</td>
+            <td class="w_80"><input class="easyui-textbox w_50" name="message" data-options="multiline:true" style="height:60px"></input></td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">类别:</td>
+            <td class="w_80">
+                <input  type="radio" name="consuType" class="easyui-validatebox" checked="checked" value="00"><label>手动编辑</label></input>
+                <input  type="radio" name="consuType"class="easyui-validatebox" value="01"><label>外链</label></input>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">位置:</td>
+            <td class="w_80">
+                <select class="easyui-combobox" name="language"><option value="ar">Arabic</option><option value="bg">Bulgarian</option><option value="ca">Catalan</option><option value="zh-cht">Chinese Traditional</option><option value="cs">Czech</option><option value="da">Danish</option><option value="nl">Dutch</option><option value="en" selected="selected">English</option><option value="et">Estonian</option><option value="fi">Finnish</option><option value="fr">French</option><option value="de">German</option><option value="el">Greek</option><option value="ht">Haitian Creole</option><option value="he">Hebrew</option><option value="hi">Hindi</option><option value="mww">Hmong Daw</option><option value="hu">Hungarian</option><option value="id">Indonesian</option><option value="it">Italian</option><option value="ja">Japanese</option><option value="ko">Korean</option><option value="lv">Latvian</option><option value="lt">Lithuanian</option><option value="no">Norwegian</option><option value="fa">Persian</option><option value="pl">Polish</option><option value="pt">Portuguese</option><option value="ro">Romanian</option><option value="ru">Russian</option><option value="sk">Slovak</option><option value="sl">Slovenian</option><option value="es">Spanish</option><option value="sv">Swedish</option><option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="vi">Vietnamese</option></select>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">文章内容:</td>
+            <td class="w_80">
+                <textarea rows="3"  id="context" name="context" class="easyui-validatebox w_70" data-options="required:true,validType:'length[1,1000000]'" invalidMessage="最大长度不能超过1000000"></textarea>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">备注:</td>
+            <td class="w_80">
+                <textarea id="" rows=5 name="" class="textarea easyui-validatebox w_50"></textarea>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">图片上传:</td>
+            <td class="w_80">
+                <div class="uploadImgBtn" id="uploadImgBtn1">
+                    <input class="uploadImg" type="file" name="file" id="file1">
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+<div style="text-align:center;padding:5px">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
 </div>
-<div style="margin:10px 0;">
+<!--陈士鹏结束-->
+<!--<div style="margin:10px 0;">
     <form id="fm" method="post" style="margin-top: 20px; margin-left: 20px;" action="/management/consultation/updateConsultation">
         <input id="consulId" name="consulId"  type="hidden"  class="easyui-textbox" editable="false" />
         <div class="fitem">
@@ -103,12 +160,14 @@
     <div id="dlg-buttons1" style="display: block">
         <a id="confirm1" href="javascript:void(0)" class="easyui-linkbutton c6" iconcls="icon-ok" onclick="updateConsultation()" style="width: 90px">提交</a>
     </div>
-</div>
+</div>-->
 <script>
         var editor;
         var count=0;
         $(function() {
             editor = KindEditor.create('textarea[name="context"]',{
+                urlType:'absolute',
+                formatUploadUrl:'false',
                 resizeType : 1,
                 width:"100%",
                 height:"200px",

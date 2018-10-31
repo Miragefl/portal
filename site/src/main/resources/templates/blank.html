@@ -30,9 +30,10 @@
     </script>
     <!-- animated-css -->
     <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script type="text/javascript">
-
-
+    <script type="text/javascript" th:inline="javascript">
+        $(document).ready(function(){
+            $("#article").append([[${productList['context']}]]);
+        });
     </script>
 </head>
 <body>
@@ -92,14 +93,14 @@
     <div class="container">
         <div class="gallery-main wow zoomIn" data-wow-delay="0.3s">
             <div class="gallery-top">
-                <h1>工程案例</h1>
+                <h1>[[${productList['title']}]]</h1>
             </div>
             <div class="gallery-bott">
-                <div class="col-md-4 col1 gallery-grid">
-                    <div >
-                        <h4 class="gal">[[${productList['title']}]]</h4>
-                        <p class="gal1">[[${productList['consuDesc']}]]</p>
-                        <p class="gal1">[[${productList['context']}]]</p>
+                <div class="col-md-12 col1 gallery-grid">
+                    <div id="article">
+                        <!--<h4 class="gal"></h4>-->
+                        <!--<p class="gal1"></p>-->
+                       <!-- <p id="">[[${productList['context']}]]</p>-->
                     </div>
                     </a>
                 </div>
