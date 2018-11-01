@@ -106,12 +106,15 @@
                 </div>
             </td>
         </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right"></td>
+            <td class="w_80">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addConsultation()">提交</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
+            </td>
+        </tr>
     </table>
 </form>
-<div style="text-align:center;padding:5px">
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="updateConsultation()">提交</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
-</div>
 <!--陈士鹏结束-->
 <!--<div style="margin:10px 0;">
     <form id="fm" method="post" style="margin-top: 20px; margin-left: 20px;" action="/management/consultation/updateConsultation">
@@ -380,9 +383,9 @@
         function  check(id) {
             if(id=='d1'){
                 $('#consuLink_div').css("display",'none');
-                $('#context_div').css("display",'block');
+                $('#context_div').css("display",'table-row');
             }else if(id=='d2'){
-                $('#consuLink_div').css("display",'block');
+                $('#consuLink_div').css("display",'table-row');
                 $('#context_div').css("display",'none');
             }
         }
