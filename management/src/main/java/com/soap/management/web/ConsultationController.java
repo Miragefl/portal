@@ -135,6 +135,7 @@ public class ConsultationController {
         reqMap.put("consuLink",consuLink);
         reqMap.put("remarks",remarks);
         reqMap.put("images",images);
+        logger.info("reqMap----+"+reqMap);
         try {
             result = consultationService.updateConsultation(reqMap);
         } catch (BizFailException e) {

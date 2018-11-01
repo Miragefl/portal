@@ -4,10 +4,10 @@
         SELECT a.consulId,b.columnName,a.title,a.consuType,a.consuClass,a.consuPlace FROM consultation_info a,website_columns b
         WHERE a.isDel = '0' and a.columnId=b.columnId
         <if test="title != null and title !=''">
-            and a.title=#{title}
+            and a.title like CONCAT('%',#{title},'%')
         </if>
         <if test="columnName != null and columnName !=''">
-            and b.columnName=#{columnName}
+            and b.columnName like CONCAT('%',#{columnName},'%')
         </if>
         <if test="consuPlace != null and consuPlace !=''">
             and a.consuPlace=#{consuPlace}
@@ -64,7 +64,7 @@
         update consultation_info
         set
           isDel='1'
-        where consulId in {${consulId}}
+        where consulId in (${consulId})
     </update>
     <select id="qryConsultationById" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         select * from consultation_info where consulId=#{consulId}
