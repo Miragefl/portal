@@ -143,7 +143,6 @@
         $.each(checkedItems, function(index, item){
             ids.push(item.consulId);
         });
-        alert(ids.join(","));
         $.ajax({
             url:'/management/consultation/delConsultation',
             type:"POST",

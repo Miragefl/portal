@@ -136,7 +136,6 @@
             var s = nodes[0].id;;
             var node = $('#home-tree').tree('find',s);
             var nodePar = $('#home-tree').tree("getParent",node.target);
-            alert(JSON.stringify(nodePar))
             if(nodePar==null){
                 $("#columnLevel").val("01");
                 $("#columnParent").val(s);
@@ -148,6 +147,19 @@
             alert("请选择一个栏目或者不选");
             return;
         }
+        //
+        $("#columnId").val("");
+        $("#columnName").val("");
+        $("#columnLevel").val("");
+        $("#columnSort").val("");
+        $("#columnLink").val("");
+        $("#columnParent").val("");
+        $("#remarks" ).val("");
+        $("#uploadImgBtn").remove();
+        var str = '<div class="uploadImgBtn" id="uploadImgBtn" >'+
+            '<input class="uploadImg" type="file" name="file" id="file">'+
+            '</div>';
+        $("#upImg").append($(str));
         $('#win1').window('open');
         $("#file").on("change", upload );
     }
@@ -238,8 +250,7 @@
             data:{"columnId":s},
             success:function(data){
                 //data为后台返回值。我们这里后台返回的是map类型。map.put("latiao":3.5);所以到前台取值方式：
-                alert(1);
-
+                alert("操作成功");
             }
         })
     }
@@ -257,7 +268,6 @@
 
                   imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
           }
-          alert(imageUrl.substring(0,imageUrl.length-1));
           $("#images").val(imageUrl.substring(0,imageUrl.length-1));
          if(flag=='0') {
              $('#fm').form('submit', {

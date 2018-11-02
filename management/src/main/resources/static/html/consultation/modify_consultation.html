@@ -217,7 +217,6 @@
     });
 
     function voluation(consuId){
-            alert(consuId);
         $.ajax({
             url:'/management/consultation/qryConsultationById',
             type:"POST",
@@ -225,16 +224,13 @@
             data:{consulId:consuId},
             success:function(data){
                 /*return rows;*/
-                alert(data);
                // $("#columnId").val(data.columnId);
                 $('#columnId').combobox('select',data.columnId);
                 $("#consulId").val(data.consulId);
                 $("#title").val(data.title);
                 $("#consuDesc").val(data.consuDesc);
-                alert("data.consuType"+data.consuType);
                 debugger;
                 if (data.consuType == "00") {
-                    alert(11);
                     $("input[name='consuType'][value='00']").attr("checked",true);
                     KindEditor.html("#context", data.context);
                     $('#consuLink_div').css("display",'none');
@@ -255,14 +251,11 @@
         var imageUrl='';
             var myDiv = document.getElementById("uploadImgBtn");
             if(myDiv==null){
-                alert(1);
             }else{
                 var style=myDiv.style;
-                alert(style.backgroundImage.substring(5,style.backgroundImage.length-2));//red
 
                 imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
             }
-        alert(imageUrl.substring(0,imageUrl.length-1));
         $("#images").val(imageUrl.substring(0,imageUrl.length-1));
         ff.submit();
     }
