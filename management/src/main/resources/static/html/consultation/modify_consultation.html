@@ -382,6 +382,26 @@
                 $('#context_div').css("display",'none');
             }
         }
+        function  clearForm() {
+            $('#columnId').combobox('clear');
+            $("#images").val("");
+            $("#title").val("");
+            $("#consuDesc").val("");
+            $("#consuLink").val("");
+            $("#remarks").val("");
+            $('#consuClass').combobox('clear');
+            $('#consuPlace').combobox('clear');
+            KindEditor.html("#context", "");
+            $("input[name='consuType'][value='00']").attr("checked",true);
+            $('#consuLink_div').css("display",'none');
+            $('#context_div').css("display",'table-row');
+            $("#uploadImgBtn").remove();
+            var str = '<div class="uploadImgBtn" id="uploadImgBtn" >'+
+                '<input class="uploadImg" type="file" name="file" id="file">'+
+                '</div>';
+            $("#upImg").append($(str));
+
+        }
 </script>
 </body>
 </html>

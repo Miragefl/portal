@@ -219,9 +219,10 @@
               $("#columnSort").val(data.body.columnSort);
                 if (data.body.isJump == "0") {
                     $("input[name='isJump'][value='0']").attr("checked",true);
+                    $('#columnLink_fm').css("display",'none');
                 }else if(data.body.isJump == "1"){
                     $("input[name='isJump'][value='1']").attr("checked",true);
-                    $('#columnLink_fm').css("display",'block');
+                    $('#columnLink_fm').css("display",'table-row');
                 }
               $("#columnLink").val(data.body.columnLink);
               $("#columnParent").val(data.body.columnParent);
