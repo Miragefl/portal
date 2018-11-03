@@ -284,7 +284,7 @@ public class ConsultationController {
            /* data.put("imageURL", urls);
             data.put("orImageURL", orUrl);*/
             obj.put("error", 0);
-            obj.put("url", "http://localhost:8001/management/"+imagePath);
+            obj.put("url", ConfigUtil.get("imgUrl")+imagePath);
         }
         return  obj;
     }
