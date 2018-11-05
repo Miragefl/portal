@@ -106,8 +106,8 @@
                         <nav class="cl-effect-16" id="cl-effect-16">
                             <ul class="nav navbar-nav" th:each="entries,stat:${columnList}">
                                 <li><a th:href="@{${entries['columnLink']}}" th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a></li>
-                                <ul th:each="per,column:${entries['childColumn']}">
-                                    <li><a th:href="@{${per['columnLink']}}" th:attr="data-hover=${per['columnName']}">[[${per['columnName']}]]</a></li>
+                                <ul>
+                                    <li th:each="per,column:${entries['childColumn']}"><a th:href="@{${per['columnLink']}}" th:attr="data-hover=${per['columnName']}">[[${per['columnName']}]]</a></li>
                                 </ul>
                             </ul>
                         </nav>
