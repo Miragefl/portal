@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editable Tree - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/skin.css">
+    <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="../../easyui/1.3.4/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../easyui/1.3.4/locale/easyui-lang-zh_CN.js"></script>
+    <script src="../../kindeditor/kindeditor-all.js"></script>
+    <script src="../../kindeditor/kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="../../kindeditor/lang/zh-CN.js"></script>
+    <style>
+        .uploadImgBtn {
+            width: 47px;
+            height: 30px;
+            cursor: pointer;
+            position: relative;
+            background: url("../consultation/upload.png") no-repeat;
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
+
+        .uploadImgBtn .uploadImg {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .pic {
+            width: 100px;
+            height: 100px;
+        }
+
+        .pic img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<!--陈士鹏开始-->
+<form id="ff" class="easyui-form" method="post" data-options="novalidate:true" action="/management/consultation/addConsultation">
+    <table cellpadding="5" width="100%">
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">所属菜单:</td>
+            <td class="w_80">
+                <input  id="columnId" name="columnId" class="easyui-combobox w_20" editable="false"  data-options="required:true" disabled="disabled"/>
+            </td>
+        </tr>
+        <input id ="images" name="images" type='hidden' class="easyui-textbox" editable="false" />
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">标题:</td>
+            <td class="w_80"><input class="easyui-textbox w_50" type="text" id="title" name="title" data-options="required:true"></input></td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">描述:</td>
+            <td class="w_80"><textarea id="consuDesc" rows=5 name="consuDesc" class="textarea easyui-validatebox w_50"></textarea></td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">类别:</td>
+            <td class="w_80">
+            <input id="consuClass" name="consuClass" class="easyui-combobox w_50" editable="false"  data-options="required:true"/>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">类型:</td>
+            <td class="w_80">
+                <input  type="radio" name="consuType" class="easyui-validatebox" checked="checked" value="00" onclick="check('d1')"><label>手动编辑</label></input>
+                <input  type="radio" name="consuType"class="easyui-validatebox" value="01" onclick="check('d2')"><label>外链</label></input>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">位置:</td>
+            <td class="w_80">
+                <input  id="consuPlace" name="consuPlace"  class="easyui-combobox w_50" editable="false"  data-options="required:true"/>
+            </td>
+        </tr>
+        <tr class="margin_10_0" id="consuLink_div" style="display: none">
+            <td class="w_20 text_right">链接:</td>
+            <td class="w_80"><input class="easyui-textbox w_50" name="consuLink" data-options="multiline:true"></input></td>
+        </tr>
+        <tr class="margin_10_0" id="context_div">
+            <td class="w_20 text_right">文章内容:</td>
+            <td class="w_80">
+                <textarea rows="3"  id="context" name="context" class="easyui-validatebox w_70" data-options="required:true,validType:'length[1,1000000]'" invalidMessage="最大长度不能超过1000000"></textarea>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">备注:</td>
+            <td class="w_80">
+                <textarea id="remarks" rows=5 name="remarks" class="textarea easyui-validatebox w_50"></textarea>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">图片上传:</td>
+            <td class="w_80" id="upImg">
+                <div class="uploadImgBtn" id="uploadImgBtn">
+                    <input class="uploadImg" type="file" name="file" id="file">
+                </div>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right"></td>
+            <td class="w_80">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addConsultation()">提交</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
+            </td>
+        </tr>
+    </table>
+</form>
+<!--陈士鹏结束-->
+<!--<div style="margin:10px 0;">
+    <form id="fm" method="post" style="margin-top: 20px; margin-left: 20px;" action="/management/consultation/addConsultation">
+        <div class="fitem">
+            <label>所属菜单:</label>
+            <input  id="columnId" name="columnId" style="" class="easyui-combobox" editable="false"  data-options="required:true"/>
+        </div>
+        <div class="fitem">
+            <label>标题:</label>
+            <input name="title" class="easyui-textbox" editable="false" />
+        </div>
+        <input id ="images" name="images" type='hidden' class="easyui-textbox" editable="false" />
+ &lt;!&ndash;       <tr>
+            <td><a href="javascript:;" class="file">选择文件
+                <input class="form-control" type="file" name="uploadFile" multiple id="uploadFile" accept=".jpg,.png"/></a></td>
+            <td><input id="showName" class="easyui-textbox" data-options="iconCls:'icon-search',value:'未选择任何文件',readonly:true" style="width:150px">
+            <td><a onclick="goToImageUploadJsp()" href="javascript:void(0);" class="easyui-linkbutton ebsButton" data-options="iconCls:'fa fa-upload fa-1x',plain:true">上传图片</a></td>
+        </tr>&ndash;&gt;
+        <div class="fitem">
+            <label>描述:</label>
+            <input  name="consuDesc" class="easyui-textbox" editable="false" />
+        </div>
+
+        <div class="fitem">
+            <label>类型:</label>
+            <input  type="radio" name="consuType"
+                    class="easyui-validatebox" checked="checked" value="00" onclick="check('d1')"><label>手动编辑</label></input>
+            <input  type="radio" name="consuType"
+                    class="easyui-validatebox" value="01" onclick="check('d2')"><label>外链</label></input>
+        </div>
+
+        <div class="fitem">
+            <label>类别:</label>
+            <input id="consuClass" name="consuClass" class="easyui-combobox" editable="false"  data-options="required:true"/>
+        </div>
+        <div class="fitem">
+            <label>位置:</label>
+            <input  id="consuPlace" name="consuPlace" style="width: 160px; height: 65px;" class="easyui-combobox" editable="false"  data-options="required:true"/>
+        </div>
+        <div class="fitem" id="consuLink_div" style="display: none">
+            <label>链接:</label>
+            <input   id="consuLink" name="consuLink" style="width: 160px; height: 25px;" class="easyui-textbox" data-options="multiline:true" />
+        </div>
+        <div class="fitem" id="context_div">
+            <label>文章内容:</label>
+            <textarea rows="3" style="width:400px;" id="context" name="context" class="easyui-validatebox" data-options="required:true,validType:'length[1,1000000]'" invalidMessage="最大长度不能超过1000000"></textarea>
+        </div>
+        <div class="fitem">
+            <label>备注:</label>
+            <input   name="remarks" style="width: 160px; height: 65px;" class="easyui-textbox" data-options="multiline:true" />
+        </div>
+        </form>
+        <div id="formBox">
+            <form id="formTag1" enctype="multipart/form-data">
+                <div class="uploadImgBtn" id="uploadImgBtn1">
+                    <input class="uploadImg" type="file" name="file" id="file1">
+                </div>
+            </form>
+        </div>
+        <div id="dlg-buttons1" style="display: block">
+            <a id="confirm1" href="javascript:void(0)" class="easyui-linkbutton c6" iconcls="icon-ok" onclick="addConsultation()" style="width: 90px">提交</a>
+        </div>
+
+</div>-->
+<script>
+    var editor;
+    var count = 1;
+    $(function() {
+        editor = KindEditor.create('textarea[name="context"]',{
+                urlType:'absolute',
+                formatUploadUrl:'false',
+                resizeType : 1,
+                width:"100%",
+                height:"200px",
+                allowPreviewEmoticons:false,
+                allowImageUpload:true,//允许上传图片
+                uploadJson:'/management/consultation/uploadImg.do', //上传图片的java代码，只不过放在jsp中
+                afterUpload:function(){this.sync();}, //图片上传后，将上传内容同步到textarea中
+                afterBlur:function(){this.sync();},   ////失去焦点时，将上传内容同步到textarea中
+                items : [
+                    'fontname','fontsize',
+                    '|','forecolor',
+                    'hilitecolor','bold',
+                    'italic','underline',
+                    'removeformat','|',
+                    'justifyleft','justifycenter',
+                    'justifyright','insertorderedlist',
+                    'insertunorderedlist','|',
+                    'emoticons','link','media','|','image'],
+                afterChange:function(){
+                    this.sync();
+                },
+                afterBlur:function(){
+                    this.sync();
+                }
+        });
+        $("#file").on("change", upload );
+        var url = location.search;
+        var columnId;
+        if (url.indexOf("?") != -1) {
+            var site = url.lastIndexOf("=");
+            columnId=url.substring(site + 1, url.length);
+        }
+        qryApppar("consultation_columnId","columnId");
+        $('#columnId').combobox('select',columnId);
+        qryApppar("consultation_consuClass","consuClass");
+        qryApppar("consultation_consuPlace","consuPlace");
+    });
+    
+    function addConsultation() {
+        var imageUrl='';
+           var myDiv = document.getElementById("uploadImgBtn");
+            if(myDiv==null){
+            }else{
+                var style=myDiv.style;
+
+                 imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
+            }
+       $("#images").val(imageUrl.substring(0,imageUrl.length-1));
+        //$("#formTag1").remove();
+        ff.submit();
+
+    }
+   /* $(document).ready(function(){
+
+    });*/
+  // var imgurl="";
+    function upload(){
+        var self = this;
+        debugger;
+        //获得它是第几个form表单
+        var num = this.getAttribute("id").replace(/[a-zA-Z]/g,"");
+        //构造form的选择器
+        var $form = "#formTag" +num;
+        var formData = new FormData();
+        formData.append('file', $('#file')[0].files[0]);
+
+        $.ajax({
+            url:"/management/consultation/uploadImg.do",
+            type:"post",
+            dataType:"json",
+            cache:false,
+            data: formData,
+            processData: false,// 不处理数据
+            contentType: false, // 不设置内容类型
+            success:function(data){
+                //设置背景为我们选择的图片
+                $(self).parent().css({
+                    "background-image": "url("+data.url+")"
+                });
+                //imgurl+=data.url;
+               // $("#images").val(imgurl);
+                //我们再生成一个form
+    /*            if(count == num ){
+                    //count计数加1
+                    count +=1;
+                    var str = '<form id="formTag'+count+'" enctype="multipart/form-data">'+
+                        '<div class="uploadImgBtn" id="uploadImgBtn'+count+'">'+
+                        '<input class="uploadImg" type="file" name="file" id="file'+count+'">'+
+                        '</div>'+
+                        '</form>   ';
+                    //向最外面的盒子添加form
+                    $("#formBox").append($(str));
+                    //构造input的选择器
+                    var $sel = "#file"+count;
+                    //为新生成的input绑定change事件
+                    $($sel).on("change", upload );
+
+                }else{
+                    //如果不等于
+                    return false;
+                }*/
+            }
+        });
+    }
+    function delImg(id) {
+        $("#formTag"+id).remove();
+    }
+
+    function qryApppar(a,b) {
+        $.ajax({
+            type: "POST",
+            url: "/management/consultation/qryApppar.do",
+            data: {code:a},
+            //contentType: "application/json; charset=utf-8",//去掉这个就可以实现了,为什么呢？？？
+            dataType: "json",
+            success: function (response) {//调用成功
+                var options = $("#"+b).combobox('options');
+                options.textField = "APR_SHOWMSG";//必须要和数据库查询的字段一样(大小写敏感)
+                options.valueField = "APR_VALUE";
+//加载数据
+                $("#"+b).combobox("loadData", response.body);
+            }
+        });
+    }
+
+    function  check(id) {
+        if(id=='d1'){
+            $('#consuLink_div').css("display",'none');
+            $('#context_div').css("display",'table-row');
+        }else if(id=='d2'){
+            $('#consuLink_div').css("display",'table-row');
+            $('#context_div').css("display",'none');
+        }
+    }
+    function  clearForm() {
+        $('#columnId').combobox('clear');
+        $("#images").val("");
+        $("#title").val("");
+        $("#consuDesc").val("");
+        $("#consuLink").val("");
+        $("#remarks").val("");
+        $('#consuClass').combobox('clear');
+        $('#consuPlace').combobox('clear');
+        KindEditor.html("#context", "");
+        $("input[name='consuType'][value='00']").attr("checked",true);
+        $('#consuLink_div').css("display",'none');
+        $('#context_div').css("display",'table-row');
+        $("#uploadImgBtn").remove();
+        var str = '<div class="uploadImgBtn" id="uploadImgBtn" >'+
+            '<input class="uploadImg" type="file" name="file" id="file">'+
+            '</div>';
+        $("#upImg").append($(str));
+    }
+</script>
+</body>
+</html>
