@@ -31,8 +31,18 @@
     </script>
     <!-- animated-css -->
     <script src="js/modernizr.js"></script>
+
     <script>
         $(document).ready(function () {
+
+            $(function(){
+                $(".nav>li").hover(function(){
+                    $(this).children('ul').stop(true,true).show(300);
+                },function(){
+                    $(this).children('ul').stop(true,true).hide(300);
+                })
+            })
+
             if (Modernizr.touch) {
                 // show the close overlay button
                 $(".close-overlay").removeClass("hidden");
@@ -67,58 +77,70 @@
 
 </head>
 <body>
-<div class="top-header">
-    <div class="container">
-        <div class="top-header-main">
-            <div class="col-md-4 top-social wow bounceInLeft" data-wow-delay="0.3s">
-                <ul>
-                    <li><h5>江苏黄海水泥有限公司，期待您的光临</h5></li>
-                </ul>
-            </div>
-            <div class="col-md-8 header-address wow bounceInRight" data-wow-delay="0.3s">
-                <ul>
-                    <li><span class="phone"> </span> <h6>0515-86397999</h6></li>
-                    <li><span class="email"> </span><h6>bgs@jshhsn.com</h6></li>
-                </ul>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
+<!--<div class="top-header">-->
+    <!--<div class="container">-->
+        <!--<div class="top-header-main">-->
+            <!--<div class="col-md-4 top-social wow bounceInLeft" data-wow-delay="0.3s">-->
+                <!--<ul>-->
+                    <!--<li><h5>江苏黄海水泥有限公司，期待您的光临</h5></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="col-md-8 header-address wow bounceInRight" data-wow-delay="0.3s">-->
+                <!--<ul>-->
+                    <!--<li><span class="phone"> </span> <h6>0515-86397999</h6></li>-->
+                    <!--<li><span class="email"> </span><h6>bgs@jshhsn.com</h6></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="clearfix"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 <div class="header">
     <div class="fixed-header">
-
         <div class="navbar-wrapper">
             <div class="container">
-                <nav class="navbar navbar-inverse navbar-static-top">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <div class="logo wow slideInLeft">
-                            <a class="navbar-brand" href="index.html"><img src="images/logo.png"/></a>
-                        </div>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <nav class="cl-effect-16" id="cl-effect-16">
-                            <ul class="nav navbar-nav" th:each="entries,stat:${columnList}">
-                                <li><a th:href="@{${entries['columnLink']}}" th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a></li>
-                                <ul>
-                                    <li th:each="per,column:${entries['childColumn']}"><a th:href="@{${per['columnLink']}}" th:attr="data-hover=${per['columnName']}">[[${per['columnName']}]]</a></li>
+                <a class="navbar-brand" href="index.html"><img src="images/logo.png"/></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="navbar-wrapper" style="background-color: #333;padding-bottom: 0px">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <nav class="cl-effect-16" id="cl-effect-16">
+
+                        <ul class="nav">
+                            <li th:each="entries,stat:${columnList}">
+                                <a th:href="@{${entries['columnLink']}}" th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a>
+                                <ul class="sub-nav">
+                                    <li class="float_left">
+                                        <dl>
+                                            <dd th:each="per,column:${entries['childColumn']}">
+                                                <a th:href="@{${per['columnLink']}}" th:attr="data-hover=${per['columnName']}">[[${per['columnName']}]]</a>
+                                            </dd>
+                                        </dl>
+                                        <img  src="http://img.hb.aicdn.com/016cb81e2f98691f0be5438a831af3b4021461bd1ba1d-2vfji6_sq320">
+                                    </li>
+
                                 </ul>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="clearfix"></div>
+
+                            </li>
+
+                        </ul>
                 </nav>
+                <div class="clearfix"></div>
             </div>
             <div class="clearfix"></div>
         </div>
     </div>
 </div>
+
 <!--header end here-->
 <!--banner  start hwew-->
 <div class="banner">
@@ -126,7 +148,8 @@
         <div class="banner-main wow zoomIn" data-wow-delay="0.3s">
             <h2>黄海水泥</h2>
             <h6>Welcome To Huanghai</h6>
-            <p>江苏黄海水泥有限公司诞生于2001年3月21日，历经十多年的发展，现有盐城市仁和建材科技有限公司、建湖县时代建材有限公司和建湖汇聚建设有限公司三个子公司。公司占地面积12万平方米，注册资金7718万元，固定资产8500万元，年销售超3亿元</p>
+            <p style="padding-bottom: 1rem">江苏黄海水泥有限公司诞生于2001年3月21日，历经十多年的发展，现有盐城市仁和建材科技有限公司、建湖县时代建材有限公司和建湖汇聚建设有限公司三个子公司。公司占地面积12万平方米，注册资金7718万元，固定资产8500万元，年销售超3亿元</p>
+            <a href="about/index" style="color: #E9A820;font-size: 1.2em">了解更多</a>
         </div>
     </div>
 </div>
@@ -168,7 +191,7 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <div class="information-grid wow slideInRight" data-wow-delay="0.3s">
+            <div class="information-grid wow">
                 <div class="col-md-4 hotel-info">
                     <div class="info-left">
                         <img src="images/s3.png" alt="">
@@ -206,18 +229,6 @@
     </div>
 </div>
 <!--information end here-->
-<!--leaves start here-->
-<div class="leaves">
-    <div class="container">
-        <div class="leaves-main wow zoomIn" data-wow-delay="0.3s">
-            <h1>企业形象</h1>
-            <h6>ABOUTUS</h6>
-            <p>江苏黄海水泥，与城市同发展，与社会共和谐</p>
-            <a href="about/index" class="hvr-push">更多</a>
-        </div>
-    </div>
-</div>
-<!--leaves end here-->
 <!--branches start here-->
 <div class="branches">
     <div class="branches-main wow zoomIn" data-wow-delay="0.3s">
@@ -226,7 +237,7 @@
         </div>
         <div id="effect-5" class="branch-btm">
             <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd  no-mar"><a href="room.html">
+                <div class="branch-gd  no-mar"><a href="product.html">
                     <img src="images/b6.jpg" alt="" class="img-responsive">
                     <div class="overlay">
                         <span class="expand lardge">+</span>
@@ -236,7 +247,7 @@
                 </div>
             </div>
             <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd went-branc"><a href="room.html">
+                <div class="branch-gd went-branc"><a href="product.html">
                     <img src="images/b1.jpg" alt="" class="img-responsive">
                     <div class="overlay">
                         <span class="expand">+</span>
@@ -244,7 +255,7 @@
                     </div>
                 </a>
                 </div>
-                <div class="branch-gd went-branc"><a href="room.html">
+                <div class="branch-gd went-branc"><a href="product.html">
                     <img src="images/b2.jpg" alt="" class="img-responsive">
                     <div class="overlay">
                         <span class="expand">+</span>
@@ -254,7 +265,7 @@
                 </div>
             </div>
             <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd"><a href="room.html">
+                <div class="branch-gd"><a href="product.html">
                     <img src="images/b3.jpg" alt="" class="img-responsive">
                     <div class="overlay">
                         <span class="expand">+</span>
@@ -262,7 +273,7 @@
                     </div>
                 </a>
                 </div>
-                <div class="branch-gd"><a href="room.html">
+                <div class="branch-gd"><a href="product.html">
                     <img src="images/b4.jpg" alt="" class="img-responsive">
                     <div class="overlay">
                         <span class="expand">+</span>
@@ -274,10 +285,6 @@
             <div class="col-md-3 branch-gd-main">
                 <div class="branch-gd went-branc2"><a href="room.html">
                     <img src="images/b5.jpg" alt="" class="img-responsive">
-                    <div class="overlay">
-                        <span class="expand lardge">+</span>
-                        <span class="close-overlay hidden">x</span>
-                    </div>
                 </a>
                 </div>
             </div>
@@ -292,10 +299,19 @@
         <p>公司以科学的管理、优质的产品、先进的技术，不断提高和改进产品质量和服务水平以满足顾客的需求，同时以严谨的质量管理体系为基础，守法经营，通过不断地对质量管理体系的改进，以更好的产品质量和更高的效益保持企业的生命力，实现我们对顾客的承诺，最终实现公司和用户双赢。</p>
     </div>
 </div>
+<div class="leaves">
+    <div class="container">
+        <div class="leaves-main wow zoomIn" data-wow-delay="0.3s">
+            <h1>我能为您做点什么？</h1>
+            <h6>what con we do for you?</h6>
+            <p><img src="images/erweima.jpg"></p>
+        </div>
+    </div>
+</div>
 <div class="copy-right">
     <div class="container">
         <div class="copy-rights-main wow zoomIn">
-            <p>Copyright &copy; 2016.Company name All rights 地址：江苏省盐城市 建湖县经济开发区南华工业园天津路8号</p>
+            <p>使用条款 | 隐私跳跃 | <a href="http://hhtj.in.8866.org:13456/SNAPSHOT-erp">办公系统</a> 版权所有（C） 江苏黄海建筑集团有限公司 苏ICP备18048310号</p>
         </div>
     </div>
 </div>

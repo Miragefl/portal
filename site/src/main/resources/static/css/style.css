@@ -17,6 +17,17 @@ a:hover {
   -o-transition: 0.5s all;
   text-decoration:none;
 }
+.menu{list-style:none;height:40px;width:100%;}
+.nav li{float:left;position:relative;}
+.nav li a{color:#fff;}
+.nav > li > a {position: relative;display: block;padding: 10px 25px;}
+.nav > li > a:hover, .nav > li > a:focus {text-decoration: none;background-color: #444;}
+.nav li .sub-nav{position:absolute;top:39px;left:-1px;list-style:none;background-color:#333;display:none;overflow: hidden;width:20em;padding:0px;margin:0px;}
+.nav li .sub-nav li{width:20em;position:relative;padding:0px;margin:0px;}
+.nav li .sub-nav li dl{width:50%;float:left}
+.nav li .sub-nav li dl dd{height:2em;line-height: 2em;text-align: center;}
+.nav li .sub-nav li img{display: inline-block; width:50%;float:left}
+.nav li .sub-nav li a{height:34px;line-height:34px;width:138px;padding:0;display:inline-block;}
 /*--top header start here--*/
 .top-social ul {
     padding: 0em;
@@ -136,86 +147,7 @@ span.email{
 .header-address{
     padding: 0px;
 }
-/*--header menu nav start--*/
-div#navbar {
-    float:right;
-    text-align: center;
-}
-.navbar-wrapper {
-    padding: 1.5em 0em 1.5em 0em;
-    margin-top: 0px !important;
-    line-height: 36px;
-    border-bottom: 1px solid #6F6F8C;
-}
-.navbar-inverse {
-    background: none; 
-    border:none; 
-}
-.navbar-nav {
-    float: right !important;
-	margin-top: 0em;
-}
-.navbar {
-    margin-bottom: 0px !important;   
-    min-height: 0px !important;   
-}
-.navbar-brand {
-    float: left;
-    height:0px !important;  
-    padding:0px !important;  
-}
-.nav > li > a {
-    margin: 0px 15px !important;
-    padding: 0px;
-}
-.navbar-inverse .navbar-brand {
-    color: #FFFFFF;
-}
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-    color: #fff;
-    background: none;
-}
-.navbar-inverse .navbar-nav > li > a {
-    color:#000000;
-    line-height: 1.5em;
-}
-.navbar-inverse .navbar-nav > li > a.active{
-	color:#E9A820;
-}
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-    color:#006e96;
-    background-color: transparent;
-}
-nav a {
-    position: relative;
-    display: inline-block;
-    outline: none;
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 0 0 1px rgba(255,255,255,0.3);
-    font-size: 1em;
-}
-nav a:hover,
-nav a:focus {
-	outline: none;
-}
-/*--nav effect--*/
-nav a {
-    position: relative;
-    display: inline-block;
-    outline: none;
-    color: #fff;
-    text-decoration: none;
-    letter-spacing: 1px;
-    font-weight: 400;
-    text-shadow: 0 0 1px rgba(255,255,255,0.3);
-    font-size: 1em;
-}
 
-nav a:hover,
-nav a:focus {
-	outline: none;
-}
 /* Effect 16: fall down */
 .cl-effect-16 a {
 	color: #6f8686;
