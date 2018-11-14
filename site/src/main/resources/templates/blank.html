@@ -85,8 +85,9 @@
 
                     <ul class="nav">
                         <li th:each="entries,stat:${columnList}">
-                            <a th:href="@{${entries['columnLink']}}" th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a>
-                            <ul class="sub-nav">
+                            <a th:href="@{${entries['columnLink']}}" th:if="${#lists.isEmpty(entries['childColumn'])}"   th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a>
+                            <a th:if="${not #lists.isEmpty(entries['childColumn'])}"   th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a>
+                            <ul class="sub-nav" th:if="${not #lists.isEmpty(entries['childColumn'])}">
                                 <li class="float_left">
                                     <dl>
                                         <dd th:each="per,column:${entries['childColumn']}">

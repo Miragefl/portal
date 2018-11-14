@@ -10,4 +10,7 @@ public interface ProductMapper {
 	Map<String,Object> detail(String consulId);
 
 	int count(String columnId);
+
+	Map<String,Object> columnDetail(String columnId);
+	Map<String,Object> qryConsulByColumnId(String columnId);
 }
