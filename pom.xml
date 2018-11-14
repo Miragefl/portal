@@ -27,12 +27,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-
-        <mybatis-spring-boot>1.2.0</mybatis-spring-boot>
     </properties>
 
     <dependencies>
-       <!-- &lt;!&ndash;springboot相关&ndash;&gt;
+        <!--&lt;!&ndash;springboot相关&ndash;&gt;
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -113,5 +111,15 @@
         </dependency>-->
 
     </dependencies>
+
+    <!--<build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>-->
+
 
 </project>
