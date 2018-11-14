@@ -12,6 +12,9 @@
         <if test="consuPlace != null and consuPlace !=''">
             and a.consuPlace=#{consuPlace}
         </if>
+        <if test="columnId != null and columnId !=''">
+            and a.columnId=#{columnId}
+        </if>
     </select>
 
     <insert id="addConsultation" parameterType="java.util.HashMap">

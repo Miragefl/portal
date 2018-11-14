@@ -2,7 +2,47 @@
 <mapper namespace="com.soap.management.mapper.UserMapper">
 
     <select id="qryUser" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        SELECT userName,password FROM USER WHERE USERNAME = #{userName} AND PASSWORD = #{password}
+        SELECT userName,password FROM USER WHERE USERNAME = #{userName} AND PASSWORD = #{password} AND userStatus ='0'
     </select>
-
+    <select id="qryUserById" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT * FROM USER WHERE USERID = #{userId}
+    </select>
+    <select id="getUserList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT * FROM USER WHERE userStatus='0'
+        <if test="userName != null and userName !=''">
+            and username like CONCAT('%',#{userName},'%')
+        </if>
+    </select>
+    <insert id="addUser" parameterType="java.util.HashMap">
+        insert  into  USER(
+        username,
+        password,
+        userPhone,
+        sex,
+        age
+        )
+        values (
+        #{userName},
+        #{password},
+        #{userPhone},
+        #{sex},
+        #{age}
+        )
+    </insert>
+    <update id="updateUser" parameterType="java.util.HashMap">
+        update  USER
+        set
+        userName=#{userName},
+        password=#{password},
+        userPhone=#{userPhone},
+        sex=#{sex},
+        age=#{age}
+        where USERID=#{userId}
+    </update>
+    <update id="delUser" parameterType="java.util.HashMap">
+        update  USER
+        set
+        userStatus='1'
+        where USERID in (${userId})
+    </update>
 </mapper>

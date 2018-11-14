@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editable Tree - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/skin.css">
+    <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="../../easyui/1.3.4/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../easyui/1.3.4/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div id="wu-toolbar">
+    <div class="margin_10_0">
+        <div class="">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="toAddConslutation()" plain="true">新增</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="toUpdateConslutation()" plain="true">修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="delConslutation()" plain="true">删除</a>
+
+        </div>
+        <div class="wu-toolbar-search ">
+            <label>所属菜单：</label><input id="columnName" name="columnName" style="" class="easyui-textbox" editable="false" />
+            <label>标题：</label> <input id="title" name="title" class="easyui-textbox" editable="false" />
+            <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="getData()" plain="true">查询</a>
+
+        </div>
+    </div>
+</div>
+<table id="dg" title="文章列表" toolbar="#wu-toolbar" data-options="rownumbers:true,
+        singleSelect:false,
+        pageSize:20,
+        pagination:true,
+        multiSort:true,
+        fitColumns:true,
+        fit:true">
+    <thead>
+    <tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th field="consulId" width="80">编号</th>
+        <th field="columnName" width="80">所属菜单</th>
+        <th field="title" width="100">标题</th>
+        <th field="consuType" width="80">类型</th>
+        <th field="consuClass" width="80" align="right">类别</th>
+        <th field="consuPlace" width="80" align="right">位置</th>
+    </tr>
+    </thead>
+</table>
+
+<script>
+    var columnId;
+    function getData(columnId){
+        var rows = [];
+        //var columnName = $("#columnName").val();
+        var title = $("#title").val();
+        var consuPlace = $("#consuPlace").val();
+        $.ajax({
+            url:'/management/consultation/getConsultation',
+            type:"POST",
+            async:false,
+            data:{columnId:columnId,title:title,consuPlace:consuPlace},
+            success:function(data){
+                var chargeRuleLogs = data;
+                $.each(chargeRuleLogs, function (index, n) {
+                    var consuType='';
+                    var consuClass='';
+                    var consuPlace='';
+                    if(chargeRuleLogs[index].consuType=='00'){
+                        consuType='手动编辑';
+                    }else{
+                        consuType='外链';
+                    }
+                    if(chargeRuleLogs[index].consuClass=='00'){
+                        consuClass='金融';
+                    }else if(chargeRuleLogs[index].consuClass=='01'){
+                        consuClass='计算机';
+                    }else if(chargeRuleLogs[index].consuClass=='02'){
+                        consuClass='其他';
+                    }
+                    if(chargeRuleLogs[index].consuPlace=='00'){
+                        consuPlace='首页';
+                    }else if(chargeRuleLogs[index].consuPlace=='01'){
+                        consuPlace='尾部';
+                    }else if(chargeRuleLogs[index].consuPlace=='02'){
+                        consuPlace='其他';
+                    }
+                    rows.push({
+                        consulId: chargeRuleLogs[index].consulId,
+                        columnName: chargeRuleLogs[index].columnName,
+                        title: chargeRuleLogs[index].title,
+                        consuType: consuType,
+                        consuClass: consuClass,
+                        consuPlace: consuPlace
+                    });
+
+                })
+                //datagridtable2.datagrid('loadData', array);
+                $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', rows);
+                /*return rows;*/
+            }
+        });
+    }
+
+    /*  function doSearch(){
+         getData
+     } */
+
+    function pagerFilter(data){
+        if (typeof data.length == 'number' && typeof data.splice == 'function'){	// is array
+            data = {
+                total: data.length,
+                rows: data
+            }
+        }
+        var dg = $(this);
+        var opts = dg.datagrid('options');
+        var pager = dg.datagrid('getPager');
+        pager.pagination({
+            onSelectPage:function(pageNum, pageSize){
+                opts.pageNumber = pageNum;
+                opts.pageSize = pageSize;
+                pager.pagination('refresh',{
+                    pageNumber:pageNum,
+                    pageSize:pageSize
+                });
+                dg.datagrid('loadData',data);
+            }
+        });
+        if (!data.originalRows){
+            data.originalRows = (data.rows);
+        }
+        var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+        var end = start + parseInt(opts.pageSize);
+        data.rows = (data.originalRows.slice(start, end));
+        return data;
+    }
+
+    $(function(){
+        var url = location.search;
+        if (url.indexOf("?") != -1) {
+            var site = url.lastIndexOf("=");
+            columnId=url.substring(site + 1, url.length);
+        }
+        getData(columnId);
+        // $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
+    });
+
+    //删除
+    function delConslutation(){
+        var checkedItems = $('#dg').datagrid('getChecked');
+        var ids = [];
+        $.each(checkedItems, function(index, item){
+            ids.push(item.consulId);
+        });
+        $.ajax({
+            url:'/management/consultation/delConsultation',
+            type:"POST",
+            async:false,
+            data:{consulId:ids.toString()},
+            success:function(data){
+               alert("删除成功!");
+            }
+        });
+    }
+    //跳转修改页面
+    function toUpdateConslutation(){
+        var checkedItems = $('#dg').datagrid('getChecked');
+        var ids = [];
+        $.each(checkedItems, function(index, item){
+            ids.push(item.consulId);
+        });
+        if(ids.length!=1){
+            alert("请选择一个选项进行修改!");
+            return false;
+        }
+        var id =ids;
+        var content = '<iframe scrolling="auto" frameborder="0"  src="../html/consultation/modify_consultation.html?consulId='+id+'" style="width:100%;height:100%;"></iframe>';
+        window.parent.removeTabByTitle();
+        parent.$('#wu-tabs').tabs("add", {
+            title: '修改文章',
+            content: content,
+            closable: true
+        });
+    }
+
+    //修改
+    /*   function updateConslutation(){
+          var row = $('#dg').datagrid('getSelected');
+          alert(row);
+          if (row){
+              alert('Item ID:'+row.consulId)
+          }
+      } */
+    //跳转新增页面
+    function toAddConslutation(){
+        var content = '<iframe scrolling="auto" frameborder="0"  src="../html/information/add_consultation_new.html?columnId='+columnId+'" style="width:100%;height:100%;"></iframe>';
+        window.parent.removeTabByTitle();
+        parent.$('#wu-tabs').tabs("add", {
+            title: '新增文章',
+            content: content,
+            closable: true
+        });
+    }
+
+
+</script>
+</body>
+</html>
