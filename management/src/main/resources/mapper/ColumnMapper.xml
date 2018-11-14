@@ -73,4 +73,10 @@
           isShow=#{isShow}
         where columnId=#{columnId} or columnParent=#{columnId}
     </update>
+    <select id="getColumnId" parameterType="java.util.HashMap" resultType="java.lang.String">
+        select  columnId from website_columns where columnName=#{columnName}
+    </select>
+    <update id="updateColumnLink" parameterType="java.util.HashMap">
+        update  website_columns set  columnLink=#{columnLink} where columnId=#{columnId}
+    </update>
 </mapper>

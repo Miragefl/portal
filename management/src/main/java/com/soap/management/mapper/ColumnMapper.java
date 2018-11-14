@@ -21,4 +21,8 @@ public interface ColumnMapper {
     public List<Map<String, Object>> getChildColumns(String id);
 
     public String getColumnCount(Map<String,Object> reqMap);
+
+    public String getColumnId(Map<String,Object> reqMap);
+
+    public void updateColumnLink(Map<String,Object> reqMap);
 }

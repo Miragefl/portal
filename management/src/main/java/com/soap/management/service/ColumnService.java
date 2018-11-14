@@ -3,6 +3,8 @@ package com.soap.management.service;
 import com.soap.exception.BizFailException;
 import com.soap.management.mapper.ColumnMapper;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ import static com.soap.constant.Const.RET_FAIL;
  **/
 @Service
 public class ColumnService {
-
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ColumnMapper columnMapper;
 
@@ -79,6 +81,16 @@ public class ColumnService {
         }
         //插入新栏目
         columnMapper.addColumn(reqMap);
+        if(String.valueOf(reqMap.get("isJump")).equals("2")){
+
+        }else {
+            String columnId = columnMapper.getColumnId(reqMap);
+            String columnLink = String.valueOf(reqMap.get("columnLink")) + "?columnId=" + columnId;
+            logger.info("insert+++++columnLink=====" + columnLink);
+            reqMap.put("columnLink", columnLink);
+            reqMap.put("columnId", columnId);
+            columnMapper.updateColumnLink(reqMap);
+        }
       /*  if (null == columns) {
             throw new BizFailException(RET_FAIL,"用户不存在");
         }*/
@@ -108,6 +120,14 @@ public class ColumnService {
         }
         //插入新栏目
         columnMapper.updateColumn(reqMap);
+        if(String.valueOf(reqMap.get("isJump")).equals("2")){
+
+        }else {
+            String columnLink = String.valueOf(reqMap.get("columnLink")) + "?columnId=" + String.valueOf(reqMap.get("columnId"));
+            logger.info("insert+++++columnLink=====" + columnLink);
+            reqMap.put("columnLink", columnLink);
+            columnMapper.updateColumnLink(reqMap);
+        }
       /*  if (null == columns) {
             throw new BizFailException(RET_FAIL,"用户不存在");
         }*/

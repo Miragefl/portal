@@ -66,21 +66,23 @@
                 <td class="w_80"><input class="easyui-textbox" type="text" id="columnSort" name="columnSort" data-options="required:true"></input></td>
             </tr>
             <tr >
-                <td>是否配置跳转链接:</td>
+                <td class="w_20 text_right">类型:</td>
                 <td class="w_80">
                     <input  type="radio" name="isJump"
-                            class="easyui-validatebox" checked="checked" value="0" onclick="check('d1')"><label>否</label></input>
+                            class="easyui-validatebox" checked="checked" value="0"><label>文章</label></input>
                     <input  type="radio" name="isJump"
-                            class="easyui-validatebox" value="1" onclick="check('d2')"><label>是</label></input>
+                            class="easyui-validatebox" value="1" ><label>列表</label></input>
+                    <input  type="radio" name="isJump"
+                            class="easyui-validatebox" value="2" ><label>固定页</label></input>
                 </td>
             </tr>
-            <tr style="display:none;" id="columnLink_fm">
+            <tr id="columnLink_fm">
                 <td class="w_20 text_right">跳转链接:</td>
                 <td class="w_80"><input class="easyui-textbox" type="text" id="columnLink" name="columnLink"  data-options="required:true" ></input></td>
             </tr>
             <tr style="display:none;">
                 <td class="w_20 text_right">父栏目编号:</td>
-                <td class="w_80"><input class="easyui-textbox" type="text" id="columnParent" name="columnLink"  type="hidden"/></input></td>
+                <td class="w_80"><input class="easyui-textbox" type="text" id="columnParent" name="columnParent"  type="hidden"/></input></td>
             </tr>
             <tr>
                 <td class="w_20 text_right">备注:</td>
@@ -150,10 +152,10 @@
         //
         $("#columnId").val("");
         $("#columnName").val("");
-        $("#columnLevel").val("");
+       // $("#columnLevel").val("");
         $("#columnSort").val("");
         $("#columnLink").val("");
-        $("#columnParent").val("");
+        //$("#columnParent").val("");
         $("#remarks" ).val("");
         $("#uploadImgBtn").remove();
         var str = '<div class="uploadImgBtn" id="uploadImgBtn" >'+
@@ -219,12 +221,18 @@
               $("#columnSort").val(data.body.columnSort);
                 if (data.body.isJump == "0") {
                     $("input[name='isJump'][value='0']").attr("checked",true);
-                    $('#columnLink_fm').css("display",'none');
+                   // $('#columnLink_fm').css("display",'none');
                 }else if(data.body.isJump == "1"){
                     $("input[name='isJump'][value='1']").attr("checked",true);
-                    $('#columnLink_fm').css("display",'table-row');
+                   // $('#columnLink_fm').css("display",'table-row');
+                }else if(data.body.isJump == "2"){
+                    $("input[name='isJump'][value='2']").attr("checked",true);
                 }
-              $("#columnLink").val(data.body.columnLink);
+                if(data.body.isJump == "2"){
+                    $("#columnLink").val(data.body.columnLink);
+                }else{
+                    $("#columnLink").val(data.body.columnLink.substring(0,data.body.columnLink.lastIndexOf("?")));
+                }
               $("#columnParent").val(data.body.columnParent);
               $("#remarks" ).val(data.body.remarks);
                 addForm(data.body.images);
