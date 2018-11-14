@@ -13,7 +13,7 @@ CREATE TABLE website_columns (
   columnName 		varchar(20)	 	NOT NULL					comment '栏目名称',
   columnLevel 		char(2) 		NOT NULL DEFAULT '00'		comment '栏目等级 00:一级栏目 01:二级栏目',
   columnParent 		int(11) 		DEFAULT NULL				comment '父栏目编号',
-  isJump			char(1) 		NOT NULL DEFAULT '0'		comment '是否配置跳转链接 0:否 1:是',
+  isJump			char(1) 		NOT NULL DEFAULT '0'		comment '类型 0:文章 1:列表',
   columnLink		varchar(200) 	DEFAULT NULL				comment '栏目跳转链接',
   columnSort 	varchar(10) 	DEFAULT NULL				comment '栏目排序号',
   images      varchar(255) DEFAULT NULL				comment '图片地址',
