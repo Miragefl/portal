@@ -28,6 +28,7 @@ a:hover {
 .nav li .sub-nav li dl dd{height:2em;line-height: 2em;text-align: center;}
 .nav li .sub-nav li img{display: inline-block; width:50%;float:left}
 .nav li .sub-nav li a{height:34px;line-height:34px;width:138px;padding:0;display:inline-block;}
+.navbar-brand { float: left;padding:0px;height:auto}
 /*--top header start here--*/
 .top-social ul {
     padding: 0em;
