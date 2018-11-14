@@ -45,9 +45,10 @@ public class ConsultationController {
      */
     @RequestMapping(value="/getConsultation")
     @ResponseBody
-    public List<Map<String, Object>> getConsultation(@RequestParam(value = "columnName", required = false) String columnName, @RequestParam(value = "title", required = false) String title, @RequestParam(value = "consuPlace", required = false) String consuPlace) throws BizFailException{
+    public List<Map<String, Object>> getConsultation(@RequestParam(value = "columnId", required = false) String columnId,@RequestParam(value = "columnName", required = false) String columnName, @RequestParam(value = "title", required = false) String title, @RequestParam(value = "consuPlace", required = false) String consuPlace) throws BizFailException{
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         Map<String, Object> reqMap = new HashMap<String, Object>();
+        reqMap.put("columnId",columnId);
         reqMap.put("columnName",columnName);
         reqMap.put("title",title);
         reqMap.put("consuPlace",consuPlace);
@@ -135,6 +136,7 @@ public class ConsultationController {
         reqMap.put("consuLink",consuLink);
         reqMap.put("remarks",remarks);
         reqMap.put("images",images);
+        logger.info("reqMap----+"+reqMap);
         try {
             result = consultationService.updateConsultation(reqMap);
         } catch (BizFailException e) {
@@ -283,7 +285,7 @@ public class ConsultationController {
            /* data.put("imageURL", urls);
             data.put("orImageURL", orUrl);*/
             obj.put("error", 0);
-            obj.put("url", "http://localhost:8001/management/"+imagePath);
+            obj.put("url", ConfigUtil.get("imgUrl")+imagePath);
         }
         return  obj;
     }

@@ -19,7 +19,7 @@
             height: 30px;
             cursor: pointer;
             position: relative;
-            background: url("upload.png") no-repeat;
+            background: url("../consultation/upload.png") no-repeat;
             -webkit-background-size: cover;
             background-size: cover;
         }
@@ -52,7 +52,7 @@
         <tr class="margin_10_0">
             <td class="w_20 text_right">所属菜单:</td>
             <td class="w_80">
-                <input  id="columnId" name="columnId" class="easyui-combobox w_20" editable="false"  data-options="required:true"/>
+                <input  id="columnId" name="columnId" class="easyui-combobox w_20" editable="false"  data-options="required:true" disabled="disabled"/>
             </td>
         </tr>
         <input id ="images" name="images" type='hidden' class="easyui-textbox" editable="false" />
@@ -213,7 +213,14 @@
                 }
         });
         $("#file").on("change", upload );
+        var url = location.search;
+        var columnId;
+        if (url.indexOf("?") != -1) {
+            var site = url.lastIndexOf("=");
+            columnId=url.substring(site + 1, url.length);
+        }
         qryApppar("consultation_columnId","columnId");
+        $('#columnId').combobox('select',columnId);
         qryApppar("consultation_consuClass","consuClass");
         qryApppar("consultation_consuPlace","consuPlace");
     });

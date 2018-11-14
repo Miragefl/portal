@@ -47,40 +47,46 @@
 </head>
 <body>
 <!--陈士鹏开始-->
-<form id="ff" class="easyui-form" method="post" data-options="novalidate:true">
+<form id="ff" class="easyui-form" method="post" data-options="novalidate:true" action="/management/consultation/updateConsultation">
     <table cellpadding="5" width="100%">
         <tr class="margin_10_0">
             <td class="w_20 text_right">所属菜单:</td>
             <td class="w_80">
-                <select class="easyui-combobox w_20" name="language">
-                    <option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="vi">Vietnamese</option></select></td>
+                <input  id="columnId" name="columnId" class="easyui-combobox w_20" editable="false"  data-options="required:true"/>
+            </td>
         </tr>
+        <input id="consulId" name="consulId"  type="hidden"  class="easyui-textbox" editable="false" />
+        <input id ="images" name="images" type='hidden' class="easyui-textbox" editable="false" />
         <tr class="margin_10_0">
             <td class="w_20 text_right">标题:</td>
-            <td class="w_80"><input class="easyui-textbox w_50" type="text" name="email" data-options="required:true,validType:'email'"></input></td>
+            <td class="w_80"><input class="easyui-textbox w_50" type="text" id="title" name="title" data-options="required:true"></input></td>
         </tr>
         <tr class="margin_10_0">
             <td class="w_20 text_right">描述:</td>
-            <td class="w_80"><textarea id="" rows=5 name="" class="textarea easyui-validatebox w_50"></textarea></td>
-        </tr>
-        <tr class="margin_10_0">
-            <td class="w_20 text_right">类型:</td>
-            <td class="w_80"><input class="easyui-textbox w_50" name="message" data-options="multiline:true" style="height:60px"></input></td>
+            <td class="w_80"><textarea id="consuDesc" rows=5 name="consuDesc" class="textarea easyui-validatebox w_50"></textarea></td>
         </tr>
         <tr class="margin_10_0">
             <td class="w_20 text_right">类别:</td>
+            <td class="w_80"><input id="consuClass" name="consuClass" class="easyui-combobox w_50" editable="false"  data-options="required:true"/></td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right">类型:</td>
             <td class="w_80">
-                <input  type="radio" name="consuType" class="easyui-validatebox" checked="checked" value="00"><label>手动编辑</label></input>
-                <input  type="radio" name="consuType"class="easyui-validatebox" value="01"><label>外链</label></input>
+                <input  type="radio" name="consuType" class="easyui-validatebox" value="00" onclick="check('d1')"><label>手动编辑</label></input>
+                <input  type="radio" name="consuType"class="easyui-validatebox" value="01" onclick="check('d2')"><label>外链</label></input>
             </td>
         </tr>
         <tr class="margin_10_0">
             <td class="w_20 text_right">位置:</td>
             <td class="w_80">
-                <select class="easyui-combobox" name="language"><option value="ar">Arabic</option><option value="bg">Bulgarian</option><option value="ca">Catalan</option><option value="zh-cht">Chinese Traditional</option><option value="cs">Czech</option><option value="da">Danish</option><option value="nl">Dutch</option><option value="en" selected="selected">English</option><option value="et">Estonian</option><option value="fi">Finnish</option><option value="fr">French</option><option value="de">German</option><option value="el">Greek</option><option value="ht">Haitian Creole</option><option value="he">Hebrew</option><option value="hi">Hindi</option><option value="mww">Hmong Daw</option><option value="hu">Hungarian</option><option value="id">Indonesian</option><option value="it">Italian</option><option value="ja">Japanese</option><option value="ko">Korean</option><option value="lv">Latvian</option><option value="lt">Lithuanian</option><option value="no">Norwegian</option><option value="fa">Persian</option><option value="pl">Polish</option><option value="pt">Portuguese</option><option value="ro">Romanian</option><option value="ru">Russian</option><option value="sk">Slovak</option><option value="sl">Slovenian</option><option value="es">Spanish</option><option value="sv">Swedish</option><option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="vi">Vietnamese</option></select>
+                <input  id="consuPlace" name="consuPlace"  class="easyui-combobox w_50" editable="false"  data-options="required:true"/>
             </td>
         </tr>
-        <tr class="margin_10_0">
+        <tr class="margin_10_0" id="consuLink_div">
+            <td class="w_20 text_right">链接:</td>
+            <td class="w_80"><input class="easyui-textbox w_50" id="consuLink" name="consuLink" data-options="multiline:true"></input></td>
+        </tr>
+        <tr class="margin_10_0" id="context_div">
             <td class="w_20 text_right">文章内容:</td>
             <td class="w_80">
                 <textarea rows="3"  id="context" name="context" class="easyui-validatebox w_70" data-options="required:true,validType:'length[1,1000000]'" invalidMessage="最大长度不能超过1000000"></textarea>
@@ -89,23 +95,26 @@
         <tr class="margin_10_0">
             <td class="w_20 text_right">备注:</td>
             <td class="w_80">
-                <textarea id="" rows=5 name="" class="textarea easyui-validatebox w_50"></textarea>
+                <textarea id="remarks" rows=5 name="remarks" class="textarea easyui-validatebox w_50"></textarea>
             </td>
         </tr>
         <tr class="margin_10_0">
             <td class="w_20 text_right">图片上传:</td>
-            <td class="w_80">
-                <div class="uploadImgBtn" id="uploadImgBtn1">
-                    <input class="uploadImg" type="file" name="file" id="file1">
+            <td class="w_80" id="upImg">
+                <div class="uploadImgBtn" id="uploadImgBtn">
+                    <input class="uploadImg" type="file" name="file" id="file">
                 </div>
+            </td>
+        </tr>
+        <tr class="margin_10_0">
+            <td class="w_20 text_right"></td>
+            <td class="w_80">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="updateConsultation()">提交</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
             </td>
         </tr>
     </table>
 </form>
-<div style="text-align:center;padding:5px">
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
-</div>
 <!--陈士鹏结束-->
 <!--<div style="margin:10px 0;">
     <form id="fm" method="post" style="margin-top: 20px; margin-left: 20px;" action="/management/consultation/updateConsultation">
@@ -208,7 +217,6 @@
     });
 
     function voluation(consuId){
-            alert(consuId);
         $.ajax({
             url:'/management/consultation/qryConsultationById',
             type:"POST",
@@ -216,16 +224,13 @@
             data:{consulId:consuId},
             success:function(data){
                 /*return rows;*/
-                alert(data);
                // $("#columnId").val(data.columnId);
                 $('#columnId').combobox('select',data.columnId);
                 $("#consulId").val(data.consulId);
                 $("#title").val(data.title);
                 $("#consuDesc").val(data.consuDesc);
-                alert("data.consuType"+data.consuType);
                 debugger;
                 if (data.consuType == "00") {
-                    alert(11);
                     $("input[name='consuType'][value='00']").attr("checked",true);
                     KindEditor.html("#context", data.context);
                     $('#consuLink_div').css("display",'none');
@@ -244,30 +249,26 @@
 
     function updateConsultation() {
         var imageUrl='';
-            var myDiv = document.getElementById("uploadImgBtn1");
+            var myDiv = document.getElementById("uploadImgBtn");
             if(myDiv==null){
-                alert(1);
             }else{
                 var style=myDiv.style;
-                alert(style.backgroundImage.substring(5,style.backgroundImage.length-2));//red
 
                 imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
             }
-        alert(imageUrl.substring(0,imageUrl.length-1));
         $("#images").val(imageUrl.substring(0,imageUrl.length-1));
-        fm.submit();
+        ff.submit();
     }
     function addForm(images) {
       /*  var img=[];
         img =images.split(",");*/
             var image = images;
-            var str = '<form id="formTag1" enctype="multipart/form-data">'+
-                '<div class="uploadImgBtn" id="uploadImgBtn1" style="background-image: url('+image+');">'+
-                '<input class="uploadImg" type="file" name="file" id="file1">'+
-                '</div>'+
-                '</form>   ';
-            $("#formBox").append($(str));
-            $("#file1").on("change", upload );
+        $("#uploadImgBtn").remove();
+            var str = '<div class="uploadImgBtn" id="uploadImgBtn" style="background-image: url('+image+');">'+
+                '<input class="uploadImg" type="file" name="file" id="file">'+
+                '</div>';
+            $("#upImg").append($(str));
+            $("#file").on("change", upload );
 /*
         count=img.length+1;
         for(var i=0;i<img.length;i++){
@@ -314,13 +315,15 @@
             var num = this.getAttribute("id").replace(/[a-zA-Z]/g,"");
             //构造form的选择器
             var $form = "#formTag" +num;
-            alert("num++__+"+num);
+            var formData = new FormData();
+            formData.append('file', $('#file')[0].files[0]);
+
             $.ajax({
                 url:"/management/consultation/uploadImg.do",
                 type:"post",
                 dataType:"json",
                 cache:false,
-                data: new FormData($($form)[0]),
+                data: formData,
                 processData: false,// 不处理数据
                 contentType: false, // 不设置内容类型
                 success:function(data){
@@ -331,7 +334,7 @@
                     //imgurl+=data.url;
                     // $("#images").val(imgurl);
                     //我们再生成一个form
-                    if(count == num ){
+              /*      if(count == num ){
                         //count计数加1
                         count +=1;
                         var str = '<form id="formTag'+count+'" enctype="multipart/form-data">'+
@@ -349,7 +352,7 @@
                     }else{
                         //如果不等于
                         return false;
-                    }
+                    }*/
                 }
             });
         }
@@ -373,11 +376,31 @@
         function  check(id) {
             if(id=='d1'){
                 $('#consuLink_div').css("display",'none');
-                $('#context_div').css("display",'block');
+                $('#context_div').css("display",'table-row');
             }else if(id=='d2'){
-                $('#consuLink_div').css("display",'block');
+                $('#consuLink_div').css("display",'table-row');
                 $('#context_div').css("display",'none');
             }
+        }
+        function  clearForm() {
+            $('#columnId').combobox('clear');
+            $("#images").val("");
+            $("#title").val("");
+            $("#consuDesc").val("");
+            $("#consuLink").val("");
+            $("#remarks").val("");
+            $('#consuClass').combobox('clear');
+            $('#consuPlace').combobox('clear');
+            KindEditor.html("#context", "");
+            $("input[name='consuType'][value='00']").attr("checked",true);
+            $('#consuLink_div').css("display",'none');
+            $('#context_div').css("display",'table-row');
+            $("#uploadImgBtn").remove();
+            var str = '<div class="uploadImgBtn" id="uploadImgBtn" >'+
+                '<input class="uploadImg" type="file" name="file" id="file">'+
+                '</div>';
+            $("#upImg").append($(str));
+
         }
 </script>
 </body>

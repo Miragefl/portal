@@ -1,212 +1,122 @@
-<div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'west',border:true,split:true," title="分类管理" style="width:150px; padding:5px;">
-        <ul id="wu-category-tree" class="easyui-tree"></ul>
-    </div>
-    <div data-options="region:'center',border:false">
-    	<!-- Begin of toolbar -->
-        <div id="wu-toolbar">
-            <div class="wu-toolbar-button">
-                <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="openAdd()" plain="true">添加</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="openEdit()" plain="true">修改</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="remove()" plain="true">删除</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="cancel()" plain="true">取消</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-reload" onclick="reload()" plain="true">刷新</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-print" onclick="openAdd()" plain="true">打印</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-help" onclick="openEdit()" plain="true">帮助</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-undo" onclick="remove()" plain="true">撤销</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-redo" onclick="cancel()" plain="true">重做</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-sum" onclick="reload()" plain="true">总计</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-back" onclick="reload()" plain="true">返回</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-tip" onclick="reload()" plain="true">提示</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-save" onclick="reload()" plain="true">保存</a>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-cut" onclick="reload()" plain="true">剪切</a>
-            </div>
-            <div class="wu-toolbar-search">
-                <label>起始时间：</label><input class="easyui-datebox" style="width:100px">
-                <label>结束时间：</label><input class="easyui-datebox" style="width:100px">
-                <label>用户组：</label> 
-                <select class="easyui-combobox" panelHeight="auto" style="width:100px">
-                    <option value="0">选择用户组</option>
-                    <option value="1">黄钻</option>
-                    <option value="2">红钻</option>
-                    <option value="3">蓝钻</option>
-                </select>
-                <label>关键词：</label><input class="wu-text" style="width:100px">
-                <a href="#" class="easyui-linkbutton" iconCls="icon-search">开始检索</a>
-            </div>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Editable Tree - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../easyui/1.3.4/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/skin.css">
+    <script type="text/javascript" src="../../js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="../../easyui/1.3.4/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../easyui/1.3.4/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+<div id="wu-toolbar">
+    <div class="margin_10_0">
+        <div class="">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" onclick="toUpdateUser()">修改</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" onclick="toAddUser()">新增</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="delUser()">删除</a>
         </div>
-        <!-- End of toolbar -->
-        <table id="wu-datagrid" toolbar="#wu-toolbar"></table>
+        <div class="wu-toolbar-search ">
+            <label>姓名：</label><input id="username" name="username" style="" class="easyui-textbox" editable="false" />
+            <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="getData()">查询</a>
+        </div>
     </div>
 </div>
-<!-- Begin of easyui-dialog -->
-<div id="wu-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:400px; padding:10px;">
-	<form id="wu-form" method="GET">
-        <table>
+<div id="w" class="easyui-window" title="用户详情" data-options="iconCls:'icon-save'" style="width:500px;height:300px;padding:10px;" closed="true">
+    <form id="ff" method="post" action="">
+        <table cellpadding="5">
+            <input id="userId" name="userId" style="" class="easyui-textbox" editable="false"  type="hidden"/>
             <tr>
-                <td width="60" align="right">姓 名:</td>
-                <td><input type="text" name="name" class="wu-text" /></td>
+                <td>姓名:</td>
+                <td><input class="easyui-textbox" type="text"  id="win_userName" name="userName" data-options="required:true"></input></td>
             </tr>
             <tr>
-                <td align="right">邮 箱:</td>
-                <td><input type="text" name="email" class="wu-text" /></td>
+                <td>密码:</td>
+                <td><input class="easyui-textbox" type="text" id="password" name="password" data-options="required:true"></input></td>
             </tr>
             <tr>
-                <td align="right">主 题:</td>
-                <td><input type="text" name="subject" class="wu-text" /></td>
+                <td>手机号:</td>
+                <td><input class="easyui-textbox" type="text" id="userPhone" name="userPhone"  data-options="required:true"></input></td>
             </tr>
             <tr>
-                <td valign="top" align="right">内 容:</td>
-                <td><textarea name="content" rows="6" class="wu-textarea" style="width:260px"></textarea></td>
+                <td>性别:</td>
+                <td>
+                    <input  type="radio" name="sex" class="easyui-validatebox" checked="checked" value="男"><label>男</label></input>
+                    <input  type="radio" name="sex"class="easyui-validatebox" value="女"><label>女</label></input>
+                </td>
+            </tr>
+            <tr>
+                <td>年龄:</td>
+                <td><input class="easyui-textbox" type="text" id="age" name="age"  data-options="required:true"></input></td>
+            </tr>
+            <tr>
+                <td>
+                    <a id="confirm1" href="javascript:void(0)" class="easyui-linkbutton c6" iconcls="icon-ok" onclick="submitCol()">提交</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#w').dialog('close')">取消</a>
+                </td>
             </tr>
         </table>
     </form>
 </div>
-<!-- End of easyui-dialog -->
-<script type="text/javascript">
-    /**
-     * Name 载入菜单树
-     */
-    $('#wu-category-tree').tree({
-        url:'temp/menu.php',
-        onClick:function(node){
-            alert(node.text);
-        }
-    });
-
-    /**
-     * Name 添加记录
-     */
-    function add(){
-        $('#wu-form').form('submit', {
-            url:'',
-            success:function(data){
-                if(data){
-                    $.messager.alert('信息提示','提交成功！','info');
-                    $('#wu-dialog').dialog('close');
-                }
-                else
-                {
-                    $.messager.alert('信息提示','提交失败！','info');
-                }
-            }
-        });
-    }
-
-    /**
-     * Name 修改记录
-     */
-    function edit(){
-        $('#wu-form').form('submit', {
-            url:'',
-            success:function(data){
-                if(data){
-                    $.messager.alert('信息提示','提交成功！','info');
-                    $('#wu-dialog').dialog('close');
-                }
-                else
-                {
-                    $.messager.alert('信息提示','提交失败！','info');
-                }
-            }
-        });
-    }
-
-    /**
-     * Name 删除记录
-     */
-    function remove(){
-        $.messager.confirm('信息提示','确定要删除该记录？', function(result){
-            if(result){
-                var items = $('#wu-datagrid').datagrid('getSelections');
-                var ids = [];
-                $(items).each(function(){
-                    ids.push(this.productid);
-                });
-                //alert(ids);return;
-                $.ajax({
-                    url:'',
-                    data:'',
-                    success:function(data){
-                        if(data){
-                            $.messager.alert('信息提示','删除成功！','info');
-                        }
-                        else
-                        {
-                            $.messager.alert('信息提示','删除失败！','info');
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-    /**
-     * Name 打开添加窗口
-     */
-    function openAdd(){
-        $('#wu-form').form('clear');
-        $('#wu-dialog').dialog({
-            closed: false,
-            modal:true,
-            title: "添加信息",
-            buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: add
-            }, {
-                text: '取消',
-                iconCls: 'icon-cancel',
-                handler: function () {
-                    $('#wu-dialog').dialog('close');
-                }
-            }]
-        });
-    }
-
-    /**
-     * Name 打开修改窗口
-     */
-    function openEdit(){
-        $('#wu-form').form('clear');
-        var item = $('#wu-datagrid').datagrid('getSelected');
-        //alert(item.productid);return;
+<table id="dg" title="用户列表" toolbar="#wu-toolbar" data-options="rownumbers:true,
+        singleSelect:false,
+        pageSize:20,
+        pagination:true,
+        multiSort:true,
+        fitColumns:true,
+        fit:true">
+    <thead>
+    <tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th field="userId" width="10%">编号</th>
+        <th field="username" width="10%">姓名</th>
+        <th field="password" width="40%">密码</th>
+        <th field="userPhone" width="20%">电话号码</th>
+        <th field="sex"  width="20%">性别</th>
+        <th field="age"  width="20%">年龄</th>
+    </tr>
+    </thead>
+</table>
+<script>
+    var flag='';
+    function getData(){
+        var rows = [];
+        var username = $("#username").val();
         $.ajax({
-            url:'',
-            data:'',
+            url:'/management/user/getUserList',
+            type:"POST",
+            async:false,
+            data:{userName:username},
             success:function(data){
-                if(data){
-                    $('#wu-dialog').dialog('close');
-                }
-                else{
-                    //绑定值
-                    $('#wu-form').form('load', data)
-                }
+                var chargeRuleLogs = data.body;
+                $.each(chargeRuleLogs, function (index, n) {
+                    rows.push({
+                        userId: chargeRuleLogs[index].USERID,
+                        username: chargeRuleLogs[index].USERNAME,
+                        password: chargeRuleLogs[index].PASSWORD,
+                        userPhone: chargeRuleLogs[index].userPhone,
+                        sex: chargeRuleLogs[index].sex,
+                        age: chargeRuleLogs[index].age
+                    });
+
+                })
+                //datagridtable2.datagrid('loadData', array);
+                $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', rows);
+                /*return rows;*/
             }
-        });
-        $('#wu-dialog').dialog({
-            closed: false,
-            modal:true,
-            title: "修改信息",
-            buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: edit
-            }, {
-                text: '取消',
-                iconCls: 'icon-cancel',
-                handler: function () {
-                    $('#wu-dialog').dialog('close');
-                }
-            }]
         });
     }
 
-    /**
-     * Name 分页过滤器
-     */
+    /*  function doSearch(){
+         getData
+     } */
+
     function pagerFilter(data){
-        if (typeof data.length == 'number' && typeof data.splice == 'function'){// is array
+        if (typeof data.length == 'number' && typeof data.splice == 'function'){	// is array
             data = {
                 total: data.length,
                 rows: data
@@ -219,7 +129,10 @@
             onSelectPage:function(pageNum, pageSize){
                 opts.pageNumber = pageNum;
                 opts.pageSize = pageSize;
-                pager.pagination('refresh',{pageNumber:pageNum,pageSize:pageSize});
+                pager.pagination('refresh',{
+                    pageNumber:pageNum,
+                    pageSize:pageSize
+                });
                 dg.datagrid('loadData',data);
             }
         });
@@ -232,30 +145,100 @@
         return data;
     }
 
-    /**
-     * Name 载入数据
-     */
-    $('#wu-datagrid').datagrid({
-        url:'../temp/datagrid.php',
-        loadFilter:pagerFilter,
-        rownumbers:true,
-        singleSelect:false,
-        pageSize:20,
-        pagination:true,
-        multiSort:true,
-        fitColumns:true,
-        fit:true,
-        method:'get',
-        columns:[[
-            { checkbox:true},
-            { field:'productid',title:'productid',width:100,sortable:true},
-            { field:'productname',title:'productname',width:180,sortable:true},
-            { field:'unitcost',title:'unitcost',width:100},
-            { field:'listprice',title:'listprice',width:100},
-            { field:'attr1',title:'attr1',width:100},
-            { field:'itemid',title:'itemid',width:100},
-            { field:'status',title:'status',width:100}
-        ]]
+    $(function(){
+        getData();
+        // $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
     });
 
+    //跳转修改页面
+    function toUpdateUser(){
+        flag='1';
+        var checkedItems = $('#dg').datagrid('getChecked');
+        var ids = [];
+        $.each(checkedItems, function(index, item){
+            ids.push(item.userId);
+        });
+        if(ids.length!=1){
+            alert("请选择一个选项进行修改!")
+        }else {
+            var id = ids.toString();
+            $.ajax({
+                url:'/management/user/qryUserById',
+                type:"POST",
+                async:false,
+                data:{userId:id},
+                success:function(data){
+                    /*return rows;*/
+                    $("#userId").val(data.body.USERID);
+                    $("#win_userName").val(data.body.USERNAME);
+                    $("#password").val(data.body.PASSWORD);
+                    $("#age").val(data.body.age);
+                    if (data.body.sex == "男") {
+                        $("input[name='sex'][value='男']").attr("checked",true);
+                    }else if(data.body.sex == "女"){
+                        $("input[name='sex'][value='女']").attr("checked",true);
+                    }
+                    $("#userPhone").val(data.body.userPhone);
+                    $("#w").window("open");
+                }
+            });
+        }
+    }
+    function toAddUser(){
+        flag='0';
+        $("#userId").val("");
+        $("#win_userName").val("");
+        $("#password").val("");
+        $("#age").val("");
+        $("input[name='sex'][value='男']").attr("checked",true);
+        $("#userPhone").val("");
+        $("#w").window("open");
+    }
+    
+    function submitCol() {
+        if(flag=='0') {
+            $('#ff').form('submit', {
+                url: "/management/user/addUser",
+                onSubmit: function () {
+                    // do some check
+                    // return false to prevent submit;
+                },
+                success: function (data) {
+                    alert("操作成功")
+                    $('#w').window('close');
+                }
+            });
+        }else{
+            $('#ff').form('submit', {
+                url: "/management/user/updateUser",
+                onSubmit: function () {
+                    // do some check
+                    // return false to prevent submit;
+                },
+                success: function (data) {
+                    alert("操作成功")
+                    $('#w').window('close');
+                }
+            });
+        }
+    }
+    function delUser() {
+        var checkedItems = $('#dg').datagrid('getChecked');
+        var ids = [];
+        $.each(checkedItems, function(index, item){
+            ids.push(item.userId);
+        });
+            var id = ids.toString();
+            $.ajax({
+                url: '/management/user/delUser',
+                type: "POST",
+                data: {userId: id},
+                success: function (data) {
+                    //data为后台返回值。我们这里后台返回的是map类型。map.put("latiao":3.5);所以到前台取值方式：
+                    alert("操作成功");
+                }
+            })
+    }
 </script>
+</body>
+</html>

@@ -49,16 +49,17 @@
 </table>
 
 <script>
-    function getData(){
+    var columnId;
+    function getData(columnId){
         var rows = [];
-        var columnName = $("#columnName").val();
+        //var columnName = $("#columnName").val();
         var title = $("#title").val();
         var consuPlace = $("#consuPlace").val();
         $.ajax({
             url:'/management/consultation/getConsultation',
             type:"POST",
             async:false,
-            data:{columnName:columnName,title:title,consuPlace:consuPlace},
+            data:{columnId:columnId,title:title,consuPlace:consuPlace},
             success:function(data){
                 var chargeRuleLogs = data;
                 $.each(chargeRuleLogs, function (index, n) {
@@ -136,7 +137,12 @@
     }
 
     $(function(){
-        getData();
+        var url = location.search;
+        if (url.indexOf("?") != -1) {
+            var site = url.lastIndexOf("=");
+            columnId=url.substring(site + 1, url.length);
+        }
+        getData(columnId);
         // $('#dg').datagrid({loadFilter:pagerFilter}).datagrid('loadData', getData());
     });
 
@@ -188,7 +194,7 @@
       } */
     //跳转新增页面
     function toAddConslutation(){
-        var content = '<iframe scrolling="auto" frameborder="0"  src="../html/consultation/add_consultation.html" style="width:100%;height:100%;"></iframe>';
+        var content = '<iframe scrolling="auto" frameborder="0"  src="../html/information/add_consultation_new.html?columnId='+columnId+'" style="width:100%;height:100%;"></iframe>';
         window.parent.removeTabByTitle();
         parent.$('#wu-tabs').tabs("add", {
             title: '新增文章',

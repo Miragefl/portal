@@ -7,10 +7,10 @@
     <select id="getContact" parameterType="java.util.HashMap" resultType="java.util.HashMap">
         SELECT id,username,email,content,DATE_FORMAT(createtime,'%Y-%m-%d %H:%i:%s') createtime,DATE_FORMAT(modifytime,'%Y-%m-%d %H:%i:%s') modifytime FROM contact WHERE 1=1
         <if test="username != null and username !=''">
-            and username=#{username}
+            and username like CONCAT('%',#{username},'%')
         </if>
         <if test="email != null and email !=''">
-            and email=#{email}
+            and email like CONCAT('%',#{email},'%')
         </if>
     </select>
 </mapper>
