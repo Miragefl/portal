@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content=""/>
+    <meta name="referrer" content="no-referrer" />
     <script type="application/x-javascript">
         $(function(){
             $(".nav>li").hover(function(){
@@ -95,7 +96,7 @@
                                             <a th:href="@{${per['columnLink']}}" th:attr="data-hover=${per['columnName']}">[[${per['columnName']}]]</a>
                                         </dd>
                                     </dl>
-                                    <img  src="http://img.hb.aicdn.com/016cb81e2f98691f0be5438a831af3b4021461bd1ba1d-2vfji6_sq320">
+                                    <img th:src="@{${entries['images']}}">
                                 </li>
 
                             </ul>

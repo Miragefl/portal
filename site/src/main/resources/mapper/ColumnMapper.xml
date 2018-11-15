@@ -16,14 +16,14 @@
     </select>
 
     <select id="qryColumns" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        SELECT columnId,columnName,columnLink,isJump FROM website_columns WHERE isDel = '0'
+        SELECT columnId,columnName,columnLink,isJump,images FROM website_columns WHERE isDel = '0'
         <if test="columnId != null">
             AND columnParent = #{columnId}
         </if>
         <if test="columnId == null">
             AND columnParent IS NULL
         </if>
-        ORDER BY columnSort DESC
+        ORDER BY columnSort ASC
     </select>
 
 </mapper>
