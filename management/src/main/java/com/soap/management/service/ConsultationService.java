@@ -59,12 +59,12 @@ public class ConsultationService {
         if(StringUtils.isBlank(String.valueOf(reqMap.get("consuType")))){
             throw new BizFailException(RET_FAIL, "类型未传!");
         }
-        if(StringUtils.isBlank(String.valueOf(reqMap.get("consuPlace")))){
+/*        if(StringUtils.isBlank(String.valueOf(reqMap.get("consuPlace")))){
             throw new BizFailException(RET_FAIL, "位置未传!");
-        }
-        if(StringUtils.isBlank(String.valueOf(reqMap.get("consuClass")))){
+        }*/
+     /*   if(StringUtils.isBlank(String.valueOf(reqMap.get("consuClass")))){
             throw new BizFailException(RET_FAIL, "类别未传!");
-        }
+        }*/
        /* if(StringUtils.isBlank(String.valueOf(reqMap.get("context")))){
             throw new BizFailException(RET_FAIL, "文本内容未传!");
         }*/
@@ -107,12 +107,12 @@ public class ConsultationService {
         if(StringUtils.isBlank(String.valueOf(reqMap.get("consuType")))){
             throw new BizFailException(RET_FAIL, "类型未传!");
         }
-        if(StringUtils.isBlank(String.valueOf(reqMap.get("consuPlace")))){
+      /*  if(StringUtils.isBlank(String.valueOf(reqMap.get("consuPlace")))){
             throw new BizFailException(RET_FAIL, "位置未传!");
-        }
-        if(StringUtils.isBlank(String.valueOf(reqMap.get("consuClass")))){
+        }*/
+   /*     if(StringUtils.isBlank(String.valueOf(reqMap.get("consuClass")))){
             throw new BizFailException(RET_FAIL, "类别未传!");
-        }
+        }*/
         if(StringUtils.isBlank(String.valueOf(reqMap.get("remarks")))){
             throw new BizFailException(RET_FAIL, "备注未传!");
         }
