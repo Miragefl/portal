@@ -160,6 +160,15 @@
             data:{consulId:ids.toString()},
             success:function(data){
                alert("删除成功!");
+                var current_tab = parent.$('#wu-tabs').tabs('getSelected');
+                var content1 = '<iframe scrolling="auto" frameborder="0"  src="../html/information/consultation_new.html?columnId='+columnId+'" style="width:100%;height:100%;"></iframe>';
+                parent.$('#wu-tabs').tabs('update',{
+                    tab:current_tab,
+                        options : {
+                        content : content1
+
+                    }
+                });
             }
         });
     }

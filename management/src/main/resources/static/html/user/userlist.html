@@ -236,6 +236,15 @@
                 success: function (data) {
                     //data为后台返回值。我们这里后台返回的是map类型。map.put("latiao":3.5);所以到前台取值方式：
                     alert("操作成功");
+                    var current_tab = parent.$('#wu-tabs').tabs('getSelected');
+                    var content1 = '<iframe scrolling="auto" frameborder="0"  src="../html/user/userlist.html" style="width:100%;height:100%;"></iframe>';
+                    parent.$('#wu-tabs').tabs('update',{
+                        tab:current_tab,
+                        options : {
+                            content : content1
+
+                        }
+                    });
                 }
             })
     }
