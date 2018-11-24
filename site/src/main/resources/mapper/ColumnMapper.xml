@@ -12,7 +12,7 @@
             b.columnLink scolumnLink
         FROM (
             SELECT * FROM website_columns a WHERE a.columnParent IS NULL) a LEFT JOIN (
-             SELECT * FROM website_columns b WHERE b.columnParent IS NOT null) b ON a.columnId = b.columnParent ORDER BY  a.columnSort DESC
+             SELECT * FROM website_columns b WHERE b.columnParent IS NOT null) b ON a.columnId = b.columnParent ORDER BY  a.columnSort ASC
     </select>
 
     <select id="qryColumns" parameterType="java.util.HashMap" resultType="java.util.HashMap">
