@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="copyright" content="All Rights Reserved, Copyright (C) 2013, Wuyeguo, Ltd." />
-<title>黄海水泥内部管理系统</title>
+<title>江苏黄海建材集团有限公司内部管理系统</title>
 <link rel="stylesheet" type="text/css" th:href="@{/easyui/1.3.4/themes/default/easyui.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/wu.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/icon.css}" />
@@ -31,26 +31,6 @@
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/user/userlist.html" iframe="0">用户列表</a></li>
                 </ul>
             </div>-->
-            <div title="用户管理" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
-                <ul class="easyui-tree wu-side-tree">
-                    <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/user/userlist.html" iframe="0">用户列表</a></li>
-                </ul>
-            </div>
-            <div title="信息管理" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
-                <ul class="easyui-tree wu-side-tree">
-                    <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/consultation/consultation.html" iframe="0">文章列表</a></li>
-                </ul>
-            </div>
-            <div title="菜单管理" data-options="iconCls:'icon-application-form-edit'" style="padding:5px;">
-    			<ul class="easyui-tree wu-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/column/column.html" iframe="0">栏目列表</a></li>
-                </ul>
-            </div>
-            <div title="邮件管理" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
-    			<ul class="easyui-tree wu-side-tree">
-                	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/contact/contact.html" iframe="0">邮件列表</a></li>
-                </ul>
-            </div>
             <div title="走进黄海" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
     			<ul class="easyui-tree wu-side-tree">
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/information/consultation_new.html?columnId=6" iframe="0">了解黄海</a></li>
@@ -84,13 +64,28 @@
                 	<li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/information/consultation_new.html?columnId=17" iframe="0">联系方式</a></li>
                 </ul>
             </div>
+            <div title="邮件管理" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
+                <ul class="easyui-tree wu-side-tree">
+                    <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/contact/contact.html" iframe="0">邮件列表</a></li>
+                </ul>
+            </div>
+            <div title="菜单管理" data-options="iconCls:'icon-application-form-edit'" style="padding:5px;">
+                <ul class="easyui-tree wu-side-tree">
+                    <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/column/column.html" iframe="0">菜单列表</a></li>
+                </ul>
+            </div>
+            <div title="用户管理" data-options="iconCls:'icon-application-cascade'" style="padding:5px;">
+                <ul class="easyui-tree wu-side-tree">
+                    <li iconCls="icon-chart-organisation"><a href="javascript:void(0)" data-icon="icon-chart-organisation" data-link="../html/user/userlist.html" iframe="0">用户列表</a></li>
+                </ul>
+            </div>
         </div>
     </div>
     <!-- end of sidebar -->
     <!-- begin of main -->
     <div class="wu-main" data-options="region:'center'">
         <div id="wu-tabs" class="easyui-tabs" data-options="border:false,fit:true">
-            <div title="文章列表" data-options="href:'../html/consultation/consultation.html',closable:false,iconCls:'icon-tip',cls:'pd3'"></div>
+            <div title="首页" data-options="href:'../html/homePage/homePage.html',closable:false,iconCls:'icon-tip',cls:'pd3'"></div>
         </div>
     </div>
     <!-- end of main -->
@@ -191,9 +186,10 @@
 				tabPanel.tabs('close', index);
 			}
 		}
-        function removeTabByTitle(){
+        function removeTabByTitle(title){
+		    debugger;
             var tabPanel = $('#wu-tabs');
-            tabPanel.tabs('close', "文章列表");
+            tabPanel.tabs('close', "了解黄海");
         }
 	</script>
 </body>

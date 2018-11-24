@@ -63,7 +63,7 @@
         </tr>
         <tr class="margin_10_0">
             <td class="w_20 text_right">描述:</td>
-            <td class="w_80"><textarea id="consuDesc" rows=5 name="consuDesc" class="textarea easyui-validatebox w_50"></textarea></td>
+            <td class="w_80"><textarea id="consuDesc" rows=5 name="consuDesc"  class="textarea easyui-validatebox w_50"></textarea></td>
         </tr>
         <tr style="display: none" class="margin_10_0">
             <td class="w_20 text_right">类别:</td>
@@ -95,7 +95,7 @@
         <tr class="margin_10_0">
             <td class="w_20 text_right">备注:</td>
             <td class="w_80">
-                <textarea id="remarks" rows=5 name="remarks" class="textarea easyui-validatebox w_50"></textarea>
+                <textarea id="remarks" rows=5 name="remarks"  class="textarea easyui-validatebox w_50"></textarea>
             </td>
         </tr>
         <tr class="margin_10_0">
@@ -172,6 +172,8 @@
 </div>-->
 <script>
         var editor;
+        var columnId='';
+        var columnName='';
         var count=0;
         $(function() {
             editor = KindEditor.create('textarea[name="context"]',{
@@ -225,6 +227,7 @@
             success:function(data){
                 /*return rows;*/
                // $("#columnId").val(data.columnId);
+                columnId=data.columnId;
                 $('#columnId').combobox('select',data.columnId);
                 $("#consulId").val(data.consulId);
                 $("#title").val(data.title);
@@ -256,9 +259,47 @@
 
                 imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
             }
-        $("#images").val(imageUrl.substring(0,imageUrl.length-1));
-        ff.submit();
+        $("#images").val(imageUrl.substring(0,imageUrl.length-1))
+        if($("#title").val()==""){
+            alert("请输入标题");
+        }else if($("#consuDesc").val()==""){
+            alert("请输入描述");
+        }else if($("#remarks").val()==""){
+            alert("请输入备注");
+        }else if((imageUrl.substring(0,imageUrl.length-1).length)==0){
+            alert("请上传图片");
+        }else {
+            $('#ff').form('submit', {
+                url: "/management/consultation/updateConsultation",
+                onSubmit: function () {
+                    // do some check
+                    // return false to prevent submit;
+                },
+                success: function (data) {
+                    var content = '<iframe scrolling="auto" frameborder="0"  src="../html/information/consultation_new.html?columnId='+columnId+'" style="width:100%;height:100%;"></iframe>';
+                    getColumnName(columnId);
+                    parent.$('#wu-tabs').tabs("add", {
+                        title: columnName,
+                        content: content,
+                        closable: true
+                    });
+                }
+            });
+        }
+
     }
+
+        function getColumnName(columnId) {
+            $.ajax({
+                url:'/management/column/getCoulums',
+                type:"POST",
+                async:false,
+                data:{columnId:columnId},
+                success:function(data){
+                    columnName=data.body.columnName;
+                }
+            });
+        }
     function addForm(images) {
       /*  var img=[];
         img =images.split(",");*/

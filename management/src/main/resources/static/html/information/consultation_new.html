@@ -28,7 +28,7 @@
         </div>
     </div>
 </div>
-<table id="dg" title="文章列表" toolbar="#wu-toolbar" data-options="rownumbers:true,
+<table id="dg" title="" toolbar="#wu-toolbar" data-options="rownumbers:true,
         singleSelect:false,
         pageSize:20,
         pagination:true,
@@ -42,14 +42,13 @@
         <th field="columnName" width="80">所属菜单</th>
         <th field="title" width="100">标题</th>
         <th field="consuType" width="80">类型</th>
-        <th field="consuClass" width="80" align="right">类别</th>
-        <th field="consuPlace" width="80" align="right">位置</th>
     </tr>
     </thead>
 </table>
 
 <script>
     var columnId;
+    var columnName='';
     function getData(columnId){
         var rows = [];
         //var columnName = $("#columnName").val();
@@ -89,9 +88,7 @@
                         consulId: chargeRuleLogs[index].consulId,
                         columnName: chargeRuleLogs[index].columnName,
                         title: chargeRuleLogs[index].title,
-                        consuType: consuType,
-                        consuClass: consuClass,
-                        consuPlace: consuPlace
+                        consuType: consuType
                     });
 
                 })
@@ -185,9 +182,10 @@
         }
         var id =ids;
         var content = '<iframe scrolling="auto" frameborder="0"  src="../html/consultation/modify_consultation.html?consulId='+id+'" style="width:100%;height:100%;"></iframe>';
-        window.parent.removeTabByTitle();
+        getColumnNameByConsulId(id.toString());
+        debugger;
         parent.$('#wu-tabs').tabs("add", {
-            title: '修改文章',
+            title: '修改'+columnName,
             content: content,
             closable: true
         });
@@ -204,15 +202,39 @@
     //跳转新增页面
     function toAddConslutation(){
         var content = '<iframe scrolling="auto" frameborder="0"  src="../html/information/add_consultation_new.html?columnId='+columnId+'" style="width:100%;height:100%;"></iframe>';
-        window.parent.removeTabByTitle();
+        getColumnName(columnId);
         parent.$('#wu-tabs').tabs("add", {
-            title: '新增文章',
+            title: '新增'+columnName,
             content: content,
             closable: true
         });
     }
 
+    function getColumnName(columnId) {
+        $.ajax({
+            url:'/management/column/getCoulums',
+            type:"POST",
+            async:false,
+            data:{columnId:columnId},
+            success:function(data){
+                columnName=data.body.columnName;
+            }
+        });
+    }
 
+    function getColumnNameByConsulId(consulId) {
+        var columnId_new='';
+        $.ajax({
+            url:'/management/consultation/qryConsultationById',
+            type:"POST",
+            async:false,
+            data:{consulId:consulId},
+            success:function(data){
+                columnId_new = data.columnId;
+            }
+        });
+        getColumnName(columnId_new);
+    }
 </script>
 </body>
 </html>

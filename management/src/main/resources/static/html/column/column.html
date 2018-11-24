@@ -86,7 +86,7 @@
             </tr>
             <tr>
                 <td class="w_20 text_right">备注:</td>
-                <td class="w_80"><textarea rows="3" style="width:400px;" id="remarks" name="remarks" class="easyui-textbox" editable="false"></textarea></td>
+                <td class="w_80"><textarea rows="3" style="width:400px;" id="remarks" name="remarks" class="easyui-textbox" data-options="required:true" editable="false"></textarea></td>
             </tr>
             <input id ="images" name="images" type='hidden' class="easyui-textbox" editable="false" />
             <tr>
@@ -285,6 +285,9 @@
                   var style=myDiv.style;
 
                   imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
+          }
+          if((imageUrl.substring(0,imageUrl.length-1).length)==0){
+              alert("请上传图片");
           }
           $("#images").val(imageUrl.substring(0,imageUrl.length-1));
          if(flag=='0') {

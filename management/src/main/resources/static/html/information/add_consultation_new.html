@@ -58,11 +58,11 @@
         <input id ="images" name="images" type='hidden' class="easyui-textbox" editable="false" />
         <tr class="margin_10_0">
             <td class="w_20 text_right">标题:</td>
-            <td class="w_80"><input class="easyui-textbox w_50" type="text" id="title" name="title" data-options="required:true"></input></td>
+            <td class="w_80"><input class="easyui-textbox w_50" type="text" id="title" name="title" ></input></td>
         </tr>
         <tr class="margin_10_0">
             <td class="w_20 text_right">描述:</td>
-            <td class="w_80"><textarea id="consuDesc" rows=5 name="consuDesc" class="textarea easyui-validatebox w_50"></textarea></td>
+            <td class="w_80"><textarea id="consuDesc" rows=5 name="consuDesc"  class="textarea easyui-validatebox w_50"></textarea></td>
         </tr>
         <tr style="display: none" class="margin_10_0">
             <td class="w_20 text_right">类别:</td>
@@ -85,18 +85,18 @@
         </tr>
         <tr class="margin_10_0" id="consuLink_div" style="display: none">
             <td class="w_20 text_right">链接:</td>
-            <td class="w_80"><input class="easyui-textbox w_50" name="consuLink" data-options="multiline:true"></input></td>
+            <td class="w_80"><input class="easyui-textbox w_50" id="consuLink" name="consuLink" data-options="multiline:true"></input></td>
         </tr>
         <tr class="margin_10_0" id="context_div">
             <td class="w_20 text_right">文章内容:</td>
             <td class="w_80">
-                <textarea rows="3"  id="context" name="context" class="easyui-validatebox w_70" data-options="required:true,validType:'length[1,1000000]'" invalidMessage="最大长度不能超过1000000"></textarea>
+                <textarea rows="3"  id="context" name="context" class="easyui-validatebox w_70" data-options="validType:'length[1,1000000]'" invalidMessage="最大长度不能超过1000000"></textarea>
             </td>
         </tr>
         <tr class="margin_10_0">
             <td class="w_20 text_right">备注:</td>
             <td class="w_80">
-                <textarea id="remarks" rows=5 name="remarks" class="textarea easyui-validatebox w_50"></textarea>
+                <textarea id="remarks" rows=5 name="remarks" class="textarea easyui-validatebox w_50" ></textarea>
             </td>
         </tr>
         <tr class="margin_10_0">
@@ -182,6 +182,8 @@
 </div>-->
 <script>
     var editor;
+    var columnId='';
+    var columnName='';
     var count = 1;
     $(function() {
         editor = KindEditor.create('textarea[name="context"]',{
@@ -214,7 +216,6 @@
         });
         $("#file").on("change", upload );
         var url = location.search;
-        var columnId;
         if (url.indexOf("?") != -1) {
             var site = url.lastIndexOf("=");
             columnId=url.substring(site + 1, url.length);
@@ -234,9 +235,35 @@
 
                  imageUrl+=style.backgroundImage.substring(5,style.backgroundImage.length-2)+',';
             }
+
        $("#images").val(imageUrl.substring(0,imageUrl.length-1));
         //$("#formTag1").remove();
-        ff.submit();
+        if($("#title").val()==""){
+            alert("请输入标题");
+        }else if($("#consuDesc").val()==""){
+            alert("请输入描述");
+        }else if($("#remarks").val()==""){
+            alert("请输入备注");
+        }else if((imageUrl.substring(0,imageUrl.length-1).length)==0){
+            alert("请上传图片");
+        }else {
+        $('#ff').form('submit', {
+            url: "/management/consultation/addConsultation",
+            onSubmit: function () {
+                // do some check
+                // return false to prevent submit;
+            },
+            success: function (data) {
+                var content = '<iframe scrolling="auto" frameborder="0"  src="../html/information/consultation_new.html?columnId='+columnId+'" style="width:100%;height:100%;"></iframe>';
+                getColumnName(columnId);
+                parent.$('#wu-tabs').tabs("add", {
+                    title: columnName,
+                    content: content,
+                    closable: true
+                });
+            }
+         });
+        }
 
     }
    /* $(document).ready(function(){
@@ -288,6 +315,17 @@
                     //如果不等于
                     return false;
                 }*/
+            }
+        });
+    }
+    function getColumnName(columnId) {
+        $.ajax({
+            url:'/management/column/getCoulums',
+            type:"POST",
+            async:false,
+            data:{columnId:columnId},
+            success:function(data){
+                columnName=data.body.columnName;
             }
         });
     }
