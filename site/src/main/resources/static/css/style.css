@@ -29,6 +29,10 @@ a:hover {
 .nav li .sub-nav li img{display: inline-block; width:50%;float:left}
 .nav li .sub-nav li a{height:34px;line-height:34px;width:138px;padding:0;display:inline-block;}
 .navbar-brand { float: left;padding:0px;height:auto}
+.f_l{float:left}
+.f_r{float:right}
+.color_fff{color:#fff!important;}
+.color_fff：hover{color:#fff}
 /*--top header start here--*/
 .top-social ul {
     padding: 0em;
@@ -252,7 +256,7 @@ span.email{
     font-family: 'Aladin', cursive;
 }
 .leaves-main h6 {
-    font-size: 1em;
+    font-size: 3em;
     color:#e9a820;
     margin: 0.6em 0em;
 }
@@ -294,7 +298,7 @@ span.email{
     font-family: 'Aladin', cursive;
 }
 .branch-text p {
-    font-size: 1.4em;
+    font-size: 1.65em;
     text-align: center;
     line-height: 1.8em;
 }

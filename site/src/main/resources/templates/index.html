@@ -100,7 +100,7 @@
     <div class="fixed-header">
         <div class="navbar-wrapper">
             <div class="container">
-                <a class="navbar-brand" href="index.html"><img src="images/logo.png"/></a>
+                <a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/logo.png}"/></a>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -162,7 +162,7 @@
     <div class="container">
         <div class="information-main">
             <div class="information-grid five-star wow slideInLeft" data-wow-delay="0.3s">
-                <div class="col-md-4 hotel-info">
+                <a class="col-md-4 hotel-info" th:href="@{/about/index}">
                     <div class="info-left">
                         <img src="images/s1.png" alt="">
                     </div>
@@ -171,8 +171,8 @@
                         <p>ABOUT US</p>
                     </div>
                     <div class="clearfix"></div>
-                </div>
-                <div class="col-md-4 hotel-info">
+                </a>
+                <a class="col-md-4 hotel-info" th:href="@{/product/list?columnId=9}">
                     <div class="info-left">
                         <img src="images/s2.png" alt="">
                     </div>
@@ -181,8 +181,8 @@
                         <p>PRODUCTLIST</p>
                     </div>
                     <div class="clearfix"></div>
-                </div>
-                <div class="col-md-4 hotel-info">
+                </a>
+                <a class="col-md-4 hotel-info" th:href="@{/product/list?columnId=7}">
                     <div class="info-left">
                         <img src="images/s4.png" alt="">
                     </div>
@@ -191,11 +191,11 @@
                         <p>NEWSLIST</p>
                     </div>
                     <div class="clearfix"></div>
-                </div>
+                </a>
                 <div class="clearfix"></div>
             </div>
             <div class="information-grid wow">
-                <div class="col-md-4 hotel-info">
+                <a class="col-md-4 hotel-info" th:href="@{/product/list?columnId=13}">
                     <div class="info-left">
                         <img src="images/s3.png" alt="">
                     </div>
@@ -204,8 +204,8 @@
                         <p>CASELIST</p>
                     </div>
                     <div class="clearfix"></div>
-                </div>
-                <div class="col-md-4 hotel-info">
+                </a>
+                <a class="col-md-4 hotel-info" th:href="@{/product/list?columnId=4}">
                     <div class="info-left">
                         <img src="images/s5.png" alt="">
                     </div>
@@ -214,17 +214,17 @@
                         <p>COMMONPROBLEM</p>
                     </div>
                     <div class="clearfix"></div>
-                </div>
-                <div class="col-md-4 hotel-info">
+                </a>
+                <a class="col-md-4 hotel-info" th:href="@{/product/list?columnId=14}">
                     <div class="info-left">
                         <img src="images/s6.png" alt="">
                     </div>
                     <div class="info-right">
-                        <h4>先进设备</h4>
-                        <p>ONLINEMESSAGE</p>
+                        <h4>服务宗旨</h4>
+                        <p>SERVER</p>
                     </div>
                     <div class="clearfix"></div>
-                </div>
+                </a>
                 <div class="clearfix"></div>
             </div>
             <div class="clearfix"></div>
@@ -314,7 +314,7 @@
 <div class="copy-right">
     <div class="container">
         <div class="copy-rights-main wow zoomIn">
-            <p>使用条款 | 隐私跳跃 | <a href="http://hhtj.in.8866.org:13456/SNAPSHOT-erp">办公系统</a> 版权所有（C） 江苏黄海建筑集团有限公司 苏ICP备18048310号</p>
+            <span class="f_l color_fff">使用条款 | 隐私条款 | <a class="color_fff" href="http://hhtj.in.8866.org:13456/SNAPSHOT">办公系统</a></span> <span  class="f_r color_fff">版权所有（C） 江苏黄海建材集团有限公司 苏ICP备18048310号</span>
         </div>
     </div>
 </div>
