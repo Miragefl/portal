@@ -239,9 +239,10 @@
             <h3>工程实例</h3>
         </div>
         <div id="effect-5" class="branch-btm">
-            <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd  no-mar"><a href="product.html">
-                    <img src="images/b6.jpg" alt="" class="img-responsive">
+            <div class="col-md-3 branch-gd-main" th:each="entries,stat:${GCSLList}" th:if="${stat.index==0}">
+                <div class="branch-gd  no-mar">
+                    <a th:if="${entries['consulId']!='-1'}" th:href="@{/product/detail(consulId=${entries['consulId']})}">
+                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
                     <div class="overlay">
                         <span class="expand lardge">+</span>
                         <span class="close-overlay hidden">x</span>
@@ -250,34 +251,18 @@
                 </div>
             </div>
             <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd went-branc"><a href="product.html">
-                    <img src="images/b1.jpg" alt="" class="img-responsive">
+                <div class="branch-gd went-branc" th:each="entries,stat:${GCSLList}" th:if="${stat.index==1} ">
+                    <a th:href="${entries['consulId']=='-1'}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
+                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
                     <div class="overlay">
                         <span class="expand">+</span>
                         <span class="close-overlay hidden">x</span>
                     </div>
                 </a>
                 </div>
-                <div class="branch-gd went-branc"><a href="product.html">
-                    <img src="images/b2.jpg" alt="" class="img-responsive">
-                    <div class="overlay">
-                        <span class="expand">+</span>
-                        <span class="close-overlay hidden">x</span>
-                    </div>
-                </a>
-                </div>
-            </div>
-            <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd"><a href="product.html">
-                    <img src="images/b3.jpg" alt="" class="img-responsive">
-                    <div class="overlay">
-                        <span class="expand">+</span>
-                        <span class="close-overlay hidden">x</span>
-                    </div>
-                </a>
-                </div>
-                <div class="branch-gd"><a href="product.html">
-                    <img src="images/b4.jpg" alt="" class="img-responsive">
+                <div class="branch-gd went-branc" th:each="entries,stat:${GCSLList}" th:if="${stat.index==2} ">
+                    <a th:href="${entries['consulId']=='-1'}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
+                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
                     <div class="overlay">
                         <span class="expand">+</span>
                         <span class="close-overlay hidden">x</span>
@@ -286,8 +271,28 @@
                 </div>
             </div>
             <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd went-branc2"><a href="room.html">
-                    <img src="images/b5.jpg" alt="" class="img-responsive">
+                <div class="branch-gd" th:each="entries,stat:${GCSLList}" th:if="${stat.index==3}">
+                    <a th:href="${entries['consulId']=='-1'}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
+                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
+                    <div class="overlay">
+                        <span class="expand">+</span>
+                        <span class="close-overlay hidden">x</span>
+                    </div>
+                </a>
+                </div>
+                <div class="branch-gd" th:each="entries,stat:${GCSLList}" th:if="${stat.index==4}">
+                    <a th:href="${entries['consulId']=='-1'}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
+                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
+                    <div class="overlay">
+                        <span class="expand">+</span>
+                        <span class="close-overlay hidden">x</span>
+                    </div>
+                </a>
+                </div>
+            </div>
+            <div class="col-md-3 branch-gd-main">
+                <div class="branch-gd went-branc2"><a th:href="@{/product/list(columnId='4')}">
+                    <img th:src="@{images/b5.jpg}" alt="" class="img-responsive">
                 </a>
                 </div>
             </div>
