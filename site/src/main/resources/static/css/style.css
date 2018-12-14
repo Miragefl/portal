@@ -324,7 +324,10 @@ span.quotations {
   margin-bottom: 5px;
   overflow: hidden;
   cursor: pointer;
+    background-repeat: no-repeat;
+    background-position:center center;
 }
+.h_170{height:170px;}
 .branch-btm .branch-gd:nth-child(n) {
   margin-left: 0px;
 }

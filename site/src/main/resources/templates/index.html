@@ -79,22 +79,22 @@
 </head>
 <body>
 <!--<div class="top-header">-->
-    <!--<div class="container">-->
-        <!--<div class="top-header-main">-->
-            <!--<div class="col-md-4 top-social wow bounceInLeft" data-wow-delay="0.3s">-->
-                <!--<ul>-->
-                    <!--<li><h5>江苏黄海水泥有限公司，期待您的光临</h5></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-            <!--<div class="col-md-8 header-address wow bounceInRight" data-wow-delay="0.3s">-->
-                <!--<ul>-->
-                    <!--<li><span class="phone"> </span> <h6>0515-86397999</h6></li>-->
-                    <!--<li><span class="email"> </span><h6>bgs@jshhsn.com</h6></li>-->
-                <!--</ul>-->
-            <!--</div>-->
-            <!--<div class="clearfix"></div>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--<div class="container">-->
+<!--<div class="top-header-main">-->
+<!--<div class="col-md-4 top-social wow bounceInLeft" data-wow-delay="0.3s">-->
+<!--<ul>-->
+<!--<li><h5>江苏黄海水泥有限公司，期待您的光临</h5></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="col-md-8 header-address wow bounceInRight" data-wow-delay="0.3s">-->
+<!--<ul>-->
+<!--<li><span class="phone"> </span> <h6>0515-86397999</h6></li>-->
+<!--<li><span class="email"> </span><h6>bgs@jshhsn.com</h6></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="clearfix"></div>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 <div class="header">
     <div class="fixed-header">
@@ -116,26 +116,26 @@
                 </div>
                 <nav class="cl-effect-16" id="cl-effect-16">
 
-                        <ul class="nav">
-                            <li th:each="entries,stat:${columnList}">
-                                <a th:href="@{${entries['columnLink']}}" th:if="${#lists.isEmpty(entries['childColumn'])}"   th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a>
-                                <a th:if="${not #lists.isEmpty(entries['childColumn'])}"   th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a>
-                                <ul class="sub-nav" th:if="${not #lists.isEmpty(entries['childColumn'])}">
-                                    <li class="float_left">
-                                        <dl>
-                                            <dd th:each="per,column:${entries['childColumn']}">
-                                                <a th:href="@{${per['columnLink']}}" th:attr="data-hover=${per['columnName']}">[[${per['columnName']}]]</a>
-                                            </dd>
-                                        </dl>
-                                        <img th:src="@{${entries['images']}}">
-                                            <!--<img  src="http://img.hb.aicdn.com/016cb81e2f98691f0be5438a831af3b4021461bd1ba1d-2vfji6_sq320">-->
-                                    </li>
+                    <ul class="nav">
+                        <li th:each="entries,stat:${columnList}">
+                            <a th:href="@{${entries['columnLink']}}" th:if="${#lists.isEmpty(entries['childColumn'])}"   th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a>
+                            <a th:if="${not #lists.isEmpty(entries['childColumn'])}"   th:attr="data-hover=${entries['columnName']}">[[${entries['columnName']}]]</a>
+                            <ul class="sub-nav" th:if="${not #lists.isEmpty(entries['childColumn'])}">
+                                <li class="float_left">
+                                    <dl>
+                                        <dd th:each="per,column:${entries['childColumn']}">
+                                            <a th:href="@{${per['columnLink']}}" th:attr="data-hover=${per['columnName']}">[[${per['columnName']}]]</a>
+                                        </dd>
+                                    </dl>
+                                    <img th:src="@{${entries['images']}}">
+                                    <!--<img  src="http://img.hb.aicdn.com/016cb81e2f98691f0be5438a831af3b4021461bd1ba1d-2vfji6_sq320">-->
+                                </li>
 
-                                </ul>
+                            </ul>
 
-                            </li>
+                        </li>
 
-                        </ul>
+                    </ul>
                 </nav>
                 <div class="clearfix"></div>
             </div>
@@ -240,68 +240,87 @@
         </div>
         <div id="effect-5" class="branch-btm">
             <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd  no-mar" th:each="entries,stat:${GCSLList}" th:if="${stat.index==0}">
+                <div class="branch-gd  h_170" th:each="entries,stat:${GCSLList}"
+                     style="
+                background-image: url(http://img.hb.aicdn.com/f5827cfa57bc5eb48698db2875e98c07c6d9e514ebf89-W6RKKP_fw658);"
+
+                     th:if="${stat.index==0}">
                     <a th:href="${entries['consulId']!=-1}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
-                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
-                    <div class="overlay">
-                        <span class="expand lardge">+</span>
-                        <span class="close-overlay hidden">x</span>
-                    </div>
-                </a>
+                        <!--<img th:src="@{${entries['images']}}" alt="" class="img-responsive">-->
+                        <div class="overlay">
+                            <span class="expand lardge">+</span>
+                            <span class="close-overlay hidden">x</span>
+                        </div>
+                    </a>
                 </div>
-                <div class="branch-gd  no-mar" th:each="entries,stat:${GCSLList}" th:if="${stat.index==1}">
+                <div class="branch-gd  h_170" th:each="entries,stat:${GCSLList}"
+                     style="
+                background-image: url(http://img.hb.aicdn.com/1f8479bb6e95dc21ddf857fa9d8af79637f2366ea1679-knhooa_fw658);"
+
+                     th:if="${stat.index==1}">
                     <a th:href="${entries['consulId']!=-1}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
-                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
-                    <div class="overlay">
-                        <span class="expand lardge">+</span>
-                        <span class="close-overlay hidden">x</span>
-                    </div>
-                </a>
-                </div>
-            </div>
-            <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd went-branc" th:each="entries,stat:${GCSLList}" th:if="${stat.index==2} ">
-                    <a th:href="${entries['consulId']!=-1}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
-                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
-                    <div class="overlay">
-                        <span class="expand">+</span>
-                        <span class="close-overlay hidden">x</span>
-                    </div>
-                </a>
-                </div>
-                <div class="branch-gd went-branc" th:each="entries,stat:${GCSLList}" th:if="${stat.index==3} ">
-                    <a th:href="${entries['consulId']!=-1}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
-                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
-                    <div class="overlay">
-                        <span class="expand">+</span>
-                        <span class="close-overlay hidden">x</span>
-                    </div>
-                </a>
+                        <!--<img th:src="@{${entries['images']}}" alt="" class="img-responsive">-->
+                        <div class="overlay">
+                            <span class="expand lardge">+</span>
+                            <span class="close-overlay hidden">x</span>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd" th:each="entries,stat:${GCSLList}" th:if="${stat.index==4}">
+                <div class="branch-gd h_170" th:each="entries,stat:${GCSLList}"
+                     style="
+                background-image: url(http://img.hb.aicdn.com/5ff0f219e190befa0de01c9e180503772542e53377f8b-9jUfQW_fw658);"
+                     th:if="${stat.index==2} ">
                     <a th:href="${entries['consulId']!=-1}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
-                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
-                    <div class="overlay">
-                        <span class="expand">+</span>
-                        <span class="close-overlay hidden">x</span>
-                    </div>
-                </a>
+                        <div class="overlay">
+                            <span class="expand">+</span>
+                            <span class="close-overlay hidden">x</span>
+                        </div>
+                    </a>
                 </div>
-                <div class="branch-gd" th:each="entries,stat:${GCSLList}" th:if="${stat.index==5}">
+                <div class="branch-gd h_170" th:each="entries,stat:${GCSLList}"
+                     style="
+                background-image: url(http://img.hb.aicdn.com/50ab6242dcf3c39e05b4e5ae6fe3e62b41ecc23610369e-Fg1WyU_fw658);"
+                     th:if="${stat.index==3} ">
                     <a th:href="${entries['consulId']!=-1}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
-                    <img th:src="@{${entries['images']}}" alt="" class="img-responsive">
-                    <div class="overlay">
-                        <span class="expand">+</span>
-                        <span class="close-overlay hidden">x</span>
-                    </div>
-                </a>
+                        <!--<img th:src="@{${entries['images']}}" alt="" class="img-responsive">-->
+                        <div class="overlay">
+                            <span class="expand">+</span>
+                            <span class="close-overlay hidden">x</span>
+                        </div>
+                    </a>
                 </div>
             </div>
             <div class="col-md-3 branch-gd-main">
-                <div class="branch-gd went-branc2"><a th:href="@{/product/list(columnId='4')}">
-                    <img th:src="@{images/b5.jpg}" alt="" class="img-responsive">
+                <div class="branch-gd h_170" th:each="entries,stat:${GCSLList}"
+                     style="
+                background-image: url(http://img.hb.aicdn.com/3f51e7777e9faca5809c6a8ea2d71304c8b77055e167-KJyF44_fw658);"
+                     th:if="${stat.index==4}">
+                    <a th:href="${entries['consulId']!=-1}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
+                        <!--<img th:src="@{${entries['images']}}" alt="" class="img-responsive">-->
+                        <div class="overlay">
+                            <span class="expand">+</span>
+                            <span class="close-overlay hidden">x</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="branch-gd h_170" th:each="entries,stat:${GCSLList}" style="
+                background-image: url(http://img.hb.aicdn.com/31a7a1093a5914fe00f6abf92172150127a1ae18861c-QfSdSG_sq320);
+    " th:if="${stat.index==5}">
+                    <a th:href="${entries['consulId']!=-1}?@{/product/detail(consulId=${entries['consulId']})}:@{#}">
+                        <!--<img th:src="@{${entries['images']}}" alt="" class="img-responsive">-->
+                        <div class="overlay">
+                            <span class="expand">+</span>
+                            <span class="close-overlay hidden">x</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 branch-gd-main">
+                <div class="branch-gd" style="height:345px;
+                background-image: url(images/b5.jpg);"><a th:href="@{/product/list(columnId='4')}">
+                    <!--<img th:src="@{images/b5.jpg}" alt="" class="img-responsive">-->
                 </a>
                 </div>
             </div>

@@ -120,10 +120,10 @@
                 <h1>[[${columnName}]]</h1>
             </div>
             <div class="gallery-bott">
-                <div class="col-md-4 col1 gallery-grid" th:each="entries,product:${page['root']}">
+                <div class="col-md-4 col1 gallery-grid"  th:each="entries,product:${page['root']}">
                     <a th:href="@{/product/detail(consulId=${entries['consulId']})}" th:rel="@{${entries['consuDesc']}}" class="b-link-stripe b-animate-go  thickbox">
                         <figure class="effect-bubba">
-                            <img class="img-responsive" th:src="@{${entries['images']}}" alt="">
+                            <img class="img-responsive h_170" th:src="@{${entries['images']}}" alt="">
                             <figcaption>
                                 <h4 class="gal">[[${entries['title']}]]</h4>
                                 <p class="gal1">[[${entries['consuDesc']}]]</p>
