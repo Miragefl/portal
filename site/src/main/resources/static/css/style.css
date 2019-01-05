@@ -324,6 +324,7 @@ span.quotations {
   margin-bottom: 5px;
   overflow: hidden;
   cursor: pointer;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position:center center;
 }
@@ -1306,7 +1307,7 @@ p.reply a i{
 .gallery-top h1 {
     font-size: 3em;
     color: #E9A820;
-    margin-bottom: 0.25em;
+    margin: 0.25em;
     font-family: 'Aladin', cursive;
 }
 .room-head h3 {
@@ -2722,3 +2723,10 @@ h3.typo1 {
 .wstmall-login-tips{line-height:30px;padding-left:10px;border-bottom:1px solid #dddddd;box-shadow: 0 1px 3px #ddd;}
 .wstmall-login-tips p{margin:0px;}
 .wstmall-intro{color:#E9754F;}
+.gallery-bott{min-height:600px}
+.time{display: inline-block;width:30%;text-align: right;float: right; color:#ccc}
+.title{display: inline-block;width:65%;text-align: left;float: left; overflow:hidden; text-overflow:ellipsis;white-space:nowrap; }
+.border-bottom{border-bottom: 1px solid #f5f5f5}
+.padding_1{padding:1em!important;}
+.color_ccc{color:#ccc}
+.margin_b{margin-bottom: 1em}

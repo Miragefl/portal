@@ -115,27 +115,22 @@
 <!--gallery start here-->
 <div class="gallery" id="gallery">
     <div class="container">
-        <div class="gallery-main wow zoomIn" data-wow-delay="0.3s">
-            <div class="gallery-top">
+        <div class="gallery-main wow">
+            <div class="gallery-top margin_b">
                 <h1>[[${columnName}]]</h1>
             </div>
             <div class="gallery-bott">
-                <div class="col-md-4 col1 gallery-grid"  th:each="entries,product:${page['root']}">
-                    <a th:href="@{/product/detail(consulId=${entries['consulId']})}" th:rel="@{${entries['consuDesc']}}" class="b-link-stripe b-animate-go  thickbox">
-                        <figure class="effect-bubba">
-                            <img class="img-responsive h_170" th:src="@{${entries['images']}}" alt="">
-                            <figcaption>
-                                <h4 class="gal">[[${entries['title']}]]</h4>
-                                <p class="gal1">[[${entries['consuDesc']}]]</p>
-                                <p class="gal1">[[${entries['createTime']}]]</p>
-                            </figcaption>
-                        </figure>
-                    </a>
+                <div class="col-md-12 col1 gallery-grid border-bottom padding_1"  th:each="entries,product:${page['root']}">
+                        <div class="gal" style="padding-bottom: 1em;overflow: hidden">
+                            <a th:href="@{/product/detail(consulId=${entries['consulId']})}" th:rel="@{${entries['consuDesc']}}">
+                                <b class="title">[[${entries['title']}]]</b>
+                            </a>
+                            <span class="time">[[${entries['createTime']}]]</span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="gal1 color_ccc">[[${entries['consuDesc']}]]</p>
+
                 </div>
-                <div id="pager" class="col-md-12 col1 gallery-grid">
-                    <!--<td colspan='11' align='center'>[[${page['pager']}]]</td>-->
-                </div>
-                <div class="clearfix"></div>
             </div>
         </div>
     </div>
