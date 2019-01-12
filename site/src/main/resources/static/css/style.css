@@ -29,6 +29,10 @@ a:hover {
 .nav li .sub-nav li img{display: inline-block; width:50%;float:left}
 .nav li .sub-nav li a{height:34px;line-height:34px;width:138px;padding:0;display:inline-block;}
 .navbar-brand { float: left;padding:0px;height:auto}
+.f_l{float:left}
+.f_r{float:right}
+.color_fff{color:#fff!important;}
+.color_fff：hover{color:#fff}
 /*--top header start here--*/
 .top-social ul {
     padding: 0em;
@@ -252,7 +256,7 @@ span.email{
     font-family: 'Aladin', cursive;
 }
 .leaves-main h6 {
-    font-size: 1em;
+    font-size: 3em;
     color:#e9a820;
     margin: 0.6em 0em;
 }
@@ -294,7 +298,7 @@ span.email{
     font-family: 'Aladin', cursive;
 }
 .branch-text p {
-    font-size: 1.4em;
+    font-size: 1.65em;
     text-align: center;
     line-height: 1.8em;
 }
@@ -320,7 +324,11 @@ span.quotations {
   margin-bottom: 5px;
   overflow: hidden;
   cursor: pointer;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position:center center;
 }
+.h_170{height:170px;}
 .branch-btm .branch-gd:nth-child(n) {
   margin-left: 0px;
 }
@@ -1299,7 +1307,7 @@ p.reply a i{
 .gallery-top h1 {
     font-size: 3em;
     color: #E9A820;
-    margin-bottom: 0.25em;
+    margin: 0.25em;
     font-family: 'Aladin', cursive;
 }
 .room-head h3 {
@@ -2715,3 +2723,10 @@ h3.typo1 {
 .wstmall-login-tips{line-height:30px;padding-left:10px;border-bottom:1px solid #dddddd;box-shadow: 0 1px 3px #ddd;}
 .wstmall-login-tips p{margin:0px;}
 .wstmall-intro{color:#E9754F;}
+.gallery-bott{min-height:600px}
+.time{display: inline-block;width:30%;text-align: right;float: right; color:#ccc}
+.title{display: inline-block;width:65%;text-align: left;float: left; overflow:hidden; text-overflow:ellipsis;white-space:nowrap; }
+.border-bottom{border-bottom: 1px solid #f5f5f5}
+.padding_1{padding:1em!important;}
+.color_ccc{color:#ccc}
+.margin_b{margin-bottom: 1em}

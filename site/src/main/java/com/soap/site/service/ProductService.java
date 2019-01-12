@@ -28,7 +28,7 @@ public class ProductService {
 
     public JSONObject list(String columnId, int page) {
         JSONObject result = new JSONObject();
-        int size = 3;
+        int size = 9;
         int count = productMapper.count(columnId);
         int totalPage = (count + size - 1) / size;
         page = page > totalPage ? totalPage : page;
@@ -121,7 +121,7 @@ public class ProductService {
         return "<div class=\"wst-pagination\">" + pager + "</div>";
     }
 
-    public JSONObject   query(String columnId, int page) {
+    public JSONObject query(String columnId, int page) {
         Map<String, Object> columnDetail = productMapper.columnDetail(columnId);
         String isJump = String.valueOf(columnDetail.get("isJump"));
         JSONObject result = new JSONObject();
@@ -129,16 +129,35 @@ public class ProductService {
             result = list(columnId, page);
         } else if ("0".equals(isJump)) { // 文章
             Map<String, Object> stringObjectMap = productMapper.qryConsulByColumnId(columnId);
-            stringObjectMap.put("context",new String((byte []) (stringObjectMap.get("context"))));
-            result =  JSONObject.fromObject(stringObjectMap);
+            stringObjectMap.put("context", new String((byte[]) (stringObjectMap.get("context"))));
+            result = JSONObject.fromObject(stringObjectMap);
         } else { // 固定页面
             result = JSONObject.fromObject(columnDetail);
         }
-        result.put("isJump",isJump);
+        result.put("isJump", isJump);
 
         return result;
     }
 
+    public List<Map<String, Object>> queryGCSL() {
+        Map<String, Object> params = new HashMap<String,Object>();
+        params.put("columnId", "4");
+        params.put("startPos", 0);
+        params.put("size", 5);
+        List<Map<String, Object>> list = productMapper.list(params);
+        return add(list);
+    }
+
+    private List<Map<String, Object>> add(List<Map<String, Object>> list){
+        if (list.size()<6) {
+            Map<String,Object> params = new HashMap<String,Object>();
+            params.put("consulId",-1);
+            params.put("images","images/b3.jpg");
+            list.add(params);
+            add(list);
+        }
+        return list;
+    }
 
 }
 

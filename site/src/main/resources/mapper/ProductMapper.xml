@@ -13,7 +13,7 @@
             images,
             consuLink,
             DATE_FORMAT(createTime,'%Y-%m-%d %H:%m:%s') AS createTime
-        FROM consultation_info a WHERE columnId = #{columnId} AND isDel = '0' LIMIT #{startPos}, #{size}
+        FROM consultation_info a WHERE columnId = #{columnId} AND isDel = '0' ORDER BY createTime DESC LIMIT #{startPos}, #{size}
     </select>
 
     <select id="detail" parameterType="java.lang.String" resultType="java.util.HashMap">
