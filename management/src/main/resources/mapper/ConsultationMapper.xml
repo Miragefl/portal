@@ -25,9 +25,13 @@
         consuType,
         consuPlace,
         consuClass,
-        context,
-        remarks,
-        images
+        context
+        <if test="remarks != null and remarks !=''">
+            ,remarks
+        </if>
+        <if test="images != null and images !=''">
+            ,images
+        </if>
         <if test="consuLink != null and consuLink !=''">
             ,consuLink
         </if>
@@ -39,9 +43,13 @@
         #{consuType},
         #{consuPlace},
         #{consuClass},
-        #{context,jdbcType=BLOB},
-        #{remarks},
-        #{images}
+        #{context,jdbcType=BLOB}
+        <if test="remarks != null and remarks !=''">
+            ,#{remarks}
+        </if>
+        <if test="images != null and images !=''">
+            ,#{images}
+        </if>
         <if test="consuLink != null and consuLink !=''">
             ,#{consuLink}
         </if>

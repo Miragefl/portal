@@ -242,11 +242,11 @@
             alert("请输入标题");
         }else if($("#consuDesc").val()==""){
             alert("请输入描述");
-        }else if($("#remarks").val()==""){
+        }/*else if($("#remarks").val()==""){
             alert("请输入备注");
         }else if((imageUrl.substring(0,imageUrl.length-1).length)==0){
             alert("请上传图片");
-        }else {
+        }*/else {
         $('#ff').form('submit', {
             url: "/management/consultation/addConsultation",
             onSubmit: function () {
